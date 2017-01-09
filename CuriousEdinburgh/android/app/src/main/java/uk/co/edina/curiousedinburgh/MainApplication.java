@@ -1,4 +1,4 @@
-package com.curiousedinburgh;
+package uk.co.edina.curiousedinburgh;
 
 import android.app.Application;
 import android.util.Log;
