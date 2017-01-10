@@ -6,7 +6,6 @@
 * [npm](https://docs.npmjs.com/getting-started/installing-node)
 
 ```
-cd CuriousEdinburgh
 npm install 
 ```
 
