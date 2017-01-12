@@ -1,5 +1,7 @@
 # Curious Edinburgh
 
+![Travis status](https://travis-ci.org/edina/CuriousEdinburgh2.svg?branch=master)
+
 ## Prerequisites
 * See [React Native Dependencies](https://facebook.github.io/react-native/docs/getting-started.html)
 
