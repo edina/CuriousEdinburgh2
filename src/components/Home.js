@@ -1,24 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
 
+// TODO problem on android filling height (see https://github.com/facebook/react-native/issues/400), but maybe not s problem with recommended mapview
 const styles = StyleSheet.create({
   map: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+    flex: 1,
   },
 });
 
-export default class Home extends Component{
-  render() {
-    return (
-      <MapView
-        style={styles.map}
-        showUserLocation="true"
-      />
-    );
-  }
+export default function Home() {
+  return (
+    <MapView
+      style={styles.map}
+      showUserLocation="true"
+    />
+  );
 }
