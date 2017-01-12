@@ -1,10 +1,9 @@
 # Curious Edinburgh
 
+## Prerequisites
+* See [React Native Dependencies](https://facebook.github.io/react-native/docs/getting-started.html)
+
 ## Install
-
-### Prerequisites
-* [npm](https://docs.npmjs.com/getting-started/installing-node)
-
 ```
 npm install 
 ```
@@ -13,7 +12,17 @@ npm install
 
 To run app on connected simulator or device:
 
+### Run React Native Packager
 ```
 npm start
-react-native run-[android|ios]
+```
+
+### Android
+```
+npm run-script react-native run-android
+```
+
+### IOS
+```
+npm run-script react-native run-ios
 ```
