@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Home from './Home';
+import TourMap from './TourMap';
 
 export default class CuriousEdinburgh extends Component {
   render() {
     return (
-      <Home />
+      <TourMap />
     );
   }
 }
