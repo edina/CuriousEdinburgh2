@@ -1,12 +1,11 @@
 import 'react-native';
 import React from 'react';
-import Example from 'components/Example';
+import renderer from 'react-test-renderer';
+import Example from '../src/components/Example';
 
 // Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
 
+/* global it */
 it('renders correctly', () => {
-  const tree = renderer.create(
-    <Example />
-  );
+  renderer.create(<Example />);
 });
