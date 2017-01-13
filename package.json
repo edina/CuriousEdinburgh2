@@ -5,7 +5,8 @@
   "scripts": {
     "react-native": "node node_modules/react-native/local-cli/cli.js",
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "react-native": "./node_modules/.bin/react-native \"$@\""
   },
   "dependencies": {
     "react": "15.4.1",
