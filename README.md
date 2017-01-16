@@ -12,7 +12,7 @@ npm install
 
 ## Run
 
-To run app on connected simulator or device:
+To run app on connected device or simulator:
 
 ### Run React Native Packager
 ```
