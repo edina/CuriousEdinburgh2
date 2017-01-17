@@ -1,9 +1,8 @@
 "use strict";
 
 import React, { Component } from 'react';
-import { Image, ListView, Text, View } from 'react-native';
+import { Image, ListView, StyleSheet, Text, View } from 'react-native';
 import WordPress from '../services/WordPress';
-import * as constants from '../constants';
 
 var Entities = require('html-entities').XmlEntities;
 var DomParser = require('react-native-html-parser').DOMParser
@@ -22,7 +21,7 @@ export default class TourList extends Component{
     componentDidMount() {
         WordPress.getPostsFromCategory(25).then((posts) => {
             let summary = [];
-            for(post of posts){
+            for(let post of posts){
                 // get image from post.content.rendered
                 // this is a hack due to HTML parsing failing on post.content.rendered
                 // TODO: this will need to change when https://github.com/edina/CuriousEdinburgh2/issues/24 is done
@@ -31,10 +30,13 @@ export default class TourList extends Component{
                 var doc = new DomParser().parseFromString(p, 'text/html')
                 let image = doc.querySelect('img')[0].getAttribute('src');
 
+                console.log(post);
+
                 summary.push({
-                    'title': this.entities.decode(post.title.rendered),
+                    'title': this.entities.decode(post.title.rendered).toUpperCase(),
                     'image': image,
                     'description': this.entities.decode(post.custom_fields.main_text),
+                    'tourStop': 1,
                 });
             }
 
@@ -51,12 +53,17 @@ export default class TourList extends Component{
                      dataSource={this.state.dataSource}
                      renderRow={
                          (rowData) =>
-                             <View>
-                                 <Text>{rowData.title}</Text>
-                                 <Image
-                                     style={{width: 50, height: 50}}
-                                     source={{uri:rowData.image}}/>
-                                 <Text>{rowData.description}</Text>
+                             <View style={styles.place}>
+                                 <Text style={styles.title}>{rowData.title}</Text>
+                                 <View style={styles.detail}>
+                                     <View style={styles.numberContainer}>
+                                         <Text style={styles.number}>{rowData.tourStop}</Text>
+                                     </View>
+                                     <Image
+                                         style={styles.image}
+                                         source={{uri:rowData.image}}/>
+                                     <Text style={styles.text}>{rowData.description}</Text>
+                                 </View>
                              </View>
 
                      }
@@ -65,3 +72,45 @@ export default class TourList extends Component{
         );
     }
 }
+
+const styles = StyleSheet.create({
+    place:{
+        padding: 10,
+    },
+    title:{
+        padding: 4,
+        fontWeight: 'bold',
+        color: '#408ba4',
+        backgroundColor: '#e6e6e6',
+    },
+    detail:{
+        flexDirection: 'row',
+        borderWidth: 1,
+        borderColor: '#cccccc',
+        padding: 5,
+    },
+    numberContainer:{
+        paddingRight: 5,
+    },
+    number:{
+        color: 'white',
+        fontWeight: 'bold',
+        backgroundColor: '#71b3c1',
+        borderRadius: 50,
+	    width: 30,
+	    height: 30,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        borderWidth: 2,
+        borderColor: '#459db4',
+    },
+    image:{
+        width: 100,
+        height: 100,
+        borderRadius: 10,
+    },
+    text:{
+        flex: 1,
+        padding: 10,
+    },
+});
