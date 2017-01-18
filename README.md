@@ -21,10 +21,10 @@ npm start
 
 ### Android
 ```
-npm run-script react-native run-android
+npm run react-native run-android
 ```
 
 ### IOS
 ```
-npm run-script react-native run-ios
+npm run react-native run-ios
 ```
