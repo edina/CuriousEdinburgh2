@@ -7,6 +7,8 @@ import WordPress from '../services/WordPress';
 import Tour from '../models/Tour';
 import TourPlace from '../models/TourPlace';
 import Location from '../models/Location';
+// Utils
+import Utils from '../utils';
 // Constants
 import * as constants from '../constants';
 // Components
@@ -19,9 +21,12 @@ const styles = StyleSheet.create({
     },
 });
 
+const Entities = require('html-entities').XmlEntities;
+
 export default class CuriousEdinburgh extends Component {
     constructor() {
         super();
+        this.entities = new Entities();
         this.state = { tours: [], selectedTour: null };
     }
     componentDidMount() {
@@ -35,6 +40,9 @@ export default class CuriousEdinburgh extends Component {
             this.changeSelectedTour(selectedTour.id);
         });
     }
+    componentWillUpdate() {
+        // console.log(this.state);
+    }
     changeSelectedTour(tourId) {
         const found = this.state.tours.find(element => element.id === tourId);
         if (found !== undefined) {
@@ -44,12 +52,17 @@ export default class CuriousEdinburgh extends Component {
                 WordPress.getPostsFromCategory(tourId).then((posts) => {
                     const newTour = Object.assign(new Tour(), found);
                     newTour.tourPlaces = posts.map(post =>
-                        new TourPlace(post.id.toString(),
-                            post.custom_fields.OSM_Marker_01_Name,
-                            post.custom_fields.main_text,
-                            null, // image TODO probably through RegEx
-                            new Location(parseFloat(post.custom_fields.latitude),
-                                parseFloat(post.custom_fields.longitude))));
+                        new TourPlace({
+                            id: post.id.toString(),
+                            title: post.custom_fields.OSM_Marker_01_Name,
+                            description: this.entities.decode(post.custom_fields.main_text),
+                            images: Utils.getURLsFromHTMLImage(post.content.rendered),
+                            location: new Location(parseFloat(post.custom_fields.latitude),
+                                parseFloat(post.custom_fields.longitude)),
+                            streetAddress: post.custom_fields.street_address,
+                            additionalLinks:
+                            Utils.getURLsFromPipeString(post.custom_fields.additional_links),
+                        }));
                     this.setState({ selectedTour: newTour });
                 });
             }
