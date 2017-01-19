@@ -12,12 +12,14 @@ export default class TourMap extends Component {
     constructor(props) {
         super(props);
         this.mapRef = null;
-        console.log('props: %o', props);
     }
-    componentWillUpdate(nextProps) {
-        console.log('TourMap.componentWillUpdate - nextProps: %o', nextProps);
+    componentDidMount() {
+        this.centerMap();
     }
     componentDidUpdate() {
+        this.centerMap();
+    }
+    centerMap() {
         const markerIDs = this.props.tourPlaces.map(tourPlace =>
             tourPlace.id);
         if (this.mapRef !== null) {
@@ -44,6 +46,6 @@ export default class TourMap extends Component {
         );
     }
 }
-TourMap.propTypes = {
+TourMap.propTypes = {   // forbid-prop-types requires further investigation
     tourPlaces: React.PropTypes.array.isRequired,   // eslint-disable-line react/forbid-prop-types
 };

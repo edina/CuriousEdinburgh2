@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-import TourMap from './TourMap';
 // Services
 import WordPress from '../services/WordPress';
 // Models
@@ -10,6 +9,9 @@ import TourPlace from '../models/TourPlace';
 import Location from '../models/Location';
 // Constants
 import * as constants from '../constants';
+// Components
+import TourMap from './TourMap';
+import TourList from './TourList';
 
 const styles = StyleSheet.create({
     container: {
@@ -32,9 +34,6 @@ export default class CuriousEdinburgh extends Component {
             // where key name matches name of the assigned variable
             this.changeSelectedTour(selectedTour.id);
         });
-    }
-    componentWillUpdate(nextProps, nextState) {
-        console.log('CuriousEdinburgh.componentWillUpdate - nextState: %o', nextState);
     }
     changeSelectedTour(tourId) {
         const found = this.state.tours.find(element => element.id === tourId);
@@ -63,11 +62,10 @@ export default class CuriousEdinburgh extends Component {
             <ScrollableTabView tabBarPosition="bottom">
               <TourMap
                 tabLabel="Map"
-                tourPlaces={this.state.selectedTour !== null &&
-                    Array.isArray(this.state.selectedTour.tourPlaces) ?
+                tourPlaces={this.state.selectedTour !== null ?
                     this.state.selectedTour.tourPlaces : []}
               />
-              <Text tabLabel="List">TODO List</Text>
+              <TourList tabLabel="List" />
               <Text tabLabel="About">TODO About</Text>
             </ScrollableTabView>
           </View>
