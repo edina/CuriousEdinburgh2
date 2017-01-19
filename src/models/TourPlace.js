@@ -1,9 +1,15 @@
+import Location from './Location';
+
 export default class TourPlace {
-    constructor(id, title, description, image, location) {
-        this.id = id;   // String
-        this.title = title; // String
-        this.description = description; // String
-        this.image = image; //  String
-        this.location = location;   // Location
+    constructor({ id = '0', title = '', description = '',
+        images = [], location = new Location(0, 0),
+        streetAddress = '', additionalLinks = [] } = {}) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.images = images;
+        this.location = location;
+        this.streetAddress = streetAddress;
+        this.additionalLinks = additionalLinks;
     }
 }
