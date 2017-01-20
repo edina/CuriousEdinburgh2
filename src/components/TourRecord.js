@@ -1,27 +1,13 @@
 import React, { Component } from 'react';
-import { Modal,
+import { Image,
+         Linking,
+         Modal,
          Text,
          ScrollView,
-         StyleSheet,
          TouchableHighlight,
          View } from 'react-native';
 
-const styles = StyleSheet.create({
-    page: {
-        flex: 1, justifyContent: 'space-between',
-    },
-    header: {
-        flexDirection: 'row',
-    },
-    body: {
-
-    },
-    image: {
-        width: 100,
-        height: 100,
-        borderRadius: 10,
-    },
-});
+const styles = require('./styles/TourRecord');
 
 export default class TourRecord extends Component {
     constructor(props) {
@@ -31,12 +17,12 @@ export default class TourRecord extends Component {
             visible: false,
             record: {
                 images: [],
+                additionalLinks: [],
             },
         };
     }
 
     show(rec) {
-        // console.log(record);
         this.setState({
             visible: true,
             record: rec,
@@ -48,6 +34,26 @@ export default class TourRecord extends Component {
     }
 
     render() {
+        const images = this.state.record.images.map(image =>
+          <View
+            key={image}
+            style={styles.imageContainer}
+          >
+            <Image
+              style={styles.image}
+              source={{ uri: image }}
+            />
+          </View>,
+        );
+        const links = this.state.record.additionalLinks.map(link =>
+          <TouchableHighlight
+            key={link}
+            onPress={() => Linking.openURL(link)}
+          >
+            <Text style={styles.link}>{link}</Text>
+          </TouchableHighlight>,
+        );
+
         return (
           <Modal
             style={styles.page}
@@ -62,17 +68,27 @@ export default class TourRecord extends Component {
                 }
               >
                 <TouchableHighlight
-                  onPress={() => { this.close(); }}
+                  style={styles.left}
+                  onPress={() => {
+                      this.close();
+                  }}
                 >
-                  <Text>Close</Text>
+                  <Text style={styles.close}>Close</Text>
                 </TouchableHighlight>
-                <Text>{this.state.record.title}</Text>
+                <Text style={styles.title}>{this.state.record.title}</Text>
+                <View style={styles.right} />
               </View>
             </View>
-            <View>
-              <Text>Hello</Text>
-              <ScrollView />
-              <Text>{this.state.record.description}</Text>
+            <View style={styles.body}>
+              <ScrollView style={styles.images} horizontal >
+                {images}
+              </ScrollView>
+              <View style={styles.details}>
+                <Text style={styles.address}>{this.state.record.streetAddress}</Text>
+                <Text style={styles.description}>{this.state.record.description}</Text>
+                <Text style={styles.linksTitle}>Associated Links</Text>
+                <View>{links}</View>
+              </View>
             </View>
           </Modal>
         );
