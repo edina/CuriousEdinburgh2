@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
+module.exports = StyleSheet.create({
     page: {
 
     },
@@ -13,9 +13,9 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     close: {
-        fontSize: 30,
         textAlign: 'center',
         textAlignVertical: 'center',
+        backgroundColor: '#268da8',
         color: 'white',
     },
     title: {
@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
     description: {
         paddingTop: 10,
         fontSize: 18,
-        fontWeight: 'bold',
         padding: 10,
     },
     linksTitle: {
@@ -70,5 +69,3 @@ const styles = StyleSheet.create({
         padding: 10,
     },
 });
-
-module.exports = styles;
