@@ -1,7 +1,8 @@
 {
   "extends": "airbnb",
   "rules": {
-  	"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-  	"indent": ["error", 4]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "indent": ["error", 4],
+    "no-underscore-dangle": [2, { "allowAfterThis": true }]
   }
 }
