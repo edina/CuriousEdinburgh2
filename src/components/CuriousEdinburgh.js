@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
+
 // Services
 import WordPress from '../services/WordPress';
+
 // Models
 import Tour from '../models/Tour';
 import TourPlace from '../models/TourPlace';
 import Location from '../models/Location';
+
 // Utils
 import Utils from '../utils';
+
 // Constants
 import * as constants from '../constants';
+
 // Components
 import TourMap from './TourMap';
-import TourList from './TourList';
+import TourPlaceList from './TourPlaceList';
 
 const styles = StyleSheet.create({
     container: {
@@ -69,16 +74,20 @@ export default class CuriousEdinburgh extends Component {
         }
     }
     render() {
+        const selectedTour = (this.state.selectedTour !== null ?
+                            this.state.selectedTour.tourPlaces : []);
         return (
           <View style={styles.container}>
             <Text>Header</Text>
             <ScrollableTabView tabBarPosition="bottom">
               <TourMap
                 tabLabel="Map"
-                tourPlaces={this.state.selectedTour !== null ?
-                    this.state.selectedTour.tourPlaces : []}
+                tourPlaces={selectedTour}
               />
-              <TourList tabLabel="List" />
+              <TourPlaceList
+                tabLabel="List"
+                tourPlaces={selectedTour}
+              />
               <Text tabLabel="About">TODO About</Text>
             </ScrollableTabView>
           </View>
