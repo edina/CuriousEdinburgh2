@@ -19,6 +19,7 @@ import * as constants from '../constants';
 // Components
 import TourMap from './TourMap';
 import TourPlaceList from './TourPlaceList';
+import About from './About';
 
 const styles = StyleSheet.create({
     container: {
@@ -88,7 +89,7 @@ export default class CuriousEdinburgh extends Component {
                 tabLabel="List"
                 tourPlaces={selectedTour}
               />
-              <Text tabLabel="About">TODO About</Text>
+              <About tabLabel="About" />
             </ScrollableTabView>
           </View>
         );
