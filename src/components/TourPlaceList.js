@@ -1,48 +1,12 @@
 import React, { Component } from 'react';
-import { Image, ListView, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Image,
+         ListView,
+         Text,
+         TouchableHighlight,
+         View } from 'react-native';
 import TourRecord from '../components/TourRecord';
 
-const styles = StyleSheet.create({
-    place: {
-        padding: 10,
-    },
-    title: {
-        padding: 4,
-        fontWeight: 'bold',
-        color: '#408ba4',
-        backgroundColor: '#e6e6e6',
-    },
-    detail: {
-        flexDirection: 'row',
-        borderWidth: 1,
-        borderColor: '#cccccc',
-        padding: 5,
-    },
-    numberContainer: {
-        paddingRight: 5,
-    },
-    number: {
-        color: 'white',
-        fontWeight: 'bold',
-        backgroundColor: '#71b3c1',
-        borderRadius: 50,
-        width: 30,
-        height: 30,
-        textAlign: 'center',
-        textAlignVertical: 'center',
-        borderWidth: 2,
-        borderColor: '#459db4',
-    },
-    image: {
-        width: 100,
-        height: 100,
-        borderRadius: 10,
-    },
-    text: {
-        flex: 1,
-        padding: 10,
-    },
-});
+const styles = require('./styles/TourPlaceList');
 
 export default class TourPlaceList extends Component {
     constructor(props) {
@@ -61,22 +25,24 @@ export default class TourPlaceList extends Component {
     }
 
     _onPressRecord(row) {
-        this.refs.modal.show(row); // eslint-disable-line react/no-string-refs
+        this.modal.show(row);
     }
 
     render() {
-        /*eslint-disable */
         return (
-          <View style={{ flex: 1, paddingTop: 22 }}>
+          <View style={styles.page}>
             <TourRecord
-              ref="modal" />
+              ref={(c) => { this.modal = c; }}
+            />
             <ListView
               dataSource={this.state.dataSource}
               renderRow={
                 rowData =>
                   <TouchableHighlight
                     onPress={
-                      this._onPressRecord.bind(this, rowData)}>
+                      () => this._onPressRecord(rowData)
+                    }
+                  >
                     <View style={styles.place}>
                       <Text style={styles.title}>{rowData.title}</Text>
                       <View style={styles.detail}>
@@ -87,7 +53,11 @@ export default class TourPlaceList extends Component {
                           style={styles.image}
                           source={{ uri: rowData.images[0] }}
                         />
-                        <Text style={styles.text}>{rowData.description}</Text>
+                        <Text
+                          style={styles.text}
+                        >
+                          {rowData.getShortDescription()}
+                        </Text>
                       </View>
                     </View>
                   </TouchableHighlight>
@@ -95,10 +65,9 @@ export default class TourPlaceList extends Component {
             />
           </View>
         );
-        /*eslint-enable */
     }
 }
 
 TourPlaceList.propTypes = {
-    tourPlaces: React.PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+    tourPlaces: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
 };

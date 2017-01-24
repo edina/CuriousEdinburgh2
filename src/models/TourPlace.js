@@ -12,4 +12,9 @@ export default class TourPlace {
         this.streetAddress = streetAddress;
         this.additionalLinks = additionalLinks;
     }
+
+    getShortDescription(n = 250) {
+        return this.description.substr(0, n - 1) +
+            (this.description.length > n ? ' ...' : '');
+    }
 }
