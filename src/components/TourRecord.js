@@ -6,6 +6,7 @@ import { Image,
          ScrollView,
          TouchableHighlight,
          View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = require('./styles/TourRecord');
 
@@ -73,7 +74,12 @@ export default class TourRecord extends Component {
                       this.close();
                   }}
                 >
-                  <Text style={styles.close}>Close</Text>
+                  <Icon
+                    style={styles.close}
+                    name="window-close"
+                    size={50}
+                    color="white"
+                  />
                 </TouchableHighlight>
                 <Text style={styles.title}>{this.state.record.title}</Text>
                 <View style={styles.right} />
