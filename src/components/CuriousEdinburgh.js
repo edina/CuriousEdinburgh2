@@ -20,6 +20,7 @@ import * as constants from '../constants';
 import TourMap from './TourMap';
 import TourPlaceList from './TourPlaceList';
 import TourList from './TourList';
+import About from './About';
 
 const styles = StyleSheet.create({
     container: {
@@ -81,7 +82,7 @@ export default class CuriousEdinburgh extends Component {
     }
     render() {
         const tourPlaces = (this.state.selectedTour !== null ?
-                            this.state.selectedTour.tourPlaces : []);
+            this.state.selectedTour.tourPlaces : []);
         return (
           <View style={styles.container}>
             <Text>Header</Text>
@@ -94,14 +95,14 @@ export default class CuriousEdinburgh extends Component {
                 tabLabel="List"
                 tourPlaces={tourPlaces}
               />
-              <Text tabLabel="About">TODO About</Text>
               <TourList
                 tabLabel="Tour List"
                 tours={this.state.tours}
-                selectedTourId={this.state.selectedTour !== null ?
-                    this.state.selectedTour.id : null}
-                changeSelectedTour={this.changeSelectedTour}
+                selectedValue={this.state.selectedTour !== null ?
+                    this.state.selectedTour.id : ''}
+                onValueChange={this.changeSelectedTour}
               />
+              <About tabLabel="About" />
             </ScrollableTabView>
           </View>
         );
