@@ -15,7 +15,8 @@
     "react-native-html-parser": "0.0.4",
     "react-native-maps": "0.13.0",
     "react-native-scrollable-tab-view": "0.7.0",
-    "react-native-vector-icons": "4.0.0"
+    "react-native-vector-icons": "4.0.0",
+    "react-native-side-menu": "^0.20.1",
   },
   "devDependencies": {
     "babel-jest": "18.0.0",

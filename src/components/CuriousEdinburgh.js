@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 // Services
@@ -17,6 +17,8 @@ import Utils from '../utils';
 import * as constants from '../constants';
 
 // Components
+import Menu from './Menu';
+import Header from './Header';
 import TourMap from './TourMap';
 import TourPlaceList from './TourPlaceList';
 import TourList from './TourList';
@@ -26,16 +28,21 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    body: {
+        flex: 0.92,
+    },
 });
 
 const Entities = require('html-entities').XmlEntities;
+const SideMenu = require('react-native-side-menu');
 
 export default class CuriousEdinburgh extends Component {
     constructor() {
         super();
         this.entities = new Entities();
-        this.state = { tours: [], selectedTour: null };
+        this.state = { tours: [], selectedTour: null, isMenuOpen: false };
         this.changeSelectedTour = this.changeSelectedTour.bind(this);
+        this.toggleMenu = this.toggleMenu.bind(this);
     }
     componentDidMount() {
         WordPress.getCategories().then((categories) => {
@@ -80,13 +87,21 @@ export default class CuriousEdinburgh extends Component {
             }
         }
     }
+    toggleMenu() {
+        this.setState({ isMenuOpen: !this.state.isMenuOpen });
+    }
     render() {
         const tourPlaces = (this.state.selectedTour !== null ?
             this.state.selectedTour.tourPlaces : []);
+        const menu = <Menu />;
         return (
+          <SideMenu
+            menu={menu}
+            isOpen={this.state.isMenuOpen}
+          >
           <View style={styles.container}>
-            <Text>Header</Text>
-            <ScrollableTabView tabBarPosition="bottom">
+            <Header title={this.state.selectedTour != null ? this.state.selectedTour.name : 'Loading...'} toggleMenu={this.toggleMenu} />
+            <ScrollableTabView tabBarPosition="bottom" style={styles.body}>
               <TourMap
                 tabLabel="Map"
                 tourPlaces={tourPlaces}
@@ -105,6 +120,7 @@ export default class CuriousEdinburgh extends Component {
               <About tabLabel="About" />
             </ScrollableTabView>
           </View>
+          </SideMenu>
         );
     }
 }
