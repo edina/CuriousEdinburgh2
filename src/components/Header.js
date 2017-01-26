@@ -57,6 +57,7 @@ export default class Header extends Component {
               animationType={'slide'}
               transparent={false}
               visible={this.state.modalVisible}
+              onRequestClose={() => { }}
             >
               <View style={styles.modal}>
                 {this.props.children}
