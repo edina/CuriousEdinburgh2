@@ -17,7 +17,6 @@ import Utils from '../utils';
 import * as constants from '../constants';
 
 // Components
-import Menu from './Menu';
 import Header from './Header';
 import TourMap from './TourMap';
 import TourPlaceList from './TourPlaceList';
@@ -34,7 +33,6 @@ const styles = StyleSheet.create({
 });
 
 const Entities = require('html-entities').XmlEntities;
-const SideMenu = require('react-native-side-menu');
 
 export default class CuriousEdinburgh extends Component {
     constructor() {
@@ -89,10 +87,16 @@ export default class CuriousEdinburgh extends Component {
     render() {
         const tourPlaces = (this.state.selectedTour !== null ?
             this.state.selectedTour.tourPlaces : []);
-        const menu = <Menu />;
         return (
           <View style={styles.container}>
-            <Header title={this.state.selectedTour != null ? this.state.selectedTour.name : 'Loading...'} />
+            <Header title={this.state.selectedTour != null ? this.state.selectedTour.name : 'Loading...'}>
+              <TourList
+                tours={this.state.tours}
+                selectedValue={this.state.selectedTour !== null ?
+                    this.state.selectedTour.id : ''}
+                onValueChange={this.changeSelectedTour}
+              />
+            </Header>
             <ScrollableTabView tabBarPosition="bottom" style={styles.body}>
               <TourMap
                 tabLabel="Map"
@@ -101,13 +105,6 @@ export default class CuriousEdinburgh extends Component {
               <TourPlaceList
                 tabLabel="List"
                 tourPlaces={tourPlaces}
-              />
-              <TourList
-                tabLabel="Tour List"
-                tours={this.state.tours}
-                selectedValue={this.state.selectedTour !== null ?
-                    this.state.selectedTour.id : ''}
-                onValueChange={this.changeSelectedTour}
               />
               <About tabLabel="About" />
             </ScrollableTabView>
