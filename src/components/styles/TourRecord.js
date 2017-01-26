@@ -11,16 +11,16 @@ module.exports = StyleSheet.create({
     },
     left: {
         flex: 1,
+        alignItems: 'center',
+        alignSelf: 'center',
     },
     close: {
-        textAlign: 'center',
-        textAlignVertical: 'center',
         backgroundColor: '#268da8',
         color: 'white',
     },
     title: {
-        flex: 3,
-        fontSize: 30,
+        flex: 4,
+        fontSize: 22,
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',

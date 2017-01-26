@@ -68,24 +68,25 @@ export default class TourRecord extends Component {
                     styles.header
                 }
               >
-                <TouchableHighlight
-                  style={styles.left}
-                  onPress={() => {
-                      this.close();
-                  }}
-                >
-                  <Icon
-                    style={styles.close}
-                    name="window-close"
-                    size={50}
-                    color="white"
-                  />
-                </TouchableHighlight>
+                <View style={styles.left}>
+                  <TouchableHighlight
+                    onPress={() => {
+                        this.close();
+                    }}
+                  >
+                    <Icon
+                      style={styles.close}
+                      name="window-close"
+                      size={50}
+                      color="white"
+                    />
+                  </TouchableHighlight>
+                </View>
                 <Text style={styles.title}>{this.state.record.title}</Text>
-                <View style={styles.right} />
+                <View style={styles.right}/>
               </View>
             </View>
-            <View style={styles.body}>
+            <ScrollView style={styles.body}>
               <ScrollView style={styles.images} horizontal >
                 {images}
               </ScrollView>
@@ -95,7 +96,7 @@ export default class TourRecord extends Component {
                 <Text style={styles.linksTitle}>Associated Links</Text>
                 <View>{links}</View>
               </View>
-            </View>
+            </ScrollView>
           </Modal>
         );
     }
