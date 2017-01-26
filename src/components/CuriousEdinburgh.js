@@ -21,6 +21,8 @@ import TourMap from './TourMap';
 import TourPlaceList from './TourPlaceList';
 import About from './About';
 
+import SplashScreen from 'react-native-splash-screen'
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -44,6 +46,7 @@ export default class CuriousEdinburgh extends Component {
             this.setState({ tours, selectedTour }); // Shorthand syntax for properties
             // where key name matches name of the assigned variable
             this.changeSelectedTour(selectedTour.id);
+            SplashScreen.hide();
         });
     }
     componentWillUpdate() {
