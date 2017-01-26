@@ -40,9 +40,8 @@ export default class CuriousEdinburgh extends Component {
     constructor() {
         super();
         this.entities = new Entities();
-        this.state = { tours: [], selectedTour: null, isMenuOpen: false };
+        this.state = { tours: [], selectedTour: null };
         this.changeSelectedTour = this.changeSelectedTour.bind(this);
-        this.toggleMenu = this.toggleMenu.bind(this);
     }
     componentDidMount() {
         WordPress.getCategories().then((categories) => {
@@ -87,20 +86,13 @@ export default class CuriousEdinburgh extends Component {
             }
         }
     }
-    toggleMenu() {
-        this.setState({ isMenuOpen: !this.state.isMenuOpen });
-    }
     render() {
         const tourPlaces = (this.state.selectedTour !== null ?
             this.state.selectedTour.tourPlaces : []);
         const menu = <Menu />;
         return (
-          <SideMenu
-            menu={menu}
-            isOpen={this.state.isMenuOpen}
-          >
           <View style={styles.container}>
-            <Header title={this.state.selectedTour != null ? this.state.selectedTour.name : 'Loading...'} toggleMenu={this.toggleMenu} />
+            <Header title={this.state.selectedTour != null ? this.state.selectedTour.name : 'Loading...'} />
             <ScrollableTabView tabBarPosition="bottom" style={styles.body}>
               <TourMap
                 tabLabel="Map"
@@ -120,7 +112,6 @@ export default class CuriousEdinburgh extends Component {
               <About tabLabel="About" />
             </ScrollableTabView>
           </View>
-          </SideMenu>
         );
     }
 }

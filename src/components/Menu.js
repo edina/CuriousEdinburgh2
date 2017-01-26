@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { StyleSheet,
     ScrollView,
-    Text } from 'react-native';
+    Text,
+    Dimensions } from 'react-native';
+
+const window = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     menu: {
+        flex:1,
+        width: window.width,
+        height: window.height,
         backgroundColor: 'grey',
+        padding: 20,
     },
 });
 export default class Menu extends Component {
@@ -16,10 +23,7 @@ export default class Menu extends Component {
     render() {
         return (
           <ScrollView scrollsToTop={false} style={styles.menu}>
-            <Text>Item1</Text>
-            <Text>Item2</Text>
-            <Text>Item3</Text>
-            <Text>Item4</Text>
+            <Text>Menu</Text>
           </ScrollView>
         );
     }
