@@ -45,7 +45,10 @@ export default class CuriousEdinburgh extends Component {
         WordPress.getCategories().then((categories) => {
             const tours = categories.map(
                 category =>
-                    new Tour(category.id.toString(), category.name, category.description));
+                    new Tour({ id: category.id.toString(),
+                        name: category.name,
+                        description: category.description,
+                        slug: category.slug }));
             this.setState({ tours });
             // Following statement will be modified when tackling issue #25
             this.changeSelectedTour(constants.DEFAULT_TOUR_ID);
@@ -72,6 +75,8 @@ export default class CuriousEdinburgh extends Component {
                             streetAddress: post.custom_fields.street_address,
                             additionalLinks:
                             Utils.getURLsFromPipeString(post.custom_fields.additional_links),
+                            stop:
+                            Utils.getTourStopFromSlug(tour.slug, post.custom_fields.tour_stops),
                         }));
                     const tourIndex = this.state.tours.findIndex(element => element.id === tourId);
                     tour = Object.assign(new Tour(), tour, { tourPlaces });
