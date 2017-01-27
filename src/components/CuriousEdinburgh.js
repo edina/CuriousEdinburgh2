@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
+import SplashScreen from 'react-native-splash-screen';
 
 // Services
 import WordPress from '../services/WordPress';
@@ -17,15 +18,18 @@ import Utils from '../utils';
 import * as constants from '../constants';
 
 // Components
+import Header from './Header';
 import TourMap from './TourMap';
 import TourPlaceList from './TourPlaceList';
+import TourList from './TourList';
 import About from './About';
-
-import SplashScreen from 'react-native-splash-screen'
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    body: {
+        flex: 0.92,
     },
 });
 
@@ -36,31 +40,30 @@ export default class CuriousEdinburgh extends Component {
         super();
         this.entities = new Entities();
         this.state = { tours: [], selectedTour: null };
+        this.changeSelectedTour = this.changeSelectedTour.bind(this);
     }
     componentDidMount() {
         WordPress.getCategories().then((categories) => {
             const tours = categories.map(
                 category =>
                     new Tour(category.id.toString(), category.name, category.description));
-            const selectedTour = tours.find(value => value.name === constants.DEFAULT_TOUR_NAME);
-            this.setState({ tours, selectedTour }); // Shorthand syntax for properties
-            // where key name matches name of the assigned variable
-            this.changeSelectedTour(selectedTour.id);
+            this.setState({ tours });
+            // Following statement will be modified when tackling issue #25
+            this.changeSelectedTour(constants.DEFAULT_TOUR_ID);
             SplashScreen.hide();
         });
     }
-    componentWillUpdate() {
-        // console.log(this.state);
+    componentWillUpdate(nextProps, nextState) {
+        console.log('componentWillUpdate(%o, %o)', nextProps, nextState);
     }
     changeSelectedTour(tourId) {
-        const found = this.state.tours.find(element => element.id === tourId);
-        if (found !== undefined) {
-            if (found.tourPlaces.length > 0) {
-                this.setState({ selectedTour: found });
+        let tour = this.state.tours.find(element => element.id === tourId);
+        if (tour !== undefined) {
+            if (tour.tourPlaces.length > 0) {
+                this.setState({ selectedTour: tour });
             } else {
                 WordPress.getPostsFromCategory(tourId).then((posts) => {
-                    const newTour = Object.assign(new Tour(), found);
-                    newTour.tourPlaces = posts.map(post =>
+                    const tourPlaces = posts.map(post =>
                         new TourPlace({
                             id: post.id.toString(),
                             title: post.custom_fields.OSM_Marker_01_Name,
@@ -72,25 +75,38 @@ export default class CuriousEdinburgh extends Component {
                             additionalLinks:
                             Utils.getURLsFromPipeString(post.custom_fields.additional_links),
                         }));
-                    this.setState({ selectedTour: newTour });
+                    const tourIndex = this.state.tours.findIndex(element => element.id === tourId);
+                    tour = Object.assign(new Tour(), tour, { tourPlaces });
+                    this.setState({ tours:
+                        this.state.tours.slice(0, tourIndex)
+                        .concat([tour])
+                        .concat(this.state.tours.slice(tourIndex + 1)),
+                        selectedTour: tour });
                 });
             }
         }
     }
     render() {
-        const selectedTour = (this.state.selectedTour !== null ?
-                            this.state.selectedTour.tourPlaces : []);
+        const tourPlaces = (this.state.selectedTour !== null ?
+            this.state.selectedTour.tourPlaces : []);
         return (
           <View style={styles.container}>
-            <Text>Header</Text>
-            <ScrollableTabView tabBarPosition="bottom">
+            <Header title={this.state.selectedTour != null ? this.state.selectedTour.name : 'Loading...'}>
+              <TourList
+                tours={this.state.tours}
+                selectedValue={this.state.selectedTour !== null ?
+                    this.state.selectedTour.id : ''}
+                onValueChange={this.changeSelectedTour}
+              />
+            </Header>
+            <ScrollableTabView tabBarPosition="bottom" style={styles.body}>
               <TourMap
                 tabLabel="Map"
-                tourPlaces={selectedTour}
+                tourPlaces={tourPlaces}
               />
               <TourPlaceList
                 tabLabel="List"
-                tourPlaces={selectedTour}
+                tourPlaces={tourPlaces}
               />
               <About tabLabel="About" />
             </ScrollableTabView>
