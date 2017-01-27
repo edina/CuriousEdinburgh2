@@ -13,8 +13,8 @@ module.exports = StyleSheet.create({
     },
     left: {
         alignSelf: 'center',
-        top: 2,
-        padding: 4,
+        top: 4,
+        padding: 5,
     },
     close: {
         backgroundColor: '#268da8',
@@ -26,7 +26,7 @@ module.exports = StyleSheet.create({
         fontWeight: 'bold',
     },
     right: {
-        //flex: 1,
+        // flex: 1,
     },
     images: {
         flexDirection: 'row',

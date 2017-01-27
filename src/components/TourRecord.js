@@ -77,7 +77,7 @@ export default class TourRecord extends Component {
                     <Icon
                       style={styles.close}
                       name="window-close"
-                      size={50}
+                      size={40}
                       color="white"
                     />
                   </TouchableHighlight>
