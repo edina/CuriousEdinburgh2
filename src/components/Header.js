@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableHighlight, Image, Modal, Button } from 'react-native';
+import { StyleSheet, View, Text, TouchableHighlight, Modal, Button } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
     container: {
@@ -7,6 +8,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        backgroundColor: '#2c9eb7',
     },
     button: {
         top: 5,
@@ -15,10 +17,12 @@ const styles = StyleSheet.create({
     title: {
         top: 2,
         fontSize: 20,
+        color: '#ffffff',
     },
     logo: {
         top: 2,
         padding: 4,
+        color: '#ffffff',
     },
     modal: {
         flex: 1,
@@ -26,9 +30,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    touchable: {
+        color: '#fffaf0',
+    },
 });
-
-const imageSource = require('../assets/menu.png');
 
 export default class Header extends Component {
     constructor(props) {
@@ -42,9 +47,16 @@ export default class Header extends Component {
     render() {
         return (
           <View style={styles.container}>
-            <TouchableHighlight onPress={this.toggleModal} style={styles.button}>
-              <Image
-                source={imageSource} style={{ width: 32, height: 32 }}
+            <TouchableHighlight
+              onPress={this.toggleModal}
+              style={styles.button}
+              underlayColor={styles.touchable}
+            >
+              <Icon
+                style={styles.close}
+                name="bars"
+                size={30}
+                color="white"
               />
             </TouchableHighlight>
             <Text style={styles.title}>
