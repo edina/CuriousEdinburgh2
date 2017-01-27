@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import MapView from 'react-native-maps';
 
 const styles = StyleSheet.create({
     map: {
         flex: 1,
+    },
+    marker: {
+        backgroundColor: '#2c9eb7',
+        padding: 5,
+        borderRadius: 5,
+        color: '#ffffff',
+    },
+    callout: {
+        width: 300,
+        height: 300,
+        backgroundColor: '#ffffff',
     },
 });
 
@@ -33,9 +44,15 @@ export default class TourMap extends Component {
             identifier={tourPlace.id}
             coordinate={{ latitude: tourPlace.location.latitude,
                 longitude: tourPlace.location.longitude }}
-            title={tourPlace.title}
-            description={tourPlace.description}
-          />));
+            onPress={() => console.log('marker %o onPress', tourPlace.id)}
+          >
+            <Text style={styles.marker}>{tourPlace.stop}</Text>
+            <MapView.Callout tooltip onPress={() => console.log('callout %o onPress', tourPlace.id)}>
+              <View style={styles.callout}>
+                <Text>{tourPlace.title}</Text>
+              </View>
+            </MapView.Callout>
+          </MapView.Marker>));
         return (
           <MapView
             ref={(ref) => { this.mapRef = ref; }}
@@ -46,6 +63,6 @@ export default class TourMap extends Component {
         );
     }
 }
-TourMap.propTypes = {   // forbid-prop-types requires further investigation
-    tourPlaces: React.PropTypes.array.isRequired,   // eslint-disable-line react/forbid-prop-types
+TourMap.propTypes = {
+    tourPlaces: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
 };

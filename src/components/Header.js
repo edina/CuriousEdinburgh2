@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        backgroundColor: '#2c9eb7',
     },
     button: {
         top: 5,
@@ -15,10 +16,12 @@ const styles = StyleSheet.create({
     title: {
         top: 2,
         fontSize: 20,
+        color: '#ffffff',
     },
     logo: {
         top: 2,
         padding: 4,
+        color: '#ffffff',
     },
     modal: {
         flex: 1,
