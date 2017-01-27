@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -50,7 +50,9 @@ export default class CuriousEdinburgh extends Component {
             this.setState({ tours });
             // Following statement will be modified when tackling issue #25
             this.changeSelectedTour(constants.DEFAULT_TOUR_ID);
-            SplashScreen.hide();
+            if (Platform.OS === 'android') {
+                SplashScreen.hide();
+            }
         });
     }
     componentWillUpdate(nextProps, nextState) {
