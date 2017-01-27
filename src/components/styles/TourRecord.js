@@ -8,26 +8,25 @@ module.exports = StyleSheet.create({
         flexDirection: 'row',
         height: 60,
         backgroundColor: '#268da8',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     left: {
-        flex: 1,
+        alignSelf: 'center',
+        top: 4,
+        padding: 5,
     },
     close: {
-        textAlign: 'center',
-        textAlignVertical: 'center',
         backgroundColor: '#268da8',
         color: 'white',
     },
     title: {
-        flex: 3,
-        fontSize: 30,
+        fontSize: 20,
         color: 'white',
         fontWeight: 'bold',
-        textAlign: 'center',
-        textAlignVertical: 'center',
     },
     right: {
-        flex: 1,
+        // flex: 1,
     },
     images: {
         flexDirection: 'row',
@@ -43,7 +42,7 @@ module.exports = StyleSheet.create({
         paddingRight: 10,
     },
     details: {
-        borderWidth: 20,
+        borderWidth: 10,
         borderColor: '#efeff4',
     },
     address: {
