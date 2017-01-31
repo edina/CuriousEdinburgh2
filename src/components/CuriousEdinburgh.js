@@ -19,7 +19,7 @@ import * as constants from '../constants';
 
 // Components
 import Header from './Header';
-import TourMap from './TourMap';
+import TourMap from './TourMap/index';
 import TourPlaceList from './TourPlaceList';
 import TourList from './TourList';
 import About from './About';
