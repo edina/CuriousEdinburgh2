@@ -69,6 +69,7 @@ export default class TourMap extends Component {
             onPress={() => { console.log('marker %o pressed', tourPlace.id); }}
             onCalloutPress={() => { console.log('callout %o pressed', tourPlace.id); }}
           >
+            <Text style={styles.marker}>{tourPlace.stop}</Text>
             <MapView.Callout tooltip>
               <TourPlaceCalloutView
                 title={tourPlace.title}
@@ -89,5 +90,3 @@ export default class TourMap extends Component {
 TourMap.propTypes = {
     tourPlaces: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
 };
-
-// <Text style={styles.marker}>{tourPlace.stop}</Text>  Custom marker raises issues
