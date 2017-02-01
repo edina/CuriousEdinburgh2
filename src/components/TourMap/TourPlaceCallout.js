@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import MapView from 'react-native-maps';
 
 const styles = StyleSheet.create({
     callout: {
@@ -25,19 +26,21 @@ const styles = StyleSheet.create({
         padding: 5,
     },
 });
-export default function TourPlaceCalloutView(props) {
+export default function TourPlaceCallout(props) {
     return (
-      <View style={styles.callout}>
-        <View style={styles.calloutHeader}>
-          <Text style={styles.calloutHeaderTitle}>{props.title}</Text>
+      <MapView.Callout tooltip style={styles.callout}>
+        <View>
+          <View style={styles.calloutHeader}>
+            <Text style={styles.calloutHeaderTitle}>{props.title}</Text>
+          </View>
+          <View style={styles.calloutBody}>
+            <Text>{props.description}</Text>
+          </View>
         </View>
-        <View style={styles.calloutBody}>
-          <Text>{props.description}</Text>
-        </View>
-      </View>
+      </MapView.Callout>
     );
 }
-TourPlaceCalloutView.propTypes = {
+TourPlaceCallout.propTypes = {
     title: React.PropTypes.string.isRequired,
     description: React.PropTypes.string.isRequired,
 };

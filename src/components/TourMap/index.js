@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MapView from 'react-native-maps';
-import TourPlaceCalloutView from './TourPlaceCalloutView';
+import TourPlaceCallout from './TourPlaceCallout';
 import TourRecord from '../TourRecord';
 
 const styles = StyleSheet.create({
@@ -52,12 +52,10 @@ export default class TourMap extends Component {
             onCalloutPress={() => { this.onMarkerPress(tourPlace); }}
           >
             <Text style={styles.marker}>{tourPlace.stop}</Text>
-            <MapView.Callout tooltip>
-              <TourPlaceCalloutView
-                title={tourPlace.title}
-                description={tourPlace.getShortDescription(100)}
-              />
-            </MapView.Callout>
+            <TourPlaceCallout
+              title={tourPlace.title}
+              description={tourPlace.getShortDescription(100)}
+            />
           </MapView.Marker>);
         return (
           <View style={styles.map}>
