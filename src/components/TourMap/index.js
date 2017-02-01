@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import MapView from 'react-native-maps';
 import TourPlaceCalloutView from './TourPlaceCalloutView';
+import TourRecord from '../TourRecord';
 
 const styles = StyleSheet.create({
     map: {
@@ -22,8 +23,8 @@ export default class TourMap extends Component {
     constructor(props) {
         super(props);
         this.mapRef = null;
-        this.mapMarkerRef = [];
-        this.calloutOpened = null;
+        this.modal = null;
+        this.onMarkerPress = this.onMarkerPress.bind(this);
     }
     componentDidMount() {
         this.centerMap();
@@ -31,23 +32,8 @@ export default class TourMap extends Component {
     componentDidUpdate() {
         this.centerMap();
     }
-    /*
-        This method is fired if we want to bind onPress from MapView.Marker
-        to show/hide a Mapview.Callout associated to a MapView.Marker
-    */
-    onMarkerPress(id) {
-        if (this.mapMarkerRef[id]) {
-            if (this.calloutOpened === id) {
-                this.calloutOpened = null;
-                this.mapMarkerRef[id].hideCallout();
-            } else {
-                if (this.calloutOpened !== null) {
-                    this.mapMarkerRef[this.calloutOpened].hideCallout();
-                }
-                this.calloutOpened = id;
-                this.mapMarkerRef[id].showCallout();
-            }
-        }
+    onMarkerPress(tourPlace) {
+        this.modal.show(tourPlace);
     }
     centerMap() {
         const markerIDs = this.props.tourPlaces.map(tourPlace =>
@@ -57,17 +43,13 @@ export default class TourMap extends Component {
         }
     }
     render() {
-        // Add the following attrs to MapView.Marker, if you want to bind onMarkerPress event
-        // ref={(ref) => { this.mapMarkerRef[tourPlace.id] = ref; }}
-        // onPress={() => this.onMarkerPress(tourPlace.id)}
         const listMarkers = this.props.tourPlaces.map(tourPlace =>
           <MapView.Marker
             key={tourPlace.id}
             identifier={tourPlace.id}
             coordinate={{ latitude: tourPlace.location.latitude,
                 longitude: tourPlace.location.longitude }}
-            onPress={() => { console.log('marker %o pressed', tourPlace.id); }}
-            onCalloutPress={() => { console.log('callout %o pressed', tourPlace.id); }}
+            onCalloutPress={() => { this.onMarkerPress(tourPlace); }}
           >
             <Text style={styles.marker}>{tourPlace.stop}</Text>
             <MapView.Callout tooltip>
@@ -78,12 +60,17 @@ export default class TourMap extends Component {
             </MapView.Callout>
           </MapView.Marker>);
         return (
-          <MapView
-            ref={(ref) => { this.mapRef = ref; }}
-            style={styles.map}
-          >
-            {listMarkers}
-          </MapView>
+          <View style={styles.map}>
+            <MapView
+              ref={(ref) => { this.mapRef = ref; }}
+              style={styles.map}
+            >
+              {listMarkers}
+            </MapView>
+            <TourRecord
+              ref={(c) => { this.modal = c; }}
+            />
+          </View>
         );
     }
 }
