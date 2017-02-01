@@ -52,10 +52,12 @@ export default class TourMap extends Component {
             onCalloutPress={() => { this.onMarkerPress(tourPlace); }}
           >
             <Text style={styles.marker}>{tourPlace.stop}</Text>
-            <TourPlaceCallout
-              title={tourPlace.title}
-              description={tourPlace.getShortDescription(100)}
-            />
+            <MapView.Callout tooltip>
+              <TourPlaceCallout
+                title={tourPlace.title}
+                description={tourPlace.getShortDescription(100)}
+              />
+            </MapView.Callout>
           </MapView.Marker>);
         return (
           <View style={styles.map}>
