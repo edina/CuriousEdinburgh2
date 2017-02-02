@@ -58,9 +58,6 @@ export default class CuriousEdinburgh extends Component {
             }
         });
     }
-    componentWillUpdate(nextProps, nextState) {
-        console.log('componentWillUpdate(%o, %o)', nextProps, nextState);
-    }
     changeSelectedTour(tourId) {
         let tour = this.state.tours.find(element => element.id === tourId);
         if (tour !== undefined) {
@@ -82,6 +79,10 @@ export default class CuriousEdinburgh extends Component {
                             stop:
                             Utils.getTourStopFromSlug(tour.slug, post.custom_fields.tour_stops),
                         }));
+
+                    // sort places by tour stop
+                    tourPlaces.sort((a, b) => a.stop - b.stop);
+
                     const tourIndex = this.state.tours.findIndex(element => element.id === tourId);
                     tour = Object.assign(new Tour(), tour, { tourPlaces });
                     this.setState({ tours:
