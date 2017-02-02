@@ -7,6 +7,17 @@ export default class Utils {
         const regex = /(\bhttp\b[^|]*|\bhttps\b[^|]*)/g;
         return Utils.getFirstCapturedMatchForSuccessiveMatches(regex, string);
     }
+    /*
+        @param tourSlug represents the category slug (e.g. history_of_science) to match
+        @param tourStop represents the custom field containing all the tour stops
+            for a post (e.g. history_of_science:19|history_of_physics:1)
+        @return the stop number for a given category slug or null if does not match
+    */
+    static getTourStopFromSlug(tourSlug, tourStop) {
+        const regex = new RegExp(`${tourSlug}:(\\d+)`, 'g');
+        const result = regex.exec(tourStop);
+        return result !== null ? result[1] : null;
+    }
     static getFirstCapturedMatchForSuccessiveMatches(regex, string) {
         // Types validation for parameter is recommended
         let matches = null;

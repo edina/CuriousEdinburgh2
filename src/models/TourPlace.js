@@ -3,7 +3,8 @@ import Location from './Location';
 export default class TourPlace {
     constructor({ id = '0', title = '', description = '',
         images = [], location = new Location(0, 0),
-        streetAddress = '', additionalLinks = [] } = {}) {
+        streetAddress = '', additionalLinks = [],
+        stop = null } = {}) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -11,6 +12,7 @@ export default class TourPlace {
         this.location = location;
         this.streetAddress = streetAddress;
         this.additionalLinks = additionalLinks;
+        this.stop = stop;
     }
 
     getShortDescription(n = 250) {

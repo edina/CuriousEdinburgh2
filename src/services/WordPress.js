@@ -9,7 +9,7 @@ export default class WordPress {
             } })
           .then(response => response.json())
           .then(responseJson =>
-              responseJson.filter(value => value.count > 1))
+              responseJson.filter(value => value.description === 'true'))
           .catch((error) => {
               console.log(error);
           });

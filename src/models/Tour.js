@@ -1,8 +1,9 @@
 export default class Tour {
-    constructor(id, name, description) {
-        this.id = id;   // String
-        this.name = name;   // String
-        this.description = description; // String
-        this.tourPlaces = [];
+    constructor({ id = '', name = '', description = '', slug = '', tourPlaces = [] } = {}) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.slug = slug;
+        this.tourPlaces = tourPlaces;
     }
 }
