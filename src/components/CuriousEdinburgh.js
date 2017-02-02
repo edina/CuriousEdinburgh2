@@ -10,12 +10,10 @@ import WordPress from '../services/WordPress';
 import Tour from '../models/Tour';
 import TourPlace from '../models/TourPlace';
 import Location from '../models/Location';
+import Preference from '../models/Preference';
 
 // Utils
 import Utils from '../utils';
-
-// Constants
-import * as constants from '../constants';
 
 // Components
 import Header from './Header';
@@ -51,15 +49,16 @@ export default class CuriousEdinburgh extends Component {
                         description: category.description,
                         slug: category.slug }));
             this.setState({ tours });
-            // Following statement will be modified when tackling issue #25
-            this.changeSelectedTour(constants.DEFAULT_TOUR_ID);
+            Preference.getTourId().then(tourId => this.changeSelectedTour(tourId));
             if (Platform.OS === 'android') {
                 SplashScreen.hide();
             }
         });
     }
     componentWillUpdate(nextProps, nextState) {
-        console.log('componentWillUpdate(%o, %o)', nextProps, nextState);
+        if (this.state.selectedTour !== nextState.selectedTour) {
+            Preference.setTourId(nextState.selectedTour.id);
+        }
     }
     changeSelectedTour(tourId) {
         let tour = this.state.tours.find(element => element.id === tourId);
