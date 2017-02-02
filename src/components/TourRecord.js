@@ -83,7 +83,7 @@ export default class TourRecord extends Component {
                   </TouchableHighlight>
                 </View>
                 <Text style={styles.title}>{this.state.record.title}</Text>
-                <View style={styles.right}/>
+                <View style={styles.right} />
               </View>
             </View>
             <ScrollView style={styles.body}>

@@ -24,6 +24,15 @@ export default class TourPlaceList extends Component {
         });
     }
 
+    componentWillReceiveProps(nextProps) {
+        // if current tourPlaces object is different from next tourPlaces
+        if (this.props.tourPlaces !== nextProps.tourPlaces) {
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(nextProps.tourPlaces),
+            });
+        }
+    }
+
     _onPressRecord(row) {
         this.modal.show(row);
     }
@@ -47,7 +56,7 @@ export default class TourPlaceList extends Component {
                       <Text style={styles.title}>{rowData.title}</Text>
                       <View style={styles.detail}>
                         <View style={styles.numberContainer}>
-                          <Text style={styles.number}>{rowData.tourStop}</Text>
+                          <Text style={styles.number}>{rowData.stop}</Text>
                         </View>
                         <Image
                           style={styles.image}
