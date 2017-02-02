@@ -5,7 +5,7 @@ import { Image,
          View } from 'react-native';
 
 const styles = require('./styles/About');
-const banner = require('./images/curious-edinburgh-banner.png');
+const banner = require('../assets/curious-edinburgh-banner.png');
 
 export default function About() {
     /* eslint-disable max-len */

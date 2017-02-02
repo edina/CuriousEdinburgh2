@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     marker: {
-        backgroundColor: '#2c9eb7',
+        backgroundColor: '#1d8daa',
         padding: 5,
         borderRadius: 5,
         width: 30,
