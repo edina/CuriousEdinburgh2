@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableHighlight, Modal, Button } from 'react-native';
+import { StyleSheet, View,
+         Text, TouchableHighlight,
+         Modal, Button,
+         Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
@@ -8,7 +11,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#2c9eb7',
+        backgroundColor: '#1d8daa',
     },
     button: {
         top: 5,
@@ -20,9 +23,8 @@ const styles = StyleSheet.create({
         color: '#ffffff',
     },
     logo: {
-        top: 2,
+        // top: 2,
         padding: 4,
-        color: '#ffffff',
     },
     modal: {
         flex: 1,
@@ -34,6 +36,8 @@ const styles = StyleSheet.create({
         color: '#fffaf0',
     },
 });
+
+const imageSource = require('../assets/logo.jpg');
 
 export default class Header extends Component {
     constructor(props) {
@@ -62,9 +66,9 @@ export default class Header extends Component {
             <Text style={styles.title}>
               {this.props.title}
             </Text>
-            <Text style={styles.logo}>
-              Logo
-            </Text>
+            <View style={styles.logo}>
+              <Image source={imageSource} />
+            </View>
             <Modal
               animationType={'slide'}
               transparent={false}
