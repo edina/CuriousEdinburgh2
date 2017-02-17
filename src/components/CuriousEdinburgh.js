@@ -109,7 +109,12 @@ export default class CuriousEdinburgh extends Component {
                 onValueChange={this.changeSelectedTour}
               />
             </Header>
-            <ScrollableTabView tabBarPosition="bottom" style={styles.body}>
+            <ScrollableTabView
+              tabBarPosition="bottom"
+              style={styles.body}
+              ref={(tabView) => { this.tabView = tabView; }}
+            >
+
               <TourMap
                 tabLabel="Map"
                 tourPlaces={tourPlaces}
@@ -118,7 +123,11 @@ export default class CuriousEdinburgh extends Component {
                 tabLabel="List"
                 tourPlaces={tourPlaces}
               />
-              <About tabLabel="About" />
+              <About
+                tabLabel="About"
+                tabView={this.tabView}
+                onValueChange={this.changeSelectedTour}
+              />
             </ScrollableTabView>
           </View>
         );
