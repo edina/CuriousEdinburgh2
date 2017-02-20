@@ -6,8 +6,8 @@ import { Image,
          Text,
          TouchableHighlight,
          View } from 'react-native';
+import * as styles from './styles/About';
 
-const styles = require('./styles/About');
 const banner = require('../assets/curious-edinburgh-banner.png');
 
 export default class About extends Component {
