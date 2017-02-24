@@ -5,7 +5,7 @@ import SplashScreen from 'react-native-splash-screen';
 
 // Services
 import WordPress from '../services/WordPress';
-
+import MapBox from '../services/MapBox';
 // Models
 import Tour from '../models/Tour';
 import TourPlace from '../models/TourPlace';
@@ -73,25 +73,28 @@ export default class CuriousEdinburgh extends Component {
                             title: post.custom_fields.OSM_Marker_01_Name,
                             description: this.entities.decode(post.custom_fields.main_text),
                             images: Utils.getURLsFromHTMLImage(post.content.rendered),
-                            location: new Location(parseFloat(post.custom_fields.latitude),
-                                parseFloat(post.custom_fields.longitude)),
+                            location: new Location({
+                                latitude: parseFloat(post.custom_fields.latitude),
+                                longitude: parseFloat(post.custom_fields.longitude) }),
                             streetAddress: post.custom_fields.street_address,
                             additionalLinks:
                             Utils.getURLsFromPipeString(post.custom_fields.additional_links),
                             stop:
                             Utils.getTourStopFromSlug(tour.slug, post.custom_fields.tour_stops),
                         }));
-
-                    // sort places by tour stop
-                    tourPlaces.sort((a, b) => a.stop - b.stop);
-
-                    const tourIndex = this.state.tours.findIndex(element => element.id === tourId);
-                    tour = Object.assign(new Tour(), tour, { tourPlaces });
-                    this.setState({ tours:
-                        this.state.tours.slice(0, tourIndex)
-                        .concat([tour])
-                        .concat(this.state.tours.slice(tourIndex + 1)),
-                        selectedTour: tour });
+                    tourPlaces.sort((a, b) => a.stop - b.stop); // sort places by tour stop
+                    MapBox.getDirections(tourPlaces.map(value => value.location))
+                        .then((data) => {
+                            tour = Object.assign(new Tour(), tour,
+                                { tourPlaces, directions: data });
+                            const tourIndex = this.state.tours
+                                .findIndex(element => element.id === tourId);
+                            this.setState({ tours:
+                                this.state.tours.slice(0, tourIndex)
+                                .concat([tour])
+                                .concat(this.state.tours.slice(tourIndex + 1)),
+                                selectedTour: tour });
+                        }, error => console.log(error));
                 });
             }
         }
@@ -112,7 +115,7 @@ export default class CuriousEdinburgh extends Component {
             <ScrollableTabView tabBarPosition="bottom" style={styles.body}>
               <TourMap
                 tabLabel="Map"
-                tourPlaces={tourPlaces}
+                tour={this.state.selectedTour || undefined}
               />
               <TourPlaceList
                 tabLabel="List"

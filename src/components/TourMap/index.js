@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MapView from 'react-native-maps';
+import Tour from '../../models/Tour';
 import TourPlaceCallout from './TourPlaceCallout';
 import TourRecord from '../TourRecord';
 
@@ -25,6 +26,7 @@ export default class TourMap extends Component {
         this.mapRef = null;
         this.modal = null;
         this.onMarkerPress = this.onMarkerPress.bind(this);
+        this.state = { showModal: false };
     }
     componentDidMount() {
         this.centerMap();
@@ -36,14 +38,14 @@ export default class TourMap extends Component {
         this.modal.show(tourPlace);
     }
     centerMap() {
-        const markerIDs = this.props.tourPlaces.map(tourPlace =>
+        const markerIDs = this.props.tour.tourPlaces.map(tourPlace =>
             tourPlace.id);
         if (this.mapRef !== null) {
             this.mapRef.fitToSuppliedMarkers(markerIDs, false);
         }
     }
     render() {
-        const listMarkers = this.props.tourPlaces.map(tourPlace =>
+        const listMarkers = this.props.tour.tourPlaces.map(tourPlace =>
           <MapView.Marker
             key={tourPlace.id}
             identifier={tourPlace.id}
@@ -59,6 +61,8 @@ export default class TourMap extends Component {
               />
             </MapView.Callout>
           </MapView.Marker>);
+        const polylines = this.props.tour.directions.map(direction =>
+          <MapView.Polyline key={direction.id} coordinates={direction.coordinates} />);
         return (
           <View style={styles.map}>
             <MapView
@@ -66,6 +70,7 @@ export default class TourMap extends Component {
               style={styles.map}
             >
               {listMarkers}
+              {polylines}
             </MapView>
             <TourRecord
               ref={(c) => { this.modal = c; }}
@@ -74,6 +79,9 @@ export default class TourMap extends Component {
         );
     }
 }
+TourMap.defaultProps = {
+    tour: new Tour(),
+};
 TourMap.propTypes = {
-    tourPlaces: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    tour: React.PropTypes.instanceOf(Tour),
 };
