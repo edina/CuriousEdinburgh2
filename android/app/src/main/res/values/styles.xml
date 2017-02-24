@@ -2,7 +2,19 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+      <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
+      <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
+    </style>
+
+    <style name="SpinnerItem" parent="Theme.AppCompat.Light.NoActionBar">
+      <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="SpinnerDropDownItem" parent="Theme.AppCompat.Light.NoActionBar">
+      <item name="android:textSize">28sp</item>
+      <item name="android:gravity">center</item>
+      <item name="android:padding">2sp</item>
+      <item name="android:background">@drawable/spindivider</item>
     </style>
 
 </resources>
