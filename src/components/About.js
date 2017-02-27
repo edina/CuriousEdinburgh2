@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Image,
          ListView,
-         ScrollableTabView,
          ScrollView,
          Text,
          TouchableHighlight,
@@ -109,9 +108,9 @@ export default class About extends Component {
 
 About.propTypes = {
     onValueChange: React.PropTypes.func.isRequired,
-    tabView: React.PropTypes.instanceOf(ScrollableTabView),
+    tabView: React.PropTypes.instanceOf(Object),
 };
 
 About.defaultProps = {
-    tabView: undefined,
+    tabView: {},
 };
