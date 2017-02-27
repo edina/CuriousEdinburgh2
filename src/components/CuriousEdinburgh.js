@@ -83,12 +83,18 @@ export default class CuriousEdinburgh extends Component {
                             Utils.getTourStopFromSlug(tour.slug, post.custom_fields.tour_stops),
                         }));
                     tourPlaces.sort((a, b) => a.stop - b.stop); // sort places by tour stop
+                    tour = Object.assign(new Tour(), tour,
+                                { tourPlaces });
+                    const tourIndex = this.state.tours
+                                .findIndex(element => element.id === tourId);
+                    this.setState({ tours: this.state.tours.slice(0, tourIndex)
+                        .concat([tour])
+                        .concat(this.state.tours.slice(tourIndex + 1)),
+                        selectedTour: tour });
                     MapBox.getDirections(tourPlaces.map(value => value.location))
                         .then((data) => {
                             tour = Object.assign(new Tour(), tour,
-                                { tourPlaces, directions: data });
-                            const tourIndex = this.state.tours
-                                .findIndex(element => element.id === tourId);
+                                { directions: data });
                             this.setState({ tours:
                                 this.state.tours.slice(0, tourIndex)
                                 .concat([tour])
