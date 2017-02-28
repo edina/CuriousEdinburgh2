@@ -7,6 +7,7 @@ import { Image,
          TouchableHighlight,
          View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ImageViewer from './ImageViewer';
 
 const styles = require('./styles/TourRecord');
 
@@ -34,17 +35,24 @@ export default class TourRecord extends Component {
         this.setState({ visible: false });
     }
 
+    _onImageClick(image) {
+        this.modal.show(image);
+    }
+
     render() {
         const images = this.state.record.images.map(image =>
-          <View
+          <TouchableHighlight
             key={image}
             style={styles.imageContainer}
+            onPress={
+              () => this._onImageClick(image)
+            }
           >
             <Image
               style={styles.image}
               source={{ uri: image }}
             />
-          </View>,
+          </TouchableHighlight>,
         );
         const links = this.state.record.additionalLinks.map(link =>
           <TouchableHighlight
@@ -62,6 +70,9 @@ export default class TourRecord extends Component {
             visible={this.state.visible}
             onRequestClose={() => { }}
           >
+            <ImageViewer
+              ref={(c) => { this.modal = c; }}
+            />
             <View>
               <View
                 style={
