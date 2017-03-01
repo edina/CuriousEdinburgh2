@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Image,
          Linking,
          Modal,
-         Text,
          ScrollView,
+         Text,
          TouchableHighlight,
-         View } from 'react-native';
+         View,
+         WebView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ImageViewer from './ImageViewer';
 
@@ -43,13 +44,13 @@ export default class TourRecord extends Component {
         const images = this.state.record.images.map(image =>
           <TouchableHighlight
             key={image}
-            style={styles.imageContainer}
+            style={styles.mediaContainer}
             onPress={
               () => this._onImageClick(image)
             }
           >
             <Image
-              style={styles.image}
+              style={styles.media}
               source={{ uri: image }}
             />
           </TouchableHighlight>,
@@ -62,6 +63,14 @@ export default class TourRecord extends Component {
             <Text style={styles.link}>{link}</Text>
           </TouchableHighlight>,
         );
+        const video = this.state.record.video ?
+            (<View style={styles.mediaContainer}>
+              <WebView
+                source={{ uri: this.state.record.video }}
+                style={styles.media}
+              />
+            </View>)
+        : undefined;
 
         return (
           <Modal
@@ -99,6 +108,7 @@ export default class TourRecord extends Component {
             </View>
             <ScrollView style={styles.body}>
               <ScrollView style={styles.images} horizontal >
+                {video}
                 {images}
               </ScrollView>
               <View style={styles.details}>
