@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { Image,
          Linking,
          Modal,
-         Text,
          ScrollView,
+         Text,
          TouchableHighlight,
-         View } from 'react-native';
+         View,
+         WebView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ImageViewer from './ImageViewer';
 
 const styles = require('./styles/TourRecord');
 
@@ -34,17 +36,24 @@ export default class TourRecord extends Component {
         this.setState({ visible: false });
     }
 
+    _onImageClick(image) {
+        this.modal.show(image);
+    }
+
     render() {
         const images = this.state.record.images.map(image =>
-          <View
+          <TouchableHighlight
             key={image}
-            style={styles.imageContainer}
+            style={styles.mediaContainer}
+            onPress={
+              () => this._onImageClick(image)
+            }
           >
             <Image
-              style={styles.image}
+              style={styles.media}
               source={{ uri: image }}
             />
-          </View>,
+          </TouchableHighlight>,
         );
         const links = this.state.record.additionalLinks.map(link =>
           <TouchableHighlight
@@ -54,6 +63,14 @@ export default class TourRecord extends Component {
             <Text style={styles.link}>{link}</Text>
           </TouchableHighlight>,
         );
+        const video = this.state.record.video ?
+            (<View style={styles.mediaContainer}>
+              <WebView
+                source={{ uri: this.state.record.video }}
+                style={styles.media}
+              />
+            </View>)
+        : undefined;
 
         return (
           <Modal
@@ -62,6 +79,9 @@ export default class TourRecord extends Component {
             visible={this.state.visible}
             onRequestClose={() => { }}
           >
+            <ImageViewer
+              ref={(c) => { this.modal = c; }}
+            />
             <View>
               <View
                 style={
@@ -88,6 +108,7 @@ export default class TourRecord extends Component {
             </View>
             <ScrollView style={styles.body}>
               <ScrollView style={styles.images} horizontal >
+                {video}
                 {images}
               </ScrollView>
               <View style={styles.details}>

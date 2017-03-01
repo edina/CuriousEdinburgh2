@@ -29,10 +29,20 @@ export default class Utils {
         }
         return result;
     }
+  
     static isIos() {
         return Platform.OS === 'ios';
     }
     static isAndroid() {
         return Platform.OS === 'android';
+    }
+
+    /**
+     * Convert youtube page URL to a playable embedded URL.
+     * @param Youtube page URL.
+     * @return Converted youtube embedded URL.
+     */
+    static getEmbeddedYTURL(url) {
+        return url.replace('watch?v=', 'embed/');
     }
 }
