@@ -136,6 +136,7 @@ export default class TourMap extends Component {
             <MapView
               ref={(ref) => { this.mapRef = ref; }}
               style={styles.map}
+              showsMyLocationButton={false}
               showsUserLocation
             >
               {listMarkers}
