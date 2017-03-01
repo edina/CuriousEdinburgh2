@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Modal } from 'react-native';
 import PhotoView from 'react-native-photo-view';
 
-export default class CEImageViewer extends Component {
+export default class ImageViewer extends Component {
 
     constructor(props) {
         super(props);
