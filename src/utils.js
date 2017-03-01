@@ -1,3 +1,5 @@
+import { Platform } from 'react-native';
+
 export default class Utils {
     static getURLsFromHTMLImage(html) {
         const regex = /<img[^>]*(?:\bsrc\b\s*=)[^"]*"([^"]*)"[^>]*>/g;
@@ -26,6 +28,13 @@ export default class Utils {
             result.push(matches[1]);
         }
         return result;
+    }
+  
+    static isIos() {
+        return Platform.OS === 'ios';
+    }
+    static isAndroid() {
+        return Platform.OS === 'android';
     }
 
     /**

@@ -50,7 +50,7 @@ export default class CuriousEdinburgh extends Component {
                         slug: category.slug }));
             this.setState({ tours });
             Preference.getTourId().then(tourId => this.changeSelectedTour(tourId));
-            if (Platform.OS === 'android') {
+            if (Utils.isAndroid()) {
                 SplashScreen.hide();
             }
         });

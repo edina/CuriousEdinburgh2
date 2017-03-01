@@ -5,6 +5,7 @@ import Tour from '../../models/Tour';
 import TourPlaceCallout from './TourPlaceCallout';
 import TourRecord from '../TourRecord';
 import Geolocation from '../../services/Geolocation';
+import Utils from '../../utils';
 
 const styles = StyleSheet.create({
     map: {
@@ -38,6 +39,7 @@ export default class TourMap extends Component {
     constructor(props) {
         super(props);
         this.mapRef = null;
+        this.markersRef = [];
         this.modal = null;
         this.geolocation = new Geolocation();
         this.onMarkerPress = this.onMarkerPress.bind(this);
@@ -109,12 +111,15 @@ export default class TourMap extends Component {
         this.setState({ showRouting: !this.state.showRouting });
     }
     render() {
+        this.markersRef = [];
         const listMarkers = this.props.tour.tourPlaces.map(tourPlace =>
           <MapView.Marker
+            ref={(ref) => { this.markersRef[tourPlace.id] = ref; }}
             key={tourPlace.id}
             identifier={tourPlace.id}
             coordinate={{ latitude: tourPlace.location.latitude,
                 longitude: tourPlace.location.longitude }}
+            onPress={() => { if (Utils.isIos) { this.markersRef[tourPlace.id].showCallout(); } }}
             onCalloutPress={() => { this.onMarkerPress(tourPlace); }}
           >
             <Text style={styles.marker}>{tourPlace.stop}</Text>
