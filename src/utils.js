@@ -27,4 +27,13 @@ export default class Utils {
         }
         return result;
     }
+
+    /**
+     * Convert youtube page URL to a playable embedded URL.
+     * @param Youtube page URL.
+     * @return Converted youtube embedded URL.
+     */
+    static getEmbeddedYTURL(url) {
+        return url.replace('watch?v=', 'embed/');
+    }
 }

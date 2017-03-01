@@ -1,9 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 module.exports = StyleSheet.create({
-    page: {
-
-    },
     header: {
         flexDirection: 'row',
         height: 60,
@@ -25,21 +22,17 @@ module.exports = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
     },
-    right: {
-        // flex: 1,
-    },
     images: {
         flexDirection: 'row',
         padding: 20,
     },
-    imageContainer: {
+    mediaContainer: {
         paddingRight: 10,
     },
-    image: {
+    media: {
         width: 200,
         height: 200,
         borderRadius: 10,
-        paddingRight: 10,
     },
     details: {
         borderWidth: 10,

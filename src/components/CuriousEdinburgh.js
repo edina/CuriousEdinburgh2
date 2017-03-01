@@ -81,6 +81,7 @@ export default class CuriousEdinburgh extends Component {
                             Utils.getURLsFromPipeString(post.custom_fields.additional_links),
                             stop:
                             Utils.getTourStopFromSlug(tour.slug, post.custom_fields.tour_stops),
+                            video: Utils.getEmbeddedYTURL(post.custom_fields.video_link),
                         }));
                     tourPlaces.sort((a, b) => a.stop - b.stop); // sort places by tour stop
                     tour = Object.assign(new Tour(), tour,
