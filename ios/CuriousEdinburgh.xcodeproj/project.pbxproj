@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -38,6 +37,8 @@
 		D114A44F273B4A9D846301CE /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01B8F4249AC04FE7880218F5 /* FontAwesome.ttf */; };
 		D6976BF716374DA2B4485AE5 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EFA1F1F1FA8F40A1AFA88944 /* Ionicons.ttf */; };
 		F5F99727146744ADBE19F0BE /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA6E8E68D07F46C78A275818 /* Zocial.ttf */; };
+		E32071EA1A8A43E9B5948B4A /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66E7366C6FA641BEBF9787CB /* libSplashScreen.a */; };
+		FE1DC7996E65458C8747093B /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 62796429954C4CA997FA68C8 /* libRCTVideo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -278,6 +279,10 @@
 		EE93C8A231194F0AA0AF9EA0 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		EFA1F1F1FA8F40A1AFA88944 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		FA6E8E68D07F46C78A275818 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		D17FC3E3017B4CB4B2FD045A /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; name = "SplashScreen.xcodeproj"; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		66E7366C6FA641BEBF9787CB /* libSplashScreen.a */ = {isa = PBXFileReference; name = "libSplashScreen.a"; path = "libSplashScreen.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		90F121BD26564106A3CA577E /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; name = "RCTVideo.xcodeproj"; path = "../node_modules/react-native-video/ios/RCTVideo.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		62796429954C4CA997FA68C8 /* libRCTVideo.a */ = {isa = PBXFileReference; name = "libRCTVideo.a"; path = "libRCTVideo.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,6 +311,8 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				1A499C8B8DD346B595AD2205 /* libAirMaps.a in Frameworks */,
 				1E7805C37D864401988020A1 /* libRNVectorIcons.a in Frameworks */,
+				E32071EA1A8A43E9B5948B4A /* libSplashScreen.a in Frameworks */,
+				FE1DC7996E65458C8747093B /* libRCTVideo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,6 +476,8 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				5B32539A62BB47639567EF77 /* AirMaps.xcodeproj */,
 				038BA8BD809243C1A2989082 /* RNVectorIcons.xcodeproj */,
+				D17FC3E3017B4CB4B2FD045A /* SplashScreen.xcodeproj */,
+				90F121BD26564106A3CA577E /* RCTVideo.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -945,6 +954,8 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CuriousEdinburgh.app/CuriousEdinburgh";
@@ -961,6 +972,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
