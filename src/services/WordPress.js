@@ -48,7 +48,6 @@ export default class WordPress {
     static getTourPlaces(tour) {
         // TODO: Validate tour is instanceof Tour
         const p1 = new Promise((resolve, reject) => {
-            console.log(constants.POSTS_BY_CATEGORY + tour.id);
             fetch(constants.POSTS_BY_CATEGORY + tour.id, {
                 method: 'GET',
                 headers: {
