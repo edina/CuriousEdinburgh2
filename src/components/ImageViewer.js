@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Modal } from 'react-native';
+import { Modal, Dimensions } from 'react-native';
 import PhotoView from 'react-native-photo-view';
 
-export default class CEImageViewer extends Component {
+export default class ImageViewer extends Component {
 
     constructor(props) {
         super(props);
@@ -36,7 +36,8 @@ export default class CEImageViewer extends Component {
               minimumZoomScale={0.5}
               maximumZoomScale={3}
               onTap={() => { this.hide(); }}
-              style={{ flex: 1, alignSelf: 'stretch' }}
+              resizeMode="contain"
+              style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height }}
             />
           </Modal>
         );
