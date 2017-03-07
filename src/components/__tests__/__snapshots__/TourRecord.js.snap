@@ -33,6 +33,7 @@ exports[`test renders correctly 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         onTap={[Function]}
+        resizeMode="contain"
         source={
           Object {
             "uri": undefined,
@@ -40,8 +41,8 @@ exports[`test renders correctly 1`] = `
         }
         style={
           Object {
-            "alignSelf": "stretch",
-            "flex": 1,
+            "height": 1334,
+            "width": 750,
           }
         }
         testID={undefined} />
