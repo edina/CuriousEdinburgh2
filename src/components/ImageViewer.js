@@ -36,7 +36,8 @@ export default class ImageViewer extends Component {
               minimumZoomScale={0.5}
               maximumZoomScale={3}
               onTap={() => { this.hide(); }}
-              style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height, resizeMode: 'contain' }}
+              resizeMode="contain"
+              style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height }}
             />
           </Modal>
         );
