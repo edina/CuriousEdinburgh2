@@ -2,7 +2,7 @@ import Fetch from './Fetch';
 import * as constants from '../constants';
 import Location from '../models/Location';
 import Direction from '../models/Direction';
-/* global fetch:false*/
+
 export default class MapBox {
     /*
       @locationStart represents a Location object
