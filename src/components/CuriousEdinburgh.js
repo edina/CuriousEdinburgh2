@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import SplashScreen from 'react-native-splash-screen';
 
+import Utils from '../utils';
 // Services
 import WordPress from '../services/WordPress';
 import MapBox from '../services/MapBox';
 // Models
 import Tour from '../models/Tour';
-import TourPlace from '../models/TourPlace';
-import Location from '../models/Location';
 import Preference from '../models/Preference';
-
-// Utils
-import Utils from '../utils';
-
 // Components
 import Header from './Header';
 import TourMap from './TourMap/index';
@@ -31,77 +26,65 @@ const styles = StyleSheet.create({
     },
 });
 
-const Entities = require('html-entities').XmlEntities;
-
 export default class CuriousEdinburgh extends Component {
     constructor() {
         super();
-        this.entities = new Entities();
         this.state = { tours: [], selectedTour: null };
         this.changeSelectedTour = this.changeSelectedTour.bind(this);
     }
     componentDidMount() {
-        WordPress.getCategories().then((categories) => {
-            const tours = categories.map(
-                category =>
-                    new Tour({ id: category.id.toString(),
-                        name: category.name,
-                        description: category.description,
-                        slug: category.slug }));
-            this.setState({ tours });
-            Preference.getTourId().then(tourId => this.changeSelectedTour(tourId));
-            if (Utils.isAndroid()) {
-                SplashScreen.hide();
-            }
-        });
+        WordPress.getTours()
+            .then((tours) => {
+                this.setState({ tours });
+                if (Utils.isAndroid()) {
+                    SplashScreen.hide();
+                }
+            }, (error) => {
+                if (Utils.isAndroid()) {
+                    SplashScreen.hide();
+                }
+                Alert.alert('WordPress tours', error.statusText);
+            });
     }
     componentWillUpdate(nextProps, nextState) {
         if (this.state.selectedTour !== nextState.selectedTour) {
             Preference.setTourId(nextState.selectedTour.id);
         }
     }
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.selectedTour === null) {
+            Preference.getTourId().then(tourId => this.changeSelectedTour(tourId));
+        }
+        // changeSelectedTour needs adequate testing
+    }
     changeSelectedTour(tourId) {
-        let tour = this.state.tours.find(element => element.id === tourId);
-        if (tour !== undefined) {
+        const tour = this.state.tours.find(e => e.id === tourId);
+        if (tour) {
             if (tour.tourPlaces.length > 0) {
                 this.setState({ selectedTour: tour });
             } else {
-                WordPress.getPostsFromCategory(tourId).then((posts) => {
-                    const tourPlaces = posts.map(post =>
-                        new TourPlace({
-                            id: post.id.toString(),
-                            title: post.custom_fields.OSM_Marker_01_Name,
-                            description: this.entities.decode(post.custom_fields.main_text),
-                            images: Utils.getURLsFromHTMLImage(post.content.rendered),
-                            location: new Location({
-                                latitude: parseFloat(post.custom_fields.latitude),
-                                longitude: parseFloat(post.custom_fields.longitude) }),
-                            streetAddress: post.custom_fields.street_address,
-                            additionalLinks:
-                            Utils.getURLsFromPipeString(post.custom_fields.additional_links),
-                            stop:
-                            Utils.getTourStopFromSlug(tour.slug, post.custom_fields.tour_stops),
-                            video: Utils.getEmbeddedYTURL(post.custom_fields.video_link),
-                        }));
-                    tourPlaces.sort((a, b) => a.stop - b.stop); // sort places by tour stop
-                    tour = Object.assign(new Tour(), tour,
-                                { tourPlaces });
-                    const tourIndex = this.state.tours
-                                .findIndex(element => element.id === tourId);
-                    this.setState({ tours: this.state.tours.slice(0, tourIndex)
-                        .concat([tour])
-                        .concat(this.state.tours.slice(tourIndex + 1)),
-                        selectedTour: tour });
-                    MapBox.getDirections(tourPlaces.map(value => value.location))
-                        .then((data) => {
-                            tour = Object.assign(new Tour(), tour,
-                                { directions: data });
-                            this.setState({ tours:
-                                this.state.tours.slice(0, tourIndex)
-                                .concat([tour])
-                                .concat(this.state.tours.slice(tourIndex + 1)),
-                                selectedTour: tour });
-                        }, error => console.log(error));
+                WordPress.getTourPlaces(tour).then((tourPlaces) => {
+                    const locations = tourPlaces.map(value => value.location);
+                    const index = this.state.tours.findIndex(e => e.id === tourId);
+                    MapBox.getDirections(locations)
+                        .then((directions) => {
+                            const newTour = Object.assign(
+                                new Tour(), tour, { tourPlaces, directions });
+                            const newTours = this.state.tours.slice(0, index)
+                                .concat([newTour])
+                                .concat(this.state.tours.slice(index + 1));
+                            this.setState({ tours: newTours, selectedTour: newTour });
+                        }, (error) => {
+                            const newTour = Object.assign(
+                                new Tour(), tour, { tourPlaces });
+                            const newTours = this.state.tours.slice(0, index)
+                                .concat([newTour])
+                                .concat(this.state.tours.slice(index + 1));
+                            this.setState({ tours: newTours, selectedTour: newTour });
+                            Alert.alert('Mapbox directions', error.statusText);
+                        });
+                }, (error) => {
+                    Alert.alert('WordPress tour places', error.statusText);
                 });
             }
         }

@@ -1,7 +1,8 @@
+import Fetch from './Fetch';
 import * as constants from '../constants';
 import Location from '../models/Location';
 import Direction from '../models/Direction';
-/* global fetch:false*/
+
 export default class MapBox {
     /*
       @locationStart represents a Location object
@@ -10,33 +11,14 @@ export default class MapBox {
       A rejected promise returns an object (e.g { status: String, statusText: String}).
     */
     static getDirection(locationStart, locationEnd) {
-        const p1 = new Promise((resolve, reject) => {
-            let URL = null;
-            try {
-                URL = constants.MAPBOX_URL_DIRECTIONS(locationStart, locationEnd);
-            } catch (e) {
-                reject({ statusText: e.message });
-            }
-            if (URL !== null) {
-                fetch(URL, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json; charset=utf-8',
-                    },
-                }).then((onFullfilled) => {
-                    if (onFullfilled.ok) {
-                        resolve(onFullfilled.json());
-                    } else {
-                        reject({ status: onFullfilled.status,
-                            statusText: onFullfilled.statusText });
-                    }
-                }, (onRejected) => {
-                    reject({ statusText: onRejected });
-                });
-            }
-        });
-        const p2 = new Promise((resolve, reject) => {
-            p1.then((data) => {
+        let URL = null;
+        try {
+            URL = constants.MAPBOX_URL_DIRECTIONS(locationStart, locationEnd);
+        } catch (e) {
+            return Promise.reject({ statusText: e.message });
+        }
+        return new Promise((resolve, reject) => {
+            Fetch.get(URL).then((data) => {
                 if (Array.isArray(data.routes)
                   && data.routes[0]
                   && data.routes[0].geometry
@@ -53,7 +35,6 @@ export default class MapBox {
                 reject(onRejected);
             });
         });
-        return p2;
     }
     /*
       This method is intended to obtain an Array of Direction objects given an Array of
@@ -69,7 +50,7 @@ export default class MapBox {
         } else if (locations.length < 2) {
             return Promise.resolve([]);
         }
-        const p1 = new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             const promisesCreated = locations.length - 1;
             let completed = 0;
             const directions = [];
@@ -92,6 +73,5 @@ export default class MapBox {
                 }
             });
         });
-        return p1;
     }
 }
