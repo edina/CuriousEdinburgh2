@@ -4,9 +4,8 @@ import { Image,
          Text,
          TouchableHighlight,
          View } from 'react-native';
-import TourRecord from '../components/TourRecord';
-
-const styles = require('./styles/TourPlaceList');
+import TourRecord from 'components/TourRecord';
+import * as styles from 'components/styles/TourPlaceList';
 
 export default class TourPlaceList extends Component {
     constructor(props) {
