@@ -8,9 +8,8 @@ import { Image,
          View,
          WebView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import ImageViewer from './ImageViewer';
-
-const styles = require('./styles/TourRecord');
+import ImageViewer from 'components/ImageViewer';
+import * as styles from 'components/styles/TourRecord';
 
 export default class TourRecord extends Component {
     constructor(props) {

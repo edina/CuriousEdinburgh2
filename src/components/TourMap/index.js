@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, TouchableHighlight, Alert } from 'react-native';
 import MapView from 'react-native-maps';
-import Tour from '../../models/Tour';
-import TourPlaceCallout from './TourPlaceCallout';
-import TourRecord from '../TourRecord';
-import Geolocation from '../../services/Geolocation';
-import Utils from '../../utils';
+import Tour from 'models/Tour';
+import TourPlaceCallout from 'components/TourMap/TourPlaceCallout';
+import TourRecord from 'components/TourRecord';
+import Geolocation from 'services/Geolocation';
+import Utils from 'utils';
 
 const styles = StyleSheet.create({
     map: {
@@ -30,10 +30,10 @@ const styles = StyleSheet.create({
     },
 });
 
-const locationOff = require('../../assets/location_off.png');
-const locationOn = require('../../assets/location_on.png');
-const routingOff = require('../../assets/routing_off.png');
-const routingOn = require('../../assets/routing_on.png');
+const locationOff = require('assets/location_off.png');
+const locationOn = require('assets/location_on.png');
+const routingOff = require('assets/routing_off.png');
+const routingOn = require('assets/routing_on.png');
 
 export default class TourMap extends Component {
     constructor(props) {

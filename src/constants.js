@@ -1,4 +1,4 @@
-import Location from './models/Location';
+import Location from 'models/Location';
 
 /* http://v2.wp-api.org/ documentation API for WordPress */
 export const URL = 'http://curiousedinburgh.org';
@@ -19,4 +19,3 @@ export function MAPBOX_URL_DIRECTIONS(locationStart, locationEnd) {
     const coordinates = `${locationStart.longitude},${locationStart.latitude};${locationEnd.longitude},${locationEnd.latitude}`;
     return `https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}?access_token=${MAPBOX_ACCESS_TOKEN}&geometries=geojson`;
 }
-
