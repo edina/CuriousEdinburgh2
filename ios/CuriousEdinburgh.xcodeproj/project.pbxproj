@@ -33,7 +33,7 @@
 		9E3372C21E2507A4002D1528 /* AirMaps in Resources */ = {isa = PBXBuildFile; fileRef = 9E3372C11E2507A4002D1528 /* AirMaps */; };
 		9E3372C41E2507AE002D1528 /* AirGoogleMaps in Resources */ = {isa = PBXBuildFile; fileRef = 9E3372C31E2507AE002D1528 /* AirGoogleMaps */; };
 		9E7250621E799B440095DF9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E7250611E799B440095DF9F /* LaunchScreen.storyboard */; };
-		9E7250661E799F970095DF9F /* logo.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 9E7250651E799F970095DF9F /* logo.tiff */; };
+		9E921BC61E79A4990049C87D /* logo.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 9E921BC51E79A4990049C87D /* logo.tiff */; };
 		BB567DFAB0214BCE9FB3FCB7 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74C8F422C48A4FECAFD4C3BD /* Foundation.ttf */; };
 		CDE890D053F843298B26CF25 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE93C8A231194F0AA0AF9EA0 /* Entypo.ttf */; };
 		D114A44F273B4A9D846301CE /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01B8F4249AC04FE7880218F5 /* FontAwesome.ttf */; };
@@ -294,7 +294,7 @@
 		9E3372C11E2507A4002D1528 /* AirMaps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AirMaps; path = "../node_modules/react-native-maps/ios/AirMaps"; sourceTree = "<group>"; };
 		9E3372C31E2507AE002D1528 /* AirGoogleMaps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AirGoogleMaps; path = "../node_modules/react-native-maps/ios/AirGoogleMaps"; sourceTree = "<group>"; };
 		9E7250611E799B440095DF9F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = CuriousEdinburgh/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9E7250651E799F970095DF9F /* logo.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = logo.tiff; path = ../../../Downloads/logo.tiff; sourceTree = "<group>"; };
+		9E921BC51E79A4990049C87D /* logo.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = logo.tiff; path = ../src/assets/logo.tiff; sourceTree = "<group>"; };
 		AD8F797E205C48EA87AC5A67 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		D17FC3E3017B4CB4B2FD045A /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		EE93C8A231194F0AA0AF9EA0 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
@@ -416,11 +416,11 @@
 		13B07FAE1A68108700A75B9A /* CuriousEdinburgh */ = {
 			isa = PBXGroup;
 			children = (
+				9E921BC51E79A4990049C87D /* logo.tiff */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
-				9E7250651E799F970095DF9F /* logo.tiff */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				9E7250611E799B440095DF9F /* LaunchScreen.storyboard */,
@@ -922,7 +922,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				9E7250621E799B440095DF9F /* LaunchScreen.storyboard in Resources */,
 				9E3372C41E2507AE002D1528 /* AirGoogleMaps in Resources */,
-				9E7250661E799F970095DF9F /* logo.tiff in Resources */,
+				9E921BC61E79A4990049C87D /* logo.tiff in Resources */,
 				CDE890D053F843298B26CF25 /* Entypo.ttf in Resources */,
 				7D11F61DB91041879D0423EC /* EvilIcons.ttf in Resources */,
 				D114A44F273B4A9D846301CE /* FontAwesome.ttf in Resources */,
