@@ -36,13 +36,9 @@ export default class CuriousEdinburgh extends Component {
         WordPress.getTours()
             .then((tours) => {
                 this.setState({ tours });
-                if (Utils.isAndroid()) {
-                    SplashScreen.hide();
-                }
+                SplashScreen.hide();
             }, (error) => {
-                if (Utils.isAndroid()) {
-                    SplashScreen.hide();
-                }
+                SplashScreen.hide();
                 Alert.alert('WordPress tours', error.statusText);
             });
     }
