@@ -9,7 +9,7 @@ export const MAX_NUM_POSTS = '100';
 export const CATEGORIES = `${WP_JSON}/categories?per_page=${MAX_NUM_CATEGORIES}`;
 export const POSTS_BY_CATEGORY = `${WP_JSON}/posts?per_page=${MAX_NUM_POSTS}&categories=`;
 export const DEFAULT_TOUR_ID = '4'; // History of Science
-export const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoiam9sbG9wcmUiLCJhIjoiY2l6ZWE0YnVmMDA3MzMycGVkZjlkN3E3ayJ9.VZ0Ih1aDaRKlUTPBtkfPng';
+export const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiZWRpbmFjZSIsImEiOiJjajBod2ozbGgwMDF5MnFvNG1qcTFwZjJnIn0.jnnSSLUsSIksWEyK5kQTzg';
 export function MAPBOX_URL_DIRECTIONS(locationStart, locationEnd) {
     if (!(locationStart instanceof Location)) {
         throw new TypeError('Location object is expected for locationStart');
