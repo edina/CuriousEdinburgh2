@@ -3,7 +3,6 @@ import { View, StyleSheet, Alert } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import SplashScreen from 'react-native-splash-screen';
 
-import Utils from 'utils';
 // Services
 import WordPress from 'services/WordPress';
 import MapBox from 'services/MapBox';
