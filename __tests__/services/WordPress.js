@@ -20,8 +20,8 @@ describe('WordPress getTours() suite', () => {
             ),
         ),
     );
-    test('There are 3 tours', () =>
-        toursPromise.then(data => expect(data).toHaveLength(3)),
+    test('There are more than zero tours', () =>
+        toursPromise.then(data => expect(data.length).toBeGreaterThan(0)),
     );
 });
 
