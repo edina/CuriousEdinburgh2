@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
     container: {
-        flex: 0.08,
+        flex: 0.09,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -23,8 +23,7 @@ const styles = StyleSheet.create({
         color: '#ffffff',
     },
     logo: {
-        // top: 2,
-        padding: 4,
+        paddingRight: 4,
     },
     modal: {
         flex: 1,
