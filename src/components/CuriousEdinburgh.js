@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     body: {
-        flex: 0.92,
+        flex: 0.91,
     },
 });
 
