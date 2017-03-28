@@ -41,6 +41,12 @@ export default class About extends Component {
                     description: 'Some of the most important figures in the history of physics have called Edinburgh their home, from John Napier in the 16th century to Peter Higgs in the 21st. This tour will guide you through the fascinating stories of their lives and work.',
                     image: 'http://curiousedinburgh.org/wp-content/uploads/2016/07/royal-obs-150x150.jpg',
                 },
+                {
+                    id: '2',
+                    title: 'History of Medicine',
+                    description: 'Edinburgh is well known for its role in the history of medicine, with many notable figures having trained in the city. In this tour you will find out about some of the most important and intriguing of these people and their work.',
+                    image: 'http://curiousedinburgh.org/wp-content/uploads/2017/02/ultrasound-150x150.jpg',
+                },
             ]),
         };
     }
