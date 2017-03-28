@@ -20,8 +20,6 @@ module.exports = StyleSheet.create({
         fontSize: 18,
         paddingTop: 10,
     },
-    tours: {
-    },
     tour: {
         flexDirection: 'row',
         padding: 10,
@@ -31,6 +29,7 @@ module.exports = StyleSheet.create({
         width: 150,
     },
     tourDetails: {
+        flex: 1,
         paddingLeft: 10,
     },
     tourTitle: {

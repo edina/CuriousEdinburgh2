@@ -19,7 +19,7 @@ export default class TourList extends Component {
           <Picker
             selectedValue={this.state.tourId}
             onValueChange={this.onValueChange}
-            style={{ width: 300 }}
+            style={{ width: 320 }}
           >
             {pickerList}
           </Picker>
