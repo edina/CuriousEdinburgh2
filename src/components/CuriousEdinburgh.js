@@ -16,6 +16,8 @@ import TourPlaceList from 'components/TourPlaceList';
 import TourList from 'components/TourList';
 import About from 'components/About';
 
+import Utils from 'utils';
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -56,7 +58,15 @@ export default class CuriousEdinburgh extends Component {
         const tour = this.state.tours.find(e => e.id === tourId);
         if (tour) {
             if (tour.tourPlaces.length > 0) {
-                this.setState({ selectedTour: tour });
+                if (Utils.isAndroid()) {
+                    // temporary workaround for
+                    // https://github.com/edina/CuriousEdinburgh2/issues/75
+                    setTimeout(() => {
+                        this.setState({ selectedTour: tour });
+                    }, 100);
+                } else {
+                    this.setState({ selectedTour: tour });
+                }
             } else {
                 WordPress.getTourPlaces(tour).then((tourPlaces) => {
                     const locations = tourPlaces.map(value => value.location);
