@@ -111,7 +111,6 @@ export default class TourMap extends Component {
         this.setState({ showRouting: !this.state.showRouting });
     }
     render() {
-        console.log('TourMap.render() with props: %o', this.props);
         this.markersRef = [];
         const listMarkers = this.props.tour.tourPlaces.map(tourPlace =>
           <MapView.Marker
