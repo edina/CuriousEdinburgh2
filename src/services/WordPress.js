@@ -4,6 +4,7 @@ import TourPlace from '../models/TourPlace';
 import Location from '../models/Location';
 import * as constants from '../constants';
 import Utils from '../utils';
+import PromiseErrorHandler from '../models/PromiseErrorHandler';
 
 const Entities = require('html-entities').XmlEntities;
 /* global fetch:false*/
@@ -20,7 +21,8 @@ export default class WordPress {
                             slug: value.slug }));
                     resolve(tours);
                 } else {
-                    reject({ statusText: 'An array is expected for the data retrieved' });
+                    reject(new PromiseErrorHandler({ statusText: 'An array is expected for the data retrieved',
+                        URL: constants.CATEGORIES }));
                 }
                 resolve(data);
             }, (onRejected) => {
@@ -66,7 +68,7 @@ export default class WordPress {
                     // when stop are not string (e.g null if regex failed)
                     resolve(tourPlaces);
                 } else {
-                    reject({ statusText: 'An array is expected for the data retrieved' });
+                    reject(new PromiseErrorHandler({ statusText: 'An array is expected for the data retrieved', URL: constants.POSTS_BY_CATEGORY + tour.id }));
                 }
             }, (onRejected) => {
                 reject(onRejected);

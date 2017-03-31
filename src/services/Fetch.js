@@ -1,3 +1,4 @@
+import PromiseErrorHandler from '../models/PromiseErrorHandler';
 /* global fetch:false*/
 export default class Fetch {
     static get(URL) {
@@ -13,14 +14,17 @@ export default class Fetch {
                     if (onFullfilled.ok) {
                         resolve(onFullfilled.json());
                     } else {
-                        reject({ status: onFullfilled.status,
-                            statusText: onFullfilled.statusText });
+                        reject(new PromiseErrorHandler({ status: onFullfilled.status,
+                            statusText: onFullfilled.statusText,
+                            URL }));
                     }
                 }, (onRejected) => {
-                    reject({ statusText: onRejected.statusText });
+                    reject(new PromiseErrorHandler({ status: onRejected.status,
+                        statusText: onRejected.statusText,
+                        URL }));
                 });
             });
         }
-        return Promise.reject({ statusText: 'A string is expected for URL parameter' });
+        return Promise.reject(new PromiseErrorHandler({ statusText: 'A string is expected for URL parameter', URL }));
     }
 }

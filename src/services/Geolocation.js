@@ -1,4 +1,5 @@
 import Location from '../models/Location';
+import PromiseErrorHandler from '../models/PromiseErrorHandler';
 /* global navigator:false*/
 export default class Geolocation {
     constructor() {
@@ -17,16 +18,16 @@ export default class Geolocation {
                                 { latitude: position.coords.latitude,
                                     longitude: position.coords.longitude }));
                         }
-                        reject({ statusText: 'position.coords is undefined' });
+                        reject(new PromiseErrorHandler({ statusText: 'position.coords is undefined' }));
                     },
                     (error) => {
-                        reject({ statusText: error.message });
+                        reject(new PromiseErrorHandler({ statusText: error.message }));
                     }, // ReadMore about PositionOptions at https://developer.mozilla.org/en-US/docs/Web/API/PositionOptions
                     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
                 );
             });
         }
-        return Promise.reject({ statusText: 'watchPosition has been already registered. Call clearWatch to unregister first' });
+        return Promise.reject(new PromiseErrorHandler({ statusText: 'watchPosition has been already registered. Call clearWatch to unregister first' }));
     }
     clearWatch() {
         if (this.id !== null) {
@@ -46,10 +47,10 @@ export default class Geolocation {
                             { latitude: position.coords.latitude,
                                 longitude: position.coords.longitude }));
                     }
-                    reject({ statusText: 'position.coords is undefined' });
+                    reject(new PromiseErrorHandler({ statusText: 'position.coords is undefined' }));
                 },
                 (error) => {
-                    reject({ statusText: error.message });
+                    reject(new PromiseErrorHandler({ statusText: error.message }));
                 }, // ReadMore about PositionOptions at https://developer.mozilla.org/en-US/docs/Web/API/PositionOptions
                 { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
             );

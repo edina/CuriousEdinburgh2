@@ -2,6 +2,7 @@ import Fetch from './Fetch';
 import * as constants from '../constants';
 import Location from '../models/Location';
 import Direction from '../models/Direction';
+import PromiseErrorHandler from '../models/PromiseErrorHandler';
 
 export default class MapBox {
     /*
@@ -15,7 +16,7 @@ export default class MapBox {
         try {
             URL = constants.MAPBOX_URL_DIRECTIONS(locationStart, locationEnd);
         } catch (e) {
-            return Promise.reject({ statusText: e.message });
+            return Promise.reject(new PromiseErrorHandler({ statusText: e.message }));
         }
         return new Promise((resolve, reject) => {
             Fetch.get(URL).then((data) => {
@@ -29,7 +30,7 @@ export default class MapBox {
                           longitude: parseFloat(value[0]) }));
                     resolve(new Direction({ coordinates }));
                 } else {
-                    reject({ statusText: 'geometry coordinates is not an Array property' });
+                    reject(new PromiseErrorHandler({ statusText: 'geometry coordinates is not an Array property', URL }));
                 }
             }, (onRejected) => {
                 reject(onRejected);
@@ -46,7 +47,7 @@ export default class MapBox {
     */
     static getDirections(locations) {
         if (!Array.isArray(locations)) {
-            return Promise.reject({ statusText: 'An array of locations is expected' });
+            return Promise.reject(new PromiseErrorHandler({ statusText: 'An array of locations is expected' }));
         } else if (locations.length < 2) {
             return Promise.resolve([]);
         }

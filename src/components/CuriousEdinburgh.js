@@ -40,7 +40,7 @@ export default class CuriousEdinburgh extends Component {
                 SplashScreen.hide();
             }, (error) => {
                 SplashScreen.hide();
-                Alert.alert('WordPress tours', error.statusText);
+                Alert.alert('WordPress tours', error.toString());
             });
     }
     componentWillUpdate(nextProps, nextState) {
@@ -85,10 +85,10 @@ export default class CuriousEdinburgh extends Component {
                                 .concat([newTour])
                                 .concat(this.state.tours.slice(index + 1));
                             this.setState({ tours: newTours, selectedTour: newTour });
-                            Alert.alert('Mapbox directions', error.statusText);
+                            Alert.alert('Mapbox directions', error.toString());
                         });
                 }, (error) => {
-                    Alert.alert('WordPress tour places', error.statusText);
+                    Alert.alert('WordPress tour places', error.toString());
                 });
             }
         }
