@@ -44,15 +44,15 @@ export default class CuriousEdinburgh extends Component {
             });
     }
     componentWillUpdate(nextProps, nextState) {
+        console.log('CuriousEdinburgh.componentWillUpdate with nextState: %o', nextState);
         if (this.state.selectedTour !== nextState.selectedTour) {
             Preference.setTourId(nextState.selectedTour.id);
         }
     }
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.selectedTour === null) {
+    componentDidUpdate() {
+        if (this.state.selectedTour === null) {
             Preference.getTourId().then(tourId => this.changeSelectedTour(tourId));
         }
-        // changeSelectedTour needs adequate testing
     }
     changeSelectedTour(tourId) {
         const tour = this.state.tours.find(e => e.id === tourId);
@@ -97,6 +97,7 @@ export default class CuriousEdinburgh extends Component {
     render() {
         const tourPlaces = (this.state.selectedTour !== null ?
             this.state.selectedTour.tourPlaces : []);
+        console.log('CuriousEdinburgh.render() with state: %o', this.state);
         return (
           <View style={styles.container}>
             <Header title={this.state.selectedTour != null ? this.state.selectedTour.name : 'Loading...'}>
