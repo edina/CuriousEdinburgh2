@@ -49,6 +49,7 @@ export default class WordPress {
                             return new TourPlace({
                                 id: value.id ? value.id.toString() : '',
                                 title: customFields.OSM_Marker_01_Name,
+                                url: value.link,
                                 description: entities.decode(customFields.main_text),
                                 // TODO Check value returned from html-entities third party library
                                 images: Utils.getURLsFromHTMLImage(value.content.rendered),

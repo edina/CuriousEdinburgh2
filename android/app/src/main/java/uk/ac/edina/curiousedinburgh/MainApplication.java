@@ -15,6 +15,8 @@ import com.facebook.soloader.SoLoader;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.reactnative.photoview.PhotoViewPackage;
 
+import cl.json.RNSharePackage;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,6 +36,7 @@ public class MainApplication extends Application implements ReactApplication {
                 new VectorIconsPackage(),
                 new MapsPackage(),
                 new PhotoViewPackage(),
+                new RNSharePackage(),
                 new SplashScreenReactPackage());
         }
     };

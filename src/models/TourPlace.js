@@ -4,7 +4,7 @@ export default class TourPlace {
     constructor({ id = '0', title = '', description = '',
         images = [], location = new Location(0, 0),
         streetAddress = '', additionalLinks = [],
-        stop = null, video = '' } = {}) {
+        stop = null, video = '', url = '' } = {}) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -14,6 +14,7 @@ export default class TourPlace {
         this.additionalLinks = additionalLinks;
         this.stop = stop;
         this.video = video;
+        this.url = url;
     }
 
     getShortDescription(n = 250) {

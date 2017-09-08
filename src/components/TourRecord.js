@@ -5,11 +5,13 @@ import { Image,
          ScrollView,
          Text,
          TouchableHighlight,
+         TouchableOpacity,
          View,
          WebView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ImageViewer from 'components/ImageViewer';
 import * as styles from 'components/styles/TourRecord';
+import Share from 'react-native-share';
 
 export default class TourRecord extends Component {
     constructor(props) {
@@ -71,6 +73,13 @@ export default class TourRecord extends Component {
             </View>)
         : undefined;
 
+        const shareOptions = {
+            title: this.state.record.title,
+            message: `Exploring ${this.state.record.title} with @curiousedi.`,
+            url: this.state.record.url,
+            subject: this.state.record.title, //  for email
+        };
+
         return (
           <Modal
             style={styles.page}
@@ -115,6 +124,17 @@ export default class TourRecord extends Component {
                 <Text style={styles.description}>{this.state.record.description}</Text>
                 <Text style={styles.linksTitle}>Associated Links</Text>
                 <View>{links}</View>
+
+                <TouchableOpacity
+                  onPress={() => {
+                      Share.open(shareOptions);
+                  }}
+                >
+                  <View style={styles.share}>
+                    <Text style={styles.shareLink}>Share this Tour Stop</Text>
+                  </View>
+                </TouchableOpacity>
+
               </View>
             </ScrollView>
           </Modal>

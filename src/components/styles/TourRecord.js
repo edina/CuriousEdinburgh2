@@ -60,4 +60,11 @@ module.exports = StyleSheet.create({
         fontWeight: 'bold',
         padding: 10,
     },
+    share: {
+        padding: 10,
+    },
+    shareLink: {
+        fontSize: 20,
+        fontWeight: 'bold',
+    },
 });
