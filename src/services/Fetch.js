@@ -1,5 +1,5 @@
 import PromiseErrorHandler from '../models/PromiseErrorHandler';
-/* global fetch:false*/
+/* global fetch:false */
 export default class Fetch {
     static get(URL) {
         if (typeof URL === 'string') {

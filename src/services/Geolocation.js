@@ -1,6 +1,6 @@
 import Location from '../models/Location';
 import PromiseErrorHandler from '../models/PromiseErrorHandler';
-/* global navigator:false*/
+/* global navigator:false */
 export default class Geolocation {
     constructor() {
         this.id = null;
