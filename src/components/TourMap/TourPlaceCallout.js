@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -37,7 +38,7 @@ export default function TourPlaceCallout(props) {
     );
 }
 TourPlaceCallout.propTypes = {
-    title: React.PropTypes.string.isRequired,
-    description: React.PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
 };
 

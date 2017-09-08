@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Image,
          ListView,
          ScrollView,
@@ -113,8 +114,8 @@ export default class About extends Component {
 }
 
 About.propTypes = {
-    onValueChange: React.PropTypes.func.isRequired,
-    tabView: React.PropTypes.instanceOf(Object),
+    onValueChange: PropTypes.func.isRequired,
+    tabView: PropTypes.instanceOf(Object),
 };
 
 About.defaultProps = {

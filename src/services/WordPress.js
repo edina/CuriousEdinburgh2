@@ -7,7 +7,9 @@ import Utils from '../utils';
 import PromiseErrorHandler from '../models/PromiseErrorHandler';
 
 const Entities = require('html-entities').XmlEntities;
-/* global fetch:false*/
+
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+
 export default class WordPress {
     static getTours() {
         return new Promise((resolve, reject) => {
@@ -43,7 +45,7 @@ export default class WordPress {
                             try {
                                 tourStop = Utils.getTourStopFromSlug(
                                     tour.slug, customFields.tour_stops);
-                            } catch (e) { console.log(e); }
+                            } catch (e) { console.warn(e); }
                             return new TourPlace({
                                 id: value.id ? value.id.toString() : '',
                                 title: customFields.OSM_Marker_01_Name,

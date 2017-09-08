@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Picker } from 'react-native';
 
 export default class TourList extends Component {
@@ -27,7 +28,7 @@ export default class TourList extends Component {
     }
 }
 TourList.propTypes = {
-    tours: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    selectedValue: React.PropTypes.string.isRequired,
-    onValueChange: React.PropTypes.func.isRequired,
+    tours: PropTypes.arrayOf(PropTypes.object).isRequired,
+    selectedValue: PropTypes.string.isRequired,
+    onValueChange: PropTypes.func.isRequired,
 };
