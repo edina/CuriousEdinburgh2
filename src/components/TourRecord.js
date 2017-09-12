@@ -74,10 +74,10 @@ export default class TourRecord extends Component {
         : undefined;
 
         const shareOptions = {
-            title: 'React Native',
-            message: 'Hola mundo',
-            url: 'http://facebook.github.io/react-native/',
-            subject: 'Share Link', //  for email
+            title: this.state.record.title,
+            message: `Exploring ${this.state.record.title} with @curiousedi.`,
+            url: this.state.record.url,
+            subject: this.state.record.title, //  for email
         };
 
         return (
@@ -130,8 +130,8 @@ export default class TourRecord extends Component {
                       Share.open(shareOptions);
                   }}
                 >
-                  <View style={styles.instructions}>
-                    <Text>Simple Share</Text>
+                  <View style={styles.share}>
+                    <Text style={styles.shareLink}>Share this Tour Stop</Text>
                   </View>
                 </TouchableOpacity>
 
