@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Image,
          ListView,
          Text,
@@ -77,5 +78,5 @@ export default class TourPlaceList extends Component {
 }
 
 TourPlaceList.propTypes = {
-    tourPlaces: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+    tourPlaces: PropTypes.arrayOf(PropTypes.object).isRequired,
 };

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet, Text, View, Image, TouchableHighlight, Alert } from 'react-native';
 import MapView from 'react-native-maps';
 import Tour from 'models/Tour';
@@ -172,5 +173,5 @@ TourMap.defaultProps = {
     tour: new Tour(),
 };
 TourMap.propTypes = {
-    tour: React.PropTypes.instanceOf(Tour),
+    tour: PropTypes.instanceOf(Tour),
 };

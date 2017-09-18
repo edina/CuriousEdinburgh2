@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet, View,
          Text, TouchableHighlight,
          Modal, Button,
@@ -84,8 +85,8 @@ export default class Header extends Component {
     }
 }
 Header.propTypes = {
-    title: React.PropTypes.string.isRequired,
-    children: React.PropTypes.element,
+    title: PropTypes.string.isRequired,
+    children: PropTypes.element,
 };
 Header.defaultProps = {
     children: null,
