@@ -56,14 +56,16 @@ export default class TourRecord extends Component {
             />
           </TouchableHighlight>,
         );
+
         const links = this.state.record.additionalLinks.map(link =>
           <TouchableHighlight
-            key={link}
-            onPress={() => Linking.openURL(link)}
+            key={link.url}
+            onPress={() => Linking.openURL(link.url)}
           >
-            <Text style={styles.link}>{link}</Text>
+            <Text style={styles.link}>{link.text}</Text>
           </TouchableHighlight>,
         );
+
         const video = this.state.record.video ?
             (<View style={styles.mediaContainer}>
               <WebView
@@ -122,7 +124,10 @@ export default class TourRecord extends Component {
               <View style={styles.details}>
                 <Text style={styles.address}>{this.state.record.streetAddress}</Text>
                 <Text style={styles.description}>{this.state.record.description}</Text>
-                <Text style={styles.linksTitle}>Associated Links</Text>
+
+                {this.state.record.additionalLinks.length > 0 &&
+                  <Text style={styles.linksTitle}>Associated Links</Text>
+                }
                 <View>{links}</View>
 
                 <TouchableOpacity
