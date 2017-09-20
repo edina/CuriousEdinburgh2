@@ -44,7 +44,9 @@ test('renders correctly', () => {
 
     const tr = <TourRecord ref={(c) => { this.modal = c; }} />;
 
+    /* eslint-disable no-unused-vars */
     const component = renderer.create(tr);
     this.modal.show(record);
+
     // expect(component).toMatchSnapshot();
 });

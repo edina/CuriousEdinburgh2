@@ -122,6 +122,7 @@ export default class CuriousEdinburgh extends Component {
               />
               <About
                 tabLabel="About"
+                tours={this.state.tours}
                 tabView={this.tabView}
                 onValueChange={this.changeSelectedTour}
               />
