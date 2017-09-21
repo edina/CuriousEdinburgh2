@@ -58,7 +58,7 @@ export default class WordPress {
                                     longitude: Utils.toFloat(customFields.longitude) }),
                                 streetAddress: customFields.street_address,
                                 additionalLinks:
-                                    Utils.getURLsFromPipeString(customFields.additional_links),
+                                    Utils.getListOfAnchorsFromHTML(value.content.rendered),
                                 stop: tourStop,
                                 video: Utils.getEmbeddedYTURL(customFields.video_link),
                             });

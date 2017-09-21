@@ -1,5 +1,7 @@
 import { Platform } from 'react-native';
 
+/* eslint-disable no-cond-assign */
+
 export default class Utils {
     static getURLsFromHTMLImage(html) {
         const regex = /<img[^>]*(?:\bsrc\b\s*=)[^"]*"([^"]*)"[^>]*>/g;
@@ -9,14 +11,26 @@ export default class Utils {
             return [];
         }
     }
-    static getURLsFromPipeString(string) {
-        const regex = /(\bhttp\b[^|]*|\bhttps\b[^|]*)/g;
-        try {
-            return Utils.getFirstCapturedMatchForSuccessiveMatches(regex, string);
-        } catch (e) {
-            return [];
+
+    /*
+      Get list of anchors from HTML rendered content
+      @param html HTML text
+      @return Array of objects containing URL and text
+     */
+    static getListOfAnchorsFromHTML(html) {
+        const links = [];
+        let matches = null;
+        const regex = /<li><a.*href="(.+?)".*>(.+)<\/a><\/li>/g;
+        while ((matches = regex.exec(html)) !== null) {
+            links.push({
+                url: matches[1],
+                text: matches[2],
+
+            });
         }
+        return links;
     }
+
     /*
         @param tourSlug represents the category slug (e.g. history_of_science) to match
         @param tourStops represent the custom field containing all the tour stops
@@ -40,7 +54,7 @@ export default class Utils {
         }
         let matches = null;
         const result = [];
-        while ((matches = regex.exec(string)) !== null) { // eslint-disable-line no-cond-assign
+        while ((matches = regex.exec(string)) !== null) {
             result.push(matches[1]);
         }
         return result;
