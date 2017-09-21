@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Image,
+         Linking,
          ListView,
          ScrollView,
          Text,
@@ -22,33 +23,7 @@ export default class About extends Component {
             rowHasChanged: (r1, r2) => r1 !== r2,
         });
         this.state = {
-            // hard code tours until available from API
-            dataSource: ds.cloneWithRows([
-                {
-                    id: '4',
-                    title: 'General Science Tour',
-                    description: 'From Charles Darwin to Higgs’ Boson  this tour will allow you to explore some of the places associated with major scientific and medical discoveries and personalities of the last five centuries, as well as some that are less famous, but deserve to be more widely known.',
-                    image: 'http://curiousedinburgh.org/wp-content/uploads/2016/04/Peter-Higgs-150x150.jpg',
-                },
-                {
-                    id: '21',
-                    title: 'History of Geology',
-                    description: 'Edinburgh has a long association with the science of geology. Perhaps the most famous Edinburgh geologist is James Hutton, whose name will forever be associated with the idea of ‘deep time’. However, Edinburgh was also home to many other colourful characters and events in the history of this ‘sublime science’. You can learn about some of them here.',
-                    image: 'http://curiousedinburgh.org/wp-content/uploads/2016/07/irish-elk-150x150.jpg',
-                },
-                {
-                    id: '25',
-                    title: 'History of Physics',
-                    description: 'Some of the most important figures in the history of physics have called Edinburgh their home, from John Napier in the 16th century to Peter Higgs in the 21st. This tour will guide you through the fascinating stories of their lives and work.',
-                    image: 'http://curiousedinburgh.org/wp-content/uploads/2016/07/royal-obs-150x150.jpg',
-                },
-                {
-                    id: '2',
-                    title: 'History of Medicine',
-                    description: 'Edinburgh is well known for its role in the history of medicine, with many notable figures having trained in the city. In this tour you will find out about some of the most important and intriguing of these people and their work.',
-                    image: 'http://curiousedinburgh.org/wp-content/uploads/2017/02/ultrasound-150x150.jpg',
-                },
-            ]),
+            dataSource: ds.cloneWithRows(this.props.tours),
         };
     }
 
@@ -70,16 +45,15 @@ export default class About extends Component {
                 style={styles.banner}
               />
             </View>
-            <View style={styles.body}>
+            <View style={styles.para}>
               <Text style={styles.title}>What is Curious Edinburgh?</Text>
-              <Text style={styles.text}>Are you interested in the fascinating and important scientific, medical and technological heritage of the city of Edinburgh? The tours on our new website and its accompanying app will be your guide to the history of ideas in the Athens of the North. We have sought out stories from the history of Edinburgh which will inspire, inform and amuse both visitors and residents of the city. We currently have tours available on the general history of science, the history of geology and the history of physics. More tours are currently in development.{'\n\n'}
-                You can visit the places in our tours in an order that suits you, although the numbering suggests an order that would be convenient for a visitor to the city on foot or using public transport. We estimate that to see all the places on each of the tours should take approximately three hours, but you may choose to visit only those which are of special interest to you. You can choose from the lists of places to create your own itinerary based on your interests and the amount of time you have available.{'\n\n'}
-                The map on the tour page will help you find the places and orientate yourself in the city. Most of the stops on our tour are within walking distance from Waverley station and the city centre, although for a some of the more distant ones some visitors may prefer to use Edinburgh’s excellent bus services. If you do decide to take the bus, you might find Lothian Transport’s route planner helpful.{'\n\n'}
-             These tours are currently available on the website and on our app:
+              <Text style={styles.text}>Are you interested in the fascinating and important scientific, medical and technological heritage of the city of Edinburgh? The tours available in this app will be your guide to the history of ideas in the Athens of the North. We have sought out stories from the history of Edinburgh which will inspire, inform and amuse both visitors and residents of the city.{'\n\n'}
+              Tours available in this app include the general history of science, the history of geology, the history of physics, the history of medicine, the history of genetics and biotechnology and the Scottish Enlightenment. You can find out more about each of these tours, and our occasional events, at <Text style={styles.href} onPress={() => Linking.openURL('http://curiousedinburgh.org/')}>curiousedinburgh.org</Text>.
               </Text>
             </View>
 
-            <View syle={styles.tours}>
+            <View style={styles.para}>
+              <Text style={styles.title}>Explore the tours:</Text>
               <ListView
                 dataSource={
                     this.state.dataSource
@@ -91,22 +65,27 @@ export default class About extends Component {
                           () => this._onPressTour(rowData)
                       }
                     >
-                      <View style={styles.tour}>
-                        <Image
-                          style={styles.image}
-                          source={{
-                              uri: rowData.image,
-                          }}
-                        />
-                        <View style={styles.tourDetails}>
-                          <Text style={styles.tourTitle}>{rowData.title}</Text>
-                          <Text style={styles.text}>{rowData.description}</Text>
-                        </View>
-                      </View>
+                      <Text style={styles.tour}>{`\u2022 ${rowData.name}`}</Text>
                     </TouchableHighlight>
                 }
               />
+              <Text style={styles.text}>We have more tours in development and always welcome your feedback and suggestions. Share your experience, photos, reflections on the app and tours with the hashtag: #curiousedinburgh.</Text>
             </View>
+
+            <View style={styles.para}>
+              <Text style={styles.title}>Planning your tour</Text>
+              <Text style={styles.text}>You can visit the places in our tours in an order that suits you, although the numbering suggests an order that would be convenient for a visitor to the city on foot or using public transport. We estimate that to see all the places on each of the tours should take approximately three hours, but you may choose to visit only those which are of special interest to you. You can choose from the lists of places to create your own itinerary based on your interests and the amount of time you have available..{'\n\n'}
+              The map will help you find the places and orientate yourself in the city. Most of the stops on our tour are within walking distance from Waverley station and the city centre, although for some of the more distant ones some visitors may prefer to use Edinburgh’s excellent bus services. If you do decide to take the bus, you might find <Text style={styles.href} onPress={() => Linking.openURL('https://lothianbuses.co.uk/getting-around/journey-planner')}>Lothian Transport’s route planner</Text> helpful.
+              </Text>
+            </View>
+
+            <View style={styles.para}>
+              <Text style={styles.title}>Find out more:</Text>
+              <Text style={styles.text}>To find out more about the team involved, how this project was developed and funded see the <Text style={styles.href} onPress={() => Linking.openURL('http://curiousedinburgh.org/acknowledgements/')}>acknowledgements page</Text> on our website, <Text style={styles.href} onPress={() => Linking.openURL('http://curiousedinburgh.org/')}>curiousedinburgh.org</Text>
+.{'\n\n'}
+              We would particularly love to hear your comments about the tours, the app, and the website. Contact us via our website or share your comments on social media with the tag #curiousedinburgh.</Text>
+            </View>
+
           </ScrollView>
         );
         /* eslint-enable */
@@ -116,6 +95,7 @@ export default class About extends Component {
 About.propTypes = {
     onValueChange: PropTypes.func.isRequired,
     tabView: PropTypes.instanceOf(Object),
+    tours: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 About.defaultProps = {
