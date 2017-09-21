@@ -52,7 +52,7 @@ export default class WordPress {
                                 url: value.link,
                                 description: entities.decode(customFields.main_text),
                                 // TODO Check value returned from html-entities third party library
-                                images: Utils.getURLsFromHTMLImage(value.content.rendered),
+                                images: Utils.getSrcAndAltFromHTMLImage(value.content.rendered),
                                 location: new Location({
                                     latitude: Utils.toFloat(customFields.latitude),
                                     longitude: Utils.toFloat(customFields.longitude) }),
@@ -65,7 +65,7 @@ export default class WordPress {
                         }
                         return new TourPlace({
                             id: value.id ? value.id.toString() : '',
-                            images: Utils.getURLsFromHTMLImage(value.content.rendered) });
+                            images: Utils.getSrcAndAltFromHTMLImage(value.content.rendered) });
                     });
                     tourPlaces.sort((a, b) => a.stop - b.stop); // TODO check sorting places
                     // when stop are not string (e.g null if regex failed)

@@ -44,7 +44,7 @@ export default class TourRecord extends Component {
     render() {
         const images = this.state.record.images.map(image =>
           <TouchableHighlight
-            key={image}
+            key={image.url}
             style={styles.mediaContainer}
             onPress={
               () => this._onImageClick(image)
@@ -52,7 +52,7 @@ export default class TourRecord extends Component {
           >
             <Image
               style={styles.media}
-              source={{ uri: image }}
+              source={{ uri: image.url }}
             />
           </TouchableHighlight>,
         );
