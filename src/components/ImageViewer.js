@@ -40,27 +40,26 @@ export default class ImageViewer extends Component {
               onTap={() => { this.hide(); }}
               resizeMode="contain"
               style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height }}
+            />
+            <ScrollView
+              style={{
+                  position: 'absolute',
+                  height: 60,
+                  left: 0,
+                  top: Dimensions.get('window').height - 60,
+                  width: Dimensions.get('window').width,
+              }}
             >
-              <ScrollView
+              <Text
                 style={{
-                    position: 'absolute',
-                    height: 60,
-                    left: 0,
-                    top: Dimensions.get('window').height - 60,
-                    width: Dimensions.get('window').width,
-                }}
+                    backgroundColor: '#098caa',
+                    color: '#ffffff',
+                    minHeight: 60,
+                    padding: 5 }}
               >
-                <Text
-                  style={{
-                      backgroundColor: '#098caa',
-                      color: '#ffffff',
-                      minHeight: 60,
-                      padding: 5 }}
-                >
-                  {image ? image.text : null}
-                </Text>
-              </ScrollView>
-            </PhotoView>
+                {image ? image.text : null}
+              </Text>
+            </ScrollView>
           </Modal>
         );
     }
