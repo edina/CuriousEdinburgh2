@@ -43,7 +43,8 @@ export default class TourMap extends Component {
         this.markersRef = [];
         this.modal = null;
         this.geolocation = new Geolocation();
-        this.onMarkerPress = this.onMarkerPress.bind(this);
+        this.onPress = this.onPress.bind(this);
+        this.onCalloutPress = this.onCalloutPress.bind(this);
         this.toggleRouting = this.toggleRouting.bind(this);
         this.updateLocation = this.updateLocation.bind(this);
         this.state = { showLocation: false, showRouting: false };
@@ -76,7 +77,19 @@ export default class TourMap extends Component {
     componentWillUnmount() {
         this.geolocation.clearWatch();
     }
-    onMarkerPress(tourPlace) {
+    onPress(tourPlace) {
+        if (Utils.isIos) {
+            // Resets zIndex for every marker drawn on the device
+            this.markersRef = this.markersRef.map((marker) => {
+                marker.setNativeProps({ zIndex: 0 });
+                return marker;
+            });
+            // Sets zIndex to a high value so that callout does not appear behind any marker
+            this.markersRef[tourPlace.id].setNativeProps({ zIndex: 9999 });
+            this.markersRef[tourPlace.id].showCallout();
+        }
+    }
+    onCalloutPress(tourPlace) {
         this.modal.show(tourPlace);
     }
     fitToSuppliedMarkers() {
@@ -120,8 +133,8 @@ export default class TourMap extends Component {
             identifier={tourPlace.id}
             coordinate={{ latitude: tourPlace.location.latitude,
                 longitude: tourPlace.location.longitude }}
-            onPress={() => { if (Utils.isIos) { this.markersRef[tourPlace.id].showCallout(); } }}
-            onCalloutPress={() => { this.onMarkerPress(tourPlace); }}
+            onPress={() => { this.onPress(tourPlace); }}
+            onCalloutPress={() => { this.onCalloutPress(tourPlace); }}
           >
             <Text style={styles.marker}>{tourPlace.stop}</Text>
             <MapView.Callout tooltip style={{ width: 200 }}>
