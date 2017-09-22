@@ -30,6 +30,7 @@
 		7D11F61DB91041879D0423EC /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD8F797E205C48EA87AC5A67 /* EvilIcons.ttf */; };
 		821627BA1BDD42CB884AA207 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43F4CDA4127A4EBAA83D4E02 /* SimpleLineIcons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		8A6BC74E2D3C402EB4A2C8B5 /* libRNPhotoView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FA1746E03684A82B83BE90A /* libRNPhotoView.a */; };
 		9E0400A81F6FDDA000E2266A /* libRNShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0400A51F6FDD7F00E2266A /* libRNShare.a */; };
 		9E0400AB1F6FDDC400E2266A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0400AA1F6FDDC400E2266A /* Social.framework */; };
 		9E0400AD1F6FDDCE00E2266A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0400AC1F6FDDCE00E2266A /* MessageUI.framework */; };
@@ -234,6 +235,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNShare;
 		};
+		9E89A9351F7511D70089DC79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1CF9DAFE91F44251BDB5C22A /* RNPhotoView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNPhotoView;
+		};
 		9EC137EF1E38DC1300081732 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 038BA8BD809243C1A2989082 /* RNVectorIcons.xcodeproj */;
@@ -320,6 +328,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CuriousEdinburgh/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CuriousEdinburgh/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1CF9DAFE91F44251BDB5C22A /* RNPhotoView.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNPhotoView.xcodeproj; path = "../node_modules/react-native-photo-view/ios/RNPhotoView.xcodeproj"; sourceTree = "<group>"; };
 		27A6019D6C0E404EB52512D4 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		36145E0A386646828FA2CDDE /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		436407BCD8BE41BABF8190DF /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
@@ -338,6 +347,7 @@
 		9E0400AC1F6FDDCE00E2266A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		9E7250611E799B440095DF9F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = CuriousEdinburgh/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E921BC51E79A4990049C87D /* logo.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = logo.tiff; path = ../src/assets/logo.tiff; sourceTree = "<group>"; };
+		9FA1746E03684A82B83BE90A /* libRNPhotoView.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNPhotoView.a; sourceTree = "<group>"; };
 		AD8F797E205C48EA87AC5A67 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		D17FC3E3017B4CB4B2FD045A /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		D5E901B1866E4F92B12B7177 /* AirMaps.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
@@ -381,6 +391,7 @@
 				1E7805C37D864401988020A1 /* libRNVectorIcons.a in Frameworks */,
 				E32071EA1A8A43E9B5948B4A /* libSplashScreen.a in Frameworks */,
 				FE1DC7996E65458C8747093B /* libRCTVideo.a in Frameworks */,
+				8A6BC74E2D3C402EB4A2C8B5 /* libRNPhotoView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,6 +563,7 @@
 				D17FC3E3017B4CB4B2FD045A /* SplashScreen.xcodeproj */,
 				90F121BD26564106A3CA577E /* RCTVideo.xcodeproj */,
 				D5E901B1866E4F92B12B7177 /* AirMaps.xcodeproj */,
+				1CF9DAFE91F44251BDB5C22A /* RNPhotoView.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -604,6 +616,14 @@
 				9E0400AA1F6FDDC400E2266A /* Social.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9E89A9121F7511D70089DC79 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9E89A9361F7511D70089DC79 /* libRNPhotoView.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		9EC137D21E38DC1200081732 /* Products */ = {
@@ -759,6 +779,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = 9E89A9121F7511D70089DC79 /* Products */;
+					ProjectRef = 1CF9DAFE91F44251BDB5C22A /* RNPhotoView.xcodeproj */;
 				},
 				{
 					ProductGroup = 9E0400811F6FDD7F00E2266A /* Products */;
@@ -964,6 +988,13 @@
 			remoteRef = 9E0400A41F6FDD7F00E2266A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		9E89A9361F7511D70089DC79 /* libRNPhotoView.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNPhotoView.a;
+			remoteRef = 9E89A9351F7511D70089DC79 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		9EC137F01E38DC1300081732 /* libRNVectorIcons.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1122,6 +1153,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CuriousEdinburgh.app/CuriousEdinburgh";
@@ -1142,6 +1174,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CuriousEdinburgh.app/CuriousEdinburgh";
@@ -1158,6 +1191,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-photo-view/ios/**",
 				);
 				"HEADER_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../node_modules/react-native-splash-screen/ios";
 				INFOPLIST_FILE = CuriousEdinburgh/Info.plist;
@@ -1183,6 +1217,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-photo-view/ios/**",
 				);
 				"HEADER_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../node_modules/react-native-splash-screen/ios";
 				INFOPLIST_FILE = CuriousEdinburgh/Info.plist;

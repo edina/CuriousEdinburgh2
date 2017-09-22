@@ -3,15 +3,25 @@ import { Platform } from 'react-native';
 /* eslint-disable no-cond-assign */
 
 export default class Utils {
-    static getURLsFromHTMLImage(html) {
-        const regex = /<img[^>]*(?:\bsrc\b\s*=)[^"]*"([^"]*)"[^>]*>/g;
-        try {
-            return Utils.getFirstCapturedMatchForSuccessiveMatches(regex, html);
-        } catch (e) {
-            return [];
+    /* Gets a list of Objects (e.g. url and text) from any image HTML rendered content
+     * @param {string} html - the html content to look for img tags
+     * @return Array of objects containing url and text
+     */
+    static getSrcAndAltFromHTMLImage(html) {
+        const regex = /<img(?:(?:[^>]*(?:\bsrc\b\s*=)[^"]*"([^"]*)"[^>]*(?:\balt\b\s*=)[^"]*"([^"]*)")|(?:[^>]*(?:\balt\b\s*=)[^"]*"([^"]*)"[^>]*(?:\bsrc\b\s*=)[^"]*"([^"]*)"))[^>]*/g;
+        if (typeof html === 'string') {
+            let matches = null;
+            const r = [];
+            while ((matches = regex.exec(html)) !== null) {
+                r.push({
+                    url: matches[1] ? matches[1] : matches[4],
+                    text: matches[2] ? matches[2] : matches[3],
+                });
+            }
+            return r;
         }
+        return [];
     }
-
     /*
       Get list of anchors from HTML rendered content
       @param html HTML text
@@ -25,7 +35,6 @@ export default class Utils {
             links.push({
                 url: matches[1],
                 text: matches[2],
-
             });
         }
         return links;
@@ -44,20 +53,6 @@ export default class Utils {
         const regex = new RegExp(`${tourSlug}:(\\d+)`, 'g');
         const result = regex.exec(tourStops);
         return result !== null ? result[1] : null;
-    }
-    static getFirstCapturedMatchForSuccessiveMatches(regex, string) {
-        if (!(regex instanceof RegExp)) {
-            throw new TypeError('RegExp parameter is expected for regex');
-        }
-        if (!(typeof string === 'string')) {
-            throw new TypeError('String parameter is expected for string');
-        }
-        let matches = null;
-        const result = [];
-        while ((matches = regex.exec(string)) !== null) {
-            result.push(matches[1]);
-        }
-        return result;
     }
     static isIos() {
         return Platform.OS === 'ios';

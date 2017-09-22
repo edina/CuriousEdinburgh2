@@ -60,7 +60,7 @@ export default class TourPlaceList extends Component {
                         </View>
                         <Image
                           style={styles.image}
-                          source={{ uri: rowData.images[0] }}
+                          source={{ uri: rowData.images[0].url }}
                         />
                         <Text
                           style={styles.text}
