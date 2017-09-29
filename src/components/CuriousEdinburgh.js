@@ -78,14 +78,13 @@ export default class CuriousEdinburgh extends Component {
                                 .concat([newTour])
                                 .concat(this.state.tours.slice(index + 1));
                             this.setState({ tours: newTours, selectedTour: newTour });
-                        }, (error) => {
+                        }, () => {
                             const newTour = Object.assign(
                                 new Tour(), tour, { tourPlaces });
                             const newTours = this.state.tours.slice(0, index)
                                 .concat([newTour])
                                 .concat(this.state.tours.slice(index + 1));
                             this.setState({ tours: newTours, selectedTour: newTour });
-                            Alert.alert('Mapbox directions', error.toString());
                         });
                 }, (error) => {
                     Alert.alert('WordPress tour places', error.toString());
