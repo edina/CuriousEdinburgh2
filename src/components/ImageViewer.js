@@ -35,7 +35,7 @@ export default class ImageViewer extends Component {
           >
             <PhotoView
               source={{ uri: image ? image.url : null }}
-              minimumZoomScale={0.5}
+              minimumZoomScale={1}
               maximumZoomScale={3}
               onTap={() => { this.hide(); }}
               resizeMode="contain"
