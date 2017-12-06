@@ -50,7 +50,7 @@ module.exports = StyleSheet.create({
         padding: 10,
     },
     linksTitle: {
-        fontSize: 30,
+        fontSize: 20,
         fontWeight: 'bold',
         padding: 10,
     },
