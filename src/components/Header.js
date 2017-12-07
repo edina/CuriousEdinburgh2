@@ -23,6 +23,9 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#ffffff',
     },
+    image: {
+        flex: 1,
+    },
     logo: {
         paddingRight: 4,
     },
@@ -57,7 +60,6 @@ export default class Header extends Component {
               underlayColor={styles.touchable}
             >
               <Icon
-                style={styles.close}
                 name="bars"
                 size={30}
                 color="white"
@@ -67,7 +69,10 @@ export default class Header extends Component {
               {this.props.title}
             </Text>
             <View style={styles.logo}>
-              <Image source={imageSource} />
+              <Image
+                style={styles.image}
+                source={imageSource}
+              />
             </View>
             <Modal
               animationType={'slide'}
