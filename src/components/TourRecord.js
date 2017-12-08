@@ -11,7 +11,7 @@ import { Image,
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ImageViewer from 'components/ImageViewer';
 import * as styles from 'components/styles/TourRecord';
-import RNFetchBlob from 'react-native-fetch-blob'
+import RNFetchBlob from 'react-native-fetch-blob';
 import Share from 'react-native-share';
 
 export default class TourRecord extends Component {
@@ -81,30 +81,29 @@ export default class TourRecord extends Component {
             message: `Exploring ${this.state.record.title} with @curiousedi. ${this.state.record.url}`,
             subject: this.state.record.title, //  for email
         };
-        if(this.state.record.images.length > 0){
-            const fs = RNFetchBlob.fs
-            let imagePath = null
+        if (this.state.record.images.length > 0) {
+            const fs = RNFetchBlob.fs;
+            let imagePath = null;
 
             RNFetchBlob
                 .config({
-                    fileCache : true
+                    fileCache: true,
                 })
-                .fetch('GET', this.state.record.images[0]['url'])
+                .fetch('GET', this.state.record.images[0].url)
                 // the image is dowloaded to device's storage
                 .then((resp) => {
                     // the image path can be used directly with Image component
-                    imagePath = resp.path()
-                    return resp.readFile('base64')
+                    imagePath = resp.path();
+                    return resp.readFile('base64');
                 })
                 .then((base64Data) => {
                     // here's base64 encoded image
-                    console.log(base64Data)
-                    shareOptions.url = 'data:image/jpeg;base64,' + base64Data;
+                    shareOptions.url = `data:image/jpeg;base64,${base64Data}`;
+
                     // remove the file from storage
-                    return fs.unlink(imagePath)
-                })
-        }
-        else{
+                    return fs.unlink(imagePath);
+                });
+        } else {
             // default is tour stop url
             shareOptions.url = this.state.record.url;
         }
