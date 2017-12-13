@@ -47,6 +47,7 @@ export default class TourMap extends Component {
         this.onCalloutPress = this.onCalloutPress.bind(this);
         this.toggleRouting = this.toggleRouting.bind(this);
         this.updateLocation = this.updateLocation.bind(this);
+        this.updateMarkersRef = this.updateMarkersRef.bind(this);
         this.state = { showLocation: false, showRouting: false };
     }
     componentDidMount() {
@@ -121,6 +122,15 @@ export default class TourMap extends Component {
             );
         }
     }
+    /*
+        This method is called anytime a MapView.Marker is mounted (e.g. its object reference) or
+        unmmounted (e.g. null). Note markersRef is re-assigned on any render call
+    */
+    updateMarkersRef(ref) {
+        if (ref) {
+            this.markersRef[ref.props.identifier] = ref;
+        }
+    }
     toggleRouting() {
         this.setState({ showRouting: !this.state.showRouting });
     }
@@ -128,7 +138,7 @@ export default class TourMap extends Component {
         this.markersRef = [];
         const listMarkers = this.props.tour.tourPlaces.map(tourPlace =>
           <MapView.Marker
-            ref={(ref) => { this.markersRef[tourPlace.id] = ref; }}
+            ref={this.updateMarkersRef}
             key={tourPlace.id}
             identifier={tourPlace.id}
             coordinate={{ latitude: tourPlace.location.latitude,
