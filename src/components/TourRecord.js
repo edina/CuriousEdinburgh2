@@ -11,6 +11,7 @@ import { Image,
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ImageViewer from 'components/ImageViewer';
 import * as styles from 'components/styles/TourRecord';
+import RNFetchBlob from 'react-native-fetch-blob';
 import Share from 'react-native-share';
 
 export default class TourRecord extends Component {
@@ -42,7 +43,8 @@ export default class TourRecord extends Component {
     }
 
     render() {
-        const images = this.state.record.images.map(image =>
+        const { record, visible } = this.state;
+        const images = record.images.map(image =>
           <TouchableHighlight
             key={image.url}
             style={styles.mediaContainer}
@@ -57,7 +59,7 @@ export default class TourRecord extends Component {
           </TouchableHighlight>,
         );
 
-        const links = this.state.record.additionalLinks.map(link =>
+        const links = record.additionalLinks.map(link =>
           <TouchableHighlight
             key={link.url}
             onPress={() => Linking.openURL(link.url)}
@@ -67,27 +69,52 @@ export default class TourRecord extends Component {
           </TouchableHighlight>,
         );
 
-        const video = this.state.record.video ?
+        const video = record.video ?
             (<View style={styles.mediaContainer}>
               <WebView
-                source={{ uri: this.state.record.video }}
+                source={{ uri: record.video }}
                 style={styles.media}
               />
             </View>)
         : undefined;
 
         const shareOptions = {
-            title: this.state.record.title,
-            message: `Exploring ${this.state.record.title} with @curiousedi.`,
-            url: this.state.record.url,
-            subject: this.state.record.title, //  for email
+            title: record.title,
+            message: `Exploring ${record.title} with @curiousedi. ${record.url}`,
+            subject: record.title, //  for email
         };
+        if (record.images.length > 0) {
+            const fs = RNFetchBlob.fs;
+            let imagePath = null;
+
+            RNFetchBlob
+                .config({
+                    fileCache: true,
+                })
+                .fetch('GET', record.images[0].url)
+                // the image is dowloaded to device's storage
+                .then((resp) => {
+                    // the image path can be used directly with Image component
+                    imagePath = resp.path();
+                    return resp.readFile('base64');
+                })
+                .then((base64Data) => {
+                    // here's base64 encoded image
+                    shareOptions.url = `data:image/jpeg;base64,${base64Data}`;
+
+                    // remove the file from storage
+                    return fs.unlink(imagePath);
+                });
+        } else {
+            // default is tour stop url
+            shareOptions.url = record.url;
+        }
 
         return (
           <Modal
             style={styles.page}
             transparent={false}
-            visible={this.state.visible}
+            visible={visible}
             onRequestClose={() => { }}
           >
             <ImageViewer
@@ -113,7 +140,7 @@ export default class TourRecord extends Component {
                     />
                   </TouchableHighlight>
                 </View>
-                <Text style={styles.title}>{this.state.record.title}</Text>
+                <Text style={styles.title}>{record.title}</Text>
                 <View style={styles.right} />
               </View>
             </View>
@@ -123,17 +150,17 @@ export default class TourRecord extends Component {
                 {images}
               </ScrollView>
               <View style={styles.details}>
-                <Text style={styles.address}>{this.state.record.streetAddress}</Text>
-                <Text style={styles.description}>{this.state.record.description}</Text>
+                <Text style={styles.address}>{record.streetAddress}</Text>
+                <Text style={styles.description}>{record.description}</Text>
 
-                {this.state.record.additionalLinks.length > 0 &&
+                {record.additionalLinks.length > 0 &&
                   <Text style={styles.linksTitle}>Associated Links</Text>
                 }
                 <View>{links}</View>
 
                 <TouchableOpacity
                   onPress={() => {
-                      Share.open(shareOptions);
+                      Share.open(shareOptions).catch(() => {});
                   }}
                 >
                   <View style={styles.share}>
