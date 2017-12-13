@@ -63,6 +63,7 @@ export default class TourRecord extends Component {
           <TouchableHighlight
             key={link.url}
             onPress={() => Linking.openURL(link.url)}
+            underlayColor="transparent"
           >
             <Text style={styles.link}>{link.text}</Text>
           </TouchableHighlight>,
