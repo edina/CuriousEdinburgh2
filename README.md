@@ -29,7 +29,12 @@ npm run react-native run-android
 npm run react-native run-ios
 ```
 
-#### Deploy to app Store
+## Release
+### Android 
+
+See https://facebook.github.io/react-native/docs/0.49/signed-apk-android.html for creating andoid release.
+
+### Deploy to app Store
 
 In order to deploy to app store is preferrable to create a bundled file that runs on the phone without external dependencies. In the root directory, type:
 
