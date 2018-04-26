@@ -6,6 +6,7 @@ import { View,
          Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles/Header';
+import TourList from './TourList';
 
 const imageSource = require('assets/logo.jpg');
 
