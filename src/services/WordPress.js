@@ -1,3 +1,4 @@
+import shortid from 'shortid';
 import Fetch from './Fetch';
 import Tour from '../models/Tour';
 import TourPlace from '../models/TourPlace';
@@ -17,7 +18,9 @@ export default class WordPress {
                 if (Array.isArray(data)) {
                     const dataFiltered = data.filter(value => value.description === 'true');
                     const tours = dataFiltered.map(value =>
-                        new Tour({ id: value.id ? value.id.toString() : '',
+                        new Tour({
+                            randomId: shortid.generate(),
+                            id: value.id ? value.id.toString() : '',
                             name: value.name,
                             description: value.description,
                             slug: value.slug }));
@@ -46,7 +49,9 @@ export default class WordPress {
                                 tourStop = Utils.getTourStopFromSlug(
                                     tour.slug, customFields.tour_stops);
                             } catch (e) { console.warn(e); }
+                            const randomId = shortid.generate().toString();
                             return new TourPlace({
+                                randomId,
                                 id: value.id ? value.id.toString() : '',
                                 title: customFields.OSM_Marker_01_Name,
                                 url: value.link,
@@ -64,6 +69,7 @@ export default class WordPress {
                             });
                         }
                         return new TourPlace({
+                            randomId: shortid.generate(),
                             id: value.id ? value.id.toString() : '',
                             images: Utils.getSrcAndAltFromHTMLImage(value.content.rendered) });
                     });

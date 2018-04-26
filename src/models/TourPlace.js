@@ -1,10 +1,11 @@
 import Location from 'models/Location';
 
 export default class TourPlace {
-    constructor({ id = '0', title = '', description = '',
+    constructor({ randomId = '', id = '0', title = '', description = '',
         images = [], location = new Location(0, 0),
         streetAddress = '', additionalLinks = [],
         stop = null, video = '', url = '' } = {}) {
+        this.randomId = randomId;
         this.id = id;
         this.title = title;
         this.description = description;
