@@ -19,7 +19,6 @@ export default class WordPress {
                     const dataFiltered = data.filter(value => value.description === 'true');
                     const tours = dataFiltered.map(value =>
                         new Tour({
-                            randomId: shortid.generate(),
                             id: value.id ? value.id.toString() : '',
                             name: value.name,
                             description: value.description,
