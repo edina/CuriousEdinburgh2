@@ -50,33 +50,26 @@ export default class Header extends Component {
               />
             </View>
             <Modal
-              animationType={'fade'}
-              transparent
+              animationType={'slide'}
+              transparent={false}
               visible={this.state.modalVisible}
               onRequestClose={() => {
-                  this.toggleModal();
               }}
             >
-              <TouchableOpacity style={styles.modalOuterView} onPress={() => { this.toggleModal(); }} activeOpacity={1} >
-                <TouchableWithoutFeedback>
-                  <View
-                    style={styles.modalInnerView}
-                  >
-                    {this.props.children}
-                    <TourList
-                      tours={this.props.tourListTours}
-                      selectedValue={this.props.tourListSelectedValue}
-                      onValueChange={this.onValueChange}
-                    />
-                    <Button
-                      title="OK" onPress={() => {
-                          this.props.okButtonFunction(this.state.selectedValue);
-                          this.toggleModal();
-                      }}
-                    />
-                  </View>
-                </TouchableWithoutFeedback>
-              </TouchableOpacity>
+              <TourList
+                tours={this.props.tourListTours}
+                selectedValue={this.props.tourListSelectedValue}
+                onValueChange={this.onValueChange}
+              />
+              <View style={styles.modal}>
+                {this.props.children}
+                <Button
+                  title="OK" onPress={() => {
+                      this.props.okButtonFunction(this.state.selectedValue);
+                      this.toggleModal();
+                  }}
+                />
+              </View>
             </Modal>
           </View>
         );
