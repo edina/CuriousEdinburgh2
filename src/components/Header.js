@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View,
-         Text, TouchableHighlight,
-         Modal, Button,
-         Image } from 'react-native';
+import {
+    StyleSheet, View,
+    Text, TouchableHighlight,
+    Modal, Button,
+    Image,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import TourList from './TourList';
 
 const styles = StyleSheet.create({
     container: {
@@ -45,12 +48,19 @@ const imageSource = require('assets/logo.jpg');
 export default class Header extends Component {
     constructor(props) {
         super(props);
-        this.state = { modalVisible: false };
+        this.state = { modalVisible: false, selectedValue: this.props.tourListSelectedValue };
         this.toggleModal = this.toggleModal.bind(this);
+        this.onValueChange = this.onValueChange.bind(this);
     }
+
+    onValueChange(itemValue) {
+        this.setState({ selectedValue: itemValue });
+    }
+
     toggleModal() {
         this.setState({ modalVisible: !this.state.modalVisible });
     }
+
     render() {
         return (
           <View style={styles.container}>
@@ -78,11 +88,22 @@ export default class Header extends Component {
               animationType={'slide'}
               transparent={false}
               visible={this.state.modalVisible}
-              onRequestClose={() => { }}
+              onRequestClose={() => {
+              }}
             >
+              <TourList
+                tours={this.props.tourListTours}
+                selectedValue={this.props.tourListSelectedValue}
+                onValueChange={this.onValueChange}
+              />
               <View style={styles.modal}>
                 {this.props.children}
-                <Button title="OK" onPress={this.toggleModal} />
+                <Button
+                  title="OK" onPress={() => {
+                      this.props.okButtonFunction(this.state.selectedValue);
+                      this.toggleModal();
+                  }}
+                />
               </View>
             </Modal>
           </View>
@@ -92,6 +113,9 @@ export default class Header extends Component {
 Header.propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.element,
+    tourListTours: PropTypes.arrayOf(PropTypes.object).isRequired,
+    tourListSelectedValue: PropTypes.string.isRequired,
+    okButtonFunction: PropTypes.func.isRequired,
 };
 Header.defaultProps = {
     children: null,
