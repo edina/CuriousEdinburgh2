@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View,
          Text, TouchableHighlight,
          Modal, Button,
-         Image } from 'react-native';
+         Image, TouchableWithoutFeedback, TouchableOpacity, } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles/Header';
 
@@ -49,31 +49,38 @@ export default class Header extends Component {
               />
             </View>
             <Modal
-              animationType={'slide'}
-              transparent={false}
+              animationType={'fade'}
+              transparent
               visible={this.state.modalVisible}
               onRequestClose={() => {
+                  this.toggleModal();
               }}
             >
-              <TourList
-                tours={this.props.tourListTours}
-                selectedValue={this.props.tourListSelectedValue}
-                onValueChange={this.onValueChange}
-              />
-              <View style={styles.modal}>
-                {this.props.children}
-                <Button
-                  title="OK" onPress={() => {
-                      this.props.okButtonFunction(this.state.selectedValue);
-                      this.toggleModal();
-                  }}
-                />
-              </View>
+              <TouchableOpacity style={styles.modalOuterView} onPress={() => { this.toggleModal(); }} activeOpacity={1} >
+                <TouchableWithoutFeedback>
+                  <View
+                    style={styles.modalInnerView}
+                  >
+                    {this.props.children}
+                    <TourList
+                      tours={this.props.tourListTours}
+                      selectedValue={this.props.tourListSelectedValue}
+                      onValueChange={this.onValueChange}
+                    />
+                    <Button
+                      title="OK" onPress={() => {
+                          this.props.okButtonFunction(this.state.selectedValue);
+                          this.toggleModal();
+                      }}
+                    />
+                  </View>
+                </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </Modal>
           </View>
         );
     }
-}
+    }
 Header.propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.element,

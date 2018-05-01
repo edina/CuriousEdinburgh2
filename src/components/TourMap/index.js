@@ -28,6 +28,7 @@ export default class TourMap extends Component {
         this.updateMarkersRef = this.updateMarkersRef.bind(this);
         this.state = { showLocation: false, showRouting: false };
     }
+
     componentDidMount() {
         this.fitToSuppliedMarkers();
         this.geolocation.watchPosition().then(
@@ -36,23 +37,28 @@ export default class TourMap extends Component {
                     this.setState({ showLocation: false });
                 }
             },
-            () => {},
+            () => {
+            },
         );
     }
+
     shouldComponentUpdate(nextProps, nextState) {
         return nextProps.tour.tourPlaces !== this.props.tour.tourPlaces ||
             nextProps.tour.direction !== this.props.tour.direction ||
             nextState.showLocation !== this.state.showLocation ||
             nextState.showRouting !== this.state.showRouting;
     }
+
     componentDidUpdate(prevProps) {
         if (prevProps.tour.tourPlaces !== this.props.tour.tourPlaces) {
             this.fitToSuppliedMarkers();
         }
     }
+
     componentWillUnmount() {
         this.geolocation.clearWatch();
     }
+
     onPress(tourPlace) {
         if (Utils.isIos()) {
             // Resets zIndex for every marker drawn on the device
@@ -63,22 +69,26 @@ export default class TourMap extends Component {
             this.markersRef[tourPlace.randomId].showCallout();
         }
     }
+
     onCalloutPress(tourPlace) {
         this.modal.show(tourPlace);
     }
+
     fitToSuppliedMarkers() {
         if (this.mapRef !== null) {
             const markerIDs = this.props.tour.tourPlaces.map(tourPlace =>
-            tourPlace.randomId);
+                tourPlace.randomId);
             this.mapRef.fitToSuppliedMarkers(markerIDs, false);
         }
     }
+
     fitToCoordinates(coordinates) {
         if (this.mapRef !== null) {
             this.mapRef.fitToCoordinates([coordinates],
                 { edgePadding: { top: 0, right: 0, bottom: 0, left: 0 }, animated: true });
         }
     }
+
     /*
         updateLocation() only sets to true showLocation if and only if
         the current position has changed. Updating showLocation to false is determined
@@ -95,6 +105,7 @@ export default class TourMap extends Component {
             );
         }
     }
+
     /*
         This method is called anytime a MapView.Marker is mounted (e.g. its object reference) or
         unmmounted (e.g. null). Note markersRef is re-assigned on any render call
@@ -104,9 +115,11 @@ export default class TourMap extends Component {
             this.markersRef[ref.props.identifier] = ref;
         }
     }
+
     toggleRouting() {
         this.setState({ showRouting: !this.state.showRouting });
     }
+
     render() {
         this.markersRef = {};
         const listMarkers = this.props.tour.tourPlaces.map(tourPlace =>
@@ -114,10 +127,14 @@ export default class TourMap extends Component {
             key={tourPlace.randomId}
             identifier={tourPlace.randomId}
             ref={this.updateMarkersRef}
-            coordinate={{ latitude: tourPlace.location.latitude,
-                longitude: tourPlace.location.longitude }}
+            coordinate={{
+                latitude: tourPlace.location.latitude,
+                longitude: tourPlace.location.longitude,
+            }}
             onPress={() => this.onPress(tourPlace)}
-            onCalloutPress={() => { this.onCalloutPress(tourPlace); }}
+            onCalloutPress={() => {
+                this.onCalloutPress(tourPlace);
+            }}
           >
             <Text style={styles.marker}>{tourPlace.stop}</Text>
             <MapView.Callout tooltip style={{ width: 200 }}>
@@ -136,11 +153,15 @@ export default class TourMap extends Component {
         return (
           <View style={styles.map}>
             <MapView
-              ref={(ref) => { this.mapRef = ref; }}
+              ref={(ref) => {
+                  this.mapRef = ref;
+              }}
               style={styles.map}
               showsMyLocationButton={false}
               showsUserLocation
-              onPanDrag={() => { this.setState({ showLocation: false }); }}
+              onPanDrag={() => {
+                  this.setState({ showLocation: false });
+              }}
             >
               {listMarkers}
               {polylines}
@@ -160,7 +181,9 @@ export default class TourMap extends Component {
               </TouchableHighlight>
             </View>
             <TourRecord
-              ref={(c) => { this.modal = c; }}
+              ref={(c) => {
+                  this.modal = c;
+              }}
             />
           </View>
         );
