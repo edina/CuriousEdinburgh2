@@ -78,10 +78,8 @@ export default class TourMap extends Component {
     onPress(tourPlace) {
         if (Utils.isIos()) {
             // Resets zIndex for every marker drawn on the device
-            this.markersRef.map((marker) => {
-                marker.setNativeProps({ zIndex: 0 });
-                return marker;
-            });
+            Object.keys(this.markersRef).forEach(
+                value => this.markersRef[value].setNativeProps({ zIndex: 0 }));
             // Sets zIndex to a high value so that callout does not appear behind any marker
             this.markersRef[tourPlace.randomId].setNativeProps({ zIndex: 9999 });
             this.markersRef[tourPlace.randomId].showCallout();

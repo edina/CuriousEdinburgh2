@@ -1,11 +1,12 @@
 import Location from 'models/Location';
+import shortid from 'shortid';
 
 export default class TourPlace {
-    constructor({ randomId = '', id = '0', title = '', description = '',
+    constructor({ id = '0', title = '', description = '',
         images = [], location = new Location(0, 0),
         streetAddress = '', additionalLinks = [],
         stop = null, video = '', url = '' } = {}) {
-        this.randomId = randomId;
+        this.randomId = shortid.generate();
         this.id = id;
         this.title = title;
         this.description = description;
