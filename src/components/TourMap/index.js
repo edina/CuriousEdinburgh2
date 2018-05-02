@@ -40,7 +40,7 @@ export default class TourMap extends Component {
     constructor(props) {
         super(props);
         this.mapRef = null;
-        this.markersRef = [];
+        this.markersRef = {};
         this.modal = null;
         this.geolocation = new Geolocation();
         this.onPress = this.onPress.bind(this);
@@ -62,13 +62,10 @@ export default class TourMap extends Component {
         );
     }
     shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.tour.tourPlaces !== this.props.tour.tourPlaces ||
+        return nextProps.tour.tourPlaces !== this.props.tour.tourPlaces ||
             nextProps.tour.direction !== this.props.tour.direction ||
             nextState.showLocation !== this.state.showLocation ||
-            nextState.showRouting !== this.state.showRouting) {
-            return true;
-        }
-        return false;
+            nextState.showRouting !== this.state.showRouting;
     }
     componentDidUpdate(prevProps) {
         if (prevProps.tour.tourPlaces !== this.props.tour.tourPlaces) {
@@ -79,15 +76,13 @@ export default class TourMap extends Component {
         this.geolocation.clearWatch();
     }
     onPress(tourPlace) {
-        if (Utils.isIos) {
+        if (Utils.isIos()) {
             // Resets zIndex for every marker drawn on the device
-            this.markersRef = this.markersRef.map((marker) => {
-                marker.setNativeProps({ zIndex: 0 });
-                return marker;
-            });
+            Object.keys(this.markersRef).forEach(
+                value => this.markersRef[value].setNativeProps({ zIndex: 0 }));
             // Sets zIndex to a high value so that callout does not appear behind any marker
-            this.markersRef[tourPlace.id].setNativeProps({ zIndex: 9999 });
-            this.markersRef[tourPlace.id].showCallout();
+            this.markersRef[tourPlace.randomId].setNativeProps({ zIndex: 9999 });
+            this.markersRef[tourPlace.randomId].showCallout();
         }
     }
     onCalloutPress(tourPlace) {
@@ -96,7 +91,7 @@ export default class TourMap extends Component {
     fitToSuppliedMarkers() {
         if (this.mapRef !== null) {
             const markerIDs = this.props.tour.tourPlaces.map(tourPlace =>
-            tourPlace.id);
+            tourPlace.randomId);
             this.mapRef.fitToSuppliedMarkers(markerIDs, false);
         }
     }
@@ -135,15 +130,15 @@ export default class TourMap extends Component {
         this.setState({ showRouting: !this.state.showRouting });
     }
     render() {
-        this.markersRef = [];
+        this.markersRef = {};
         const listMarkers = this.props.tour.tourPlaces.map(tourPlace =>
           <MapView.Marker
+            key={tourPlace.randomId}
+            identifier={tourPlace.randomId}
             ref={this.updateMarkersRef}
-            key={tourPlace.id}
-            identifier={tourPlace.id}
             coordinate={{ latitude: tourPlace.location.latitude,
                 longitude: tourPlace.location.longitude }}
-            onPress={() => { this.onPress(tourPlace); }}
+            onPress={() => this.onPress(tourPlace)}
             onCalloutPress={() => { this.onCalloutPress(tourPlace); }}
           >
             <Text style={styles.marker}>{tourPlace.stop}</Text>
@@ -167,6 +162,7 @@ export default class TourMap extends Component {
               style={styles.map}
               showsMyLocationButton={false}
               showsUserLocation
+              onPanDrag={() => { this.setState({ showLocation: false }); }}
             >
               {listMarkers}
               {polylines}

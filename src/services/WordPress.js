@@ -17,7 +17,8 @@ export default class WordPress {
                 if (Array.isArray(data)) {
                     const dataFiltered = data.filter(value => value.description === 'true');
                     const tours = dataFiltered.map(value =>
-                        new Tour({ id: value.id ? value.id.toString() : '',
+                        new Tour({
+                            id: value.id ? value.id.toString() : '',
                             name: value.name,
                             description: value.description,
                             slug: value.slug }));
@@ -58,7 +59,8 @@ export default class WordPress {
                                     longitude: Utils.toFloat(customFields.longitude) }),
                                 streetAddress: customFields.street_address,
                                 additionalLinks:
-                                    Utils.getListOfAnchorsFromHTML(entities.decode(value.content.rendered)),
+                                    Utils.getListOfAnchorsFromHTML(
+                                        entities.decode(value.content.rendered)),
                                 stop: tourStop,
                                 video: Utils.getEmbeddedYTURL(customFields.video_link),
                             });
