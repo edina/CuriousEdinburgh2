@@ -57,10 +57,10 @@ export default class TourPlaceList extends Component {
                               activeOpacity={1}
                             >
                               <View style={styles.container}>
-                                <Text style={styles.title}>{rowData.title}</Text>
                                 <View style={styles.numberContainer}>
                                   <Text style={styles.number}>{rowData.stop}</Text>
                                 </View>
+                                <Text style={styles.title}>{rowData.title}</Text>
                               </View>
                               <View style={styles.detail}>
                                 <Image

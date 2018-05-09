@@ -9,7 +9,7 @@ export default StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
         color: '#408ba4',
-        textAlign: 'center',
+        textAlign: 'left',
     },
     detail: {
         flexDirection: 'row',
@@ -25,6 +25,7 @@ export default StyleSheet.create({
     numberContainer: {
         flex: 1,
         justifyContent: 'center',
+        paddingRight: 15,
     },
     number: {
         justifyContent: 'center',
