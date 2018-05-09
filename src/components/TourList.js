@@ -24,7 +24,7 @@ export default class TourList extends Component {
                 this.onValueChange(value);
                 this.props.onValueChange(value);
             }}
-            style={{ width: 320}}
+            style={{ width: 320 }}
           >
             {pickerList}
           </Picker>
