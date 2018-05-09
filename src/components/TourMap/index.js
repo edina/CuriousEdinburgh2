@@ -78,7 +78,7 @@ export default class TourMap extends Component {
         if (this.mapRef !== null) {
             const markerIDs = this.props.tour.tourPlaces.map(tourPlace =>
                 tourPlace.randomId);
-            this.mapRef.fitToSuppliedMarkers(markerIDs, false);
+            this.mapRef.fitToSuppliedMarkers(markerIDs, true);
         }
     }
 
