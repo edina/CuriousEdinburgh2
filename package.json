@@ -9,6 +9,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "components": "^0.1.0",
     "html-entities": "1.2.1",
     "prop-types": "15.5.10",
     "react": "16.0.0-alpha.12",

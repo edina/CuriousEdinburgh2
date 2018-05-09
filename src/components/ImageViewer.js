@@ -32,8 +32,7 @@ export default class ImageViewer extends Component {
         return (
           <Modal
             visible={visible}
-            onRequestClose={() => {
-            }}
+            onRequestClose={() => {}}
           >
             <PhotoView
               source={{ uri: image ? image.url : null }}
