@@ -100,6 +100,7 @@ export default class CuriousEdinburgh extends Component {
               tabBarPosition="bottom"
               style={styles.body}
               ref={(tabView) => { this.tabView = tabView; }}
+              tabBarTextStyle={{ fontSize: 16 }}
             >
 
               <TourMap
