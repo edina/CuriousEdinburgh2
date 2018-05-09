@@ -8,6 +8,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles/Header';
 import TourList from './TourList';
 
+import TourList from './TourList';
+
 const imageSource = require('assets/logo.jpg');
 
 export default class Header extends Component {
@@ -57,7 +59,10 @@ export default class Header extends Component {
                   this.toggleModal();
               }}
             >
-              <TouchableOpacity style={styles.modalOuterView} onPress={() => { this.toggleModal(); }} activeOpacity={1} >
+              <TouchableOpacity
+                style={styles.modalOuterView}
+                onPress={() => { this.toggleModal(); }} activeOpacity={1}
+              >
                 <TouchableWithoutFeedback>
                   <View
                     style={styles.modalInnerView}
