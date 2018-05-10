@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, Dimensions, ScrollView, Text } from 'react-native';
 import PhotoView from 'react-native-photo-view';
+import styles from './styles/ImageViewer';
 
 export default class ImageViewer extends Component {
 
@@ -31,31 +32,28 @@ export default class ImageViewer extends Component {
         return (
           <Modal
             visible={visible}
-            onRequestClose={() => { }}
+            onRequestClose={() => {
+            }}
           >
             <PhotoView
               source={{ uri: image ? image.url : null }}
               minimumZoomScale={1}
               maximumZoomScale={3}
-              onTap={() => { this.hide(); }}
+              onTap={() => {
+                  this.hide();
+              }}
               resizeMode="contain"
               style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height }}
             />
             <ScrollView
-              style={{
-                  position: 'absolute',
-                  height: 60,
-                  left: 0,
-                  top: Dimensions.get('window').height - 60,
-                  width: Dimensions.get('window').width,
-              }}
+              style={
+              [styles.scrollView,
+                  { top: Dimensions.get('window').height - 60,
+                      width: Dimensions.get('window').width },
+              ]}
             >
               <Text
-                style={{
-                    backgroundColor: '#098caa',
-                    color: '#ffffff',
-                    minHeight: 60,
-                    padding: 5 }}
+                style={styles.image}
               >
                 {image ? image.text : null}
               </Text>
