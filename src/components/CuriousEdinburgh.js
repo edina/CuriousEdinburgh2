@@ -13,7 +13,6 @@ import Preference from '../models/Preference';
 import Header from './Header';
 import TourMap from './TourMap/index';
 import TourPlaceList from './TourPlaceList';
-import TourList from './TourList';
 import About from './About';
 
 import Utils from '../utils';

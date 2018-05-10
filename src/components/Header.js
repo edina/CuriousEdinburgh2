@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View,
          Text, TouchableHighlight,
          Modal, Button,
-         Image, TouchableWithoutFeedback, TouchableOpacity, } from 'react-native';
+         Image, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles/Header';
 import TourList from './TourList';

@@ -62,7 +62,7 @@ export default class Utils {
     }
     /**
      * Convert youtube page URL to a playable embedded URL.
-     * @param Youtube page URL.
+     * @param url Youtube page URL.
      * @return Converted youtube embedded URL.
      */
     static getEmbeddedYTURL(url) {
