@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-module.exports = StyleSheet.create({
+export default StyleSheet.create({
     header: {
         alignItems: 'center',
         backgroundColor: '#098caa',
