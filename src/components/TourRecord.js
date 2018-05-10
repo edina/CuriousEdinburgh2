@@ -8,7 +8,7 @@ import { Image,
          TouchableOpacity,
          View,
          WebView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import RNFetchBlob from 'react-native-fetch-blob';
 import Share from 'react-native-share';
 import ImageViewer from './ImageViewer';

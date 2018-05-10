@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text, View, Image, TouchableHighlight, Alert } from 'react-native';
 import MapView from 'react-native-maps';
-import Tour from 'models/Tour';
-import TourPlaceCallout from 'components/TourMap/TourPlaceCallout';
-import TourRecord from 'components/TourRecord';
-import Geolocation from 'services/Geolocation';
-import Utils from 'utils';
-import * as styles from 'components/styles/index';
+import Tour from '../../models/Tour';
+import TourPlaceCallout from './TourPlaceCallout';
+import TourRecord from '../TourRecord';
+import Geolocation from '../../services/Geolocation';
+import Utils from '../../utils';
+import styles from '../styles/index';
 
 const locationOff = require('assets/location_off.png');
 const locationOn = require('assets/location_on.png');
