@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Image,
-         ListView,
-         Text,
+import {
+    Image,
+    ListView,
+    Text,
     TouchableOpacity,
-         View } from 'react-native';
-import TourRecord from './TourRecord';
-import styles from './styles/TourPlaceList';
+    View,
+} from 'react-native';
+import TourRecord from '../components/TourRecord';
+import styles from '../components/styles/TourPlaceList';
 
 export default class TourPlaceList extends Component {
     constructor(props) {
