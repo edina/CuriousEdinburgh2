@@ -1,44 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View,
+import { View,
          Text, TouchableHighlight,
          Modal, Button,
          Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 0.09,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: '#1d8daa',
-    },
-    button: {
-        top: 5,
-        padding: 4,
-    },
-    title: {
-        top: 2,
-        fontSize: 20,
-        color: '#ffffff',
-    },
-    image: {
-        flex: 1,
-    },
-    logo: {
-        paddingRight: 4,
-    },
-    modal: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    touchable: {
-        color: '#fffaf0',
-    },
-});
+import styles from './styles/Header';
 
 const imageSource = require('assets/logo.jpg');
 

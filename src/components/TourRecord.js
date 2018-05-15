@@ -9,10 +9,10 @@ import { Image,
          View,
          WebView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import ImageViewer from 'components/ImageViewer';
-import * as styles from 'components/styles/TourRecord';
 import RNFetchBlob from 'react-native-fetch-blob';
 import Share from 'react-native-share';
+import ImageViewer from './ImageViewer';
+import styles from './styles/TourRecord';
 
 export default class TourRecord extends Component {
     constructor(props) {

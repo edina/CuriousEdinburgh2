@@ -7,7 +7,7 @@ import { Image,
          Text,
          TouchableHighlight,
          View } from 'react-native';
-import * as styles from 'components/styles/About';
+import styles from './styles/About';
 
 const banner = require('assets/curious-edinburgh-banner.png');
 
