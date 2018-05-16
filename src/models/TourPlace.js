@@ -1,8 +1,6 @@
 import shortid from 'shortid';
 import Location from '../models/Location';
 
-
-
 export default class TourPlace {
     constructor({ id = '0', title = '', description = '',
         images = [], location = new Location(0, 0),
