@@ -1,5 +1,3 @@
-import jest from 'react-native-fetch-blob/polyfill/Blob';
-
 const existsMock = jest.fn();
 existsMock.mockReturnValueOnce({ then: jest.fn() });
 
