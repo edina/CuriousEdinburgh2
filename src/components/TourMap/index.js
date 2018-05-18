@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { Text, View, Image, TouchableHighlight, Alert } from 'react-native';
 import MapView from 'react-native-maps';
 import Tour from '../../models/Tour';
-import TourPlaceCallout from '../TourMap/TourPlaceCallout';
+import TourPlaceCallout from './TourPlaceCallout';
 import TourRecord from '../TourRecord';
 import Geolocation from '../../services/Geolocation';
 import Utils from '../../utils';
 import styles from '../styles/index';
 
-const locationOff = require('assets/location_off.png');
-const locationOn = require('assets/location_on.png');
-const routingOff = require('assets/routing_off.png');
-const routingOn = require('assets/routing_on.png');
+const locationOff = require('../../assets/location_off.png');
+const locationOn = require('../../assets/location_on.png');
+const routingOff = require('../../assets/routing_off.png');
+const routingOn = require('../../assets/routing_on.png');
 
 export default class TourMap extends Component {
     constructor(props) {
@@ -28,6 +28,7 @@ export default class TourMap extends Component {
         this.updateMarkersRef = this.updateMarkersRef.bind(this);
         this.state = { showLocation: false, showRouting: false };
     }
+
     componentDidMount() {
         this.fitToSuppliedMarkers();
         this.geolocation.watchPosition().then(
@@ -36,23 +37,28 @@ export default class TourMap extends Component {
                     this.setState({ showLocation: false });
                 }
             },
-            () => {},
+            () => {
+            },
         );
     }
+
     shouldComponentUpdate(nextProps, nextState) {
         return nextProps.tour.tourPlaces !== this.props.tour.tourPlaces ||
             nextProps.tour.direction !== this.props.tour.direction ||
             nextState.showLocation !== this.state.showLocation ||
             nextState.showRouting !== this.state.showRouting;
     }
+
     componentDidUpdate(prevProps) {
         if (prevProps.tour.tourPlaces !== this.props.tour.tourPlaces) {
             this.fitToSuppliedMarkers();
         }
     }
+
     componentWillUnmount() {
         this.geolocation.clearWatch();
     }
+
     onPress(tourPlace) {
         if (Utils.isIos()) {
             // Resets zIndex for every marker drawn on the device
@@ -63,22 +69,26 @@ export default class TourMap extends Component {
             this.markersRef[tourPlace.randomId].showCallout();
         }
     }
+
     onCalloutPress(tourPlace) {
         this.modal.show(tourPlace);
     }
+
     fitToSuppliedMarkers() {
         if (this.mapRef !== null) {
             const markerIDs = this.props.tour.tourPlaces.map(tourPlace =>
-            tourPlace.randomId);
-            this.mapRef.fitToSuppliedMarkers(markerIDs, false);
+                tourPlace.randomId);
+            this.mapRef.fitToSuppliedMarkers(markerIDs, true);
         }
     }
+
     fitToCoordinates(coordinates) {
         if (this.mapRef !== null) {
             this.mapRef.fitToCoordinates([coordinates],
                 { edgePadding: { top: 0, right: 0, bottom: 0, left: 0 }, animated: true });
         }
     }
+
     /*
         updateLocation() only sets to true showLocation if and only if
         the current position has changed. Updating showLocation to false is determined
@@ -95,6 +105,7 @@ export default class TourMap extends Component {
             );
         }
     }
+
     /*
         This method is called anytime a MapView.Marker is mounted (e.g. its object reference) or
         unmmounted (e.g. null). Note markersRef is re-assigned on any render call
@@ -104,9 +115,11 @@ export default class TourMap extends Component {
             this.markersRef[ref.props.identifier] = ref;
         }
     }
+
     toggleRouting() {
         this.setState({ showRouting: !this.state.showRouting });
     }
+
     render() {
         this.markersRef = {};
         const listMarkers = this.props.tour.tourPlaces.map(tourPlace =>
@@ -114,10 +127,14 @@ export default class TourMap extends Component {
             key={tourPlace.randomId}
             identifier={tourPlace.randomId}
             ref={this.updateMarkersRef}
-            coordinate={{ latitude: tourPlace.location.latitude,
-                longitude: tourPlace.location.longitude }}
+            coordinate={{
+                latitude: tourPlace.location.latitude,
+                longitude: tourPlace.location.longitude,
+            }}
             onPress={() => this.onPress(tourPlace)}
-            onCalloutPress={() => { this.onCalloutPress(tourPlace); }}
+            onCalloutPress={() => {
+                this.onCalloutPress(tourPlace);
+            }}
           >
             <Text style={styles.marker}>{tourPlace.stop}</Text>
             <MapView.Callout tooltip style={{ width: 200 }}>
@@ -136,31 +153,37 @@ export default class TourMap extends Component {
         return (
           <View style={styles.map}>
             <MapView
-              ref={(ref) => { this.mapRef = ref; }}
+              ref={(ref) => {
+                  this.mapRef = ref;
+              }}
               style={styles.map}
               showsMyLocationButton={false}
               showsUserLocation
-              onPanDrag={() => { this.setState({ showLocation: false }); }}
+              onPanDrag={() => {
+                  this.setState({ showLocation: false });
+              }}
             >
               {listMarkers}
               {polylines}
             </MapView>
             <View style={styles.routing}>
               <TouchableHighlight
-                style={{ width: 36, height: 36 }}
+                style={{ width: 36, height: 36, borderRadius: 50 }}
                 onPress={this.updateLocation} underlayColor={styles.touchable}
               >
                 <Image source={this.state.showLocation ? locationOn : locationOff} />
               </TouchableHighlight>
               <TouchableHighlight
-                style={{ width: 36, height: 36, top: 5 }}
+                style={{ width: 36, height: 36, top: 5, borderRadius: 50 }}
                 onPress={this.toggleRouting} underlayColor={styles.touchable}
               >
                 <Image source={this.state.showRouting ? routingOn : routingOff} />
               </TouchableHighlight>
             </View>
             <TourRecord
-              ref={(c) => { this.modal = c; }}
+              ref={(c) => {
+                  this.modal = c;
+              }}
             />
           </View>
         );

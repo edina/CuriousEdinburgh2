@@ -8,7 +8,7 @@ import { Image,
          TouchableOpacity,
          View,
          WebView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import RNFetchBlob from 'react-native-fetch-blob';
 import Share from 'react-native-share';
 import ImageViewer from './ImageViewer';
@@ -115,34 +115,33 @@ export default class TourRecord extends Component {
             style={styles.page}
             transparent={false}
             visible={visible}
-            onRequestClose={() => { }}
+            onRequestClose={() => this.close()}
+            animationType={'slide'}
           >
             <ImageViewer
               ref={(c) => { this.modal = c; }}
             />
             <View>
-              <View
+              <TouchableOpacity
+                onPress={() => {
+                    this.close();
+                }}
                 style={
                     styles.header
                 }
+                activeOpacity={20}
               >
                 <View style={styles.left}>
-                  <TouchableHighlight
-                    onPress={() => {
-                        this.close();
-                    }}
-                  >
-                    <Icon
-                      style={styles.close}
-                      name="window-close"
-                      size={40}
-                      color="white"
-                    />
-                  </TouchableHighlight>
+                  <Icon
+                    style={styles.close}
+                    name="ios-arrow-down"
+                    size={40}
+                    color="white"
+                  />
                 </View>
                 <Text style={styles.title}>{record.title}</Text>
                 <View style={styles.right} />
-              </View>
+              </TouchableOpacity>
             </View>
             <ScrollView style={styles.body}>
               <ScrollView style={styles.images} horizontal >
