@@ -9,10 +9,10 @@ import Geolocation from '../../services/Geolocation';
 import Utils from '../../utils';
 import styles from '../styles/index';
 
-const locationOff = require('assets/location_off.png');
-const locationOn = require('assets/location_on.png');
-const routingOff = require('assets/routing_off.png');
-const routingOn = require('assets/routing_on.png');
+const locationOff = require('../../assets/location_off.png');
+const locationOn = require('../../assets/location_on.png');
+const routingOff = require('../../assets/routing_off.png');
+const routingOn = require('../../assets/routing_on.png');
 
 export default class TourMap extends Component {
     constructor(props) {

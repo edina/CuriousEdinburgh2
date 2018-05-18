@@ -1,4 +1,4 @@
-import Location from 'models/Location';
+import Location from './models/Location';
 
 /* http://v2.wp-api.org/ documentation API for WordPress */
 export const URL = 'http://curiousedinburgh.org';

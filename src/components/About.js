@@ -9,7 +9,7 @@ import { Image,
          View } from 'react-native';
 import styles from './styles/About';
 
-const banner = require('assets/curious-edinburgh-banner.png');
+const banner = require('../assets/curious-edinburgh-banner.png');
 
 export default class About extends Component {
 
