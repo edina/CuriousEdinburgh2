@@ -23,11 +23,21 @@ export default StyleSheet.create({
     logo: {
         paddingRight: 4,
     },
-    modal: {
+    modalOuterView: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#00000080',
+    },
+    modalInnerView: {
+        flex: 0,
+        flexDirection: 'column',
+        padding: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#FFFFFF',
+        borderRadius: 5,
     },
     touchable: {
         color: '#fffaf0',
