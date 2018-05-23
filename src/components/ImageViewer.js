@@ -33,6 +33,7 @@ export default class ImageViewer extends Component {
           <Modal
             visible={visible}
             onRequestClose={() => {
+                this.hide();
             }}
           >
             <PhotoView

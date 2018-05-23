@@ -13,7 +13,6 @@ import Preference from '../models/Preference';
 import Header from './Header';
 import TourMap from './TourMap/index';
 import TourPlaceList from './TourPlaceList';
-import TourList from './TourList';
 import About from './About';
 
 import Utils from '../utils';
@@ -89,14 +88,12 @@ export default class CuriousEdinburgh extends Component {
             this.state.selectedTour.tourPlaces : []);
         return (
           <View style={styles.container}>
-            <Header title={this.state.selectedTour != null ? this.state.selectedTour.name : 'Loading...'}>
-              <TourList
-                tours={this.state.tours}
-                selectedValue={this.state.selectedTour !== null ?
-                    this.state.selectedTour.id : ''}
-                onValueChange={this.changeSelectedTour}
-              />
-            </Header>
+            <Header
+              title={this.state.selectedTour != null ? this.state.selectedTour.name : 'Loading...'}
+              tourListTours={this.state.tours}
+              tourListSelectedValue={this.state.selectedTour !== null ? this.state.selectedTour.id : ''}
+              okButtonFunction={this.changeSelectedTour}
+            />
             <ScrollableTabView
               tabBarPosition="bottom"
               style={styles.body}

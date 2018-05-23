@@ -3,17 +3,22 @@ import PropTypes from 'prop-types';
 import { View,
          Text, TouchableHighlight,
          Modal, Button,
-         Image } from 'react-native';
+         Image, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles/Header';
+import TourList from './TourList';
 
 const imageSource = require('assets/logo.jpg');
 
 export default class Header extends Component {
     constructor(props) {
         super(props);
-        this.state = { modalVisible: false };
+        this.state = { modalVisible: false, selectedValue: this.props.tourListSelectedValue };
         this.toggleModal = this.toggleModal.bind(this);
+        this.onValueChange = this.onValueChange.bind(this);
+    }
+    onValueChange(itemValue) {
+        this.setState({ selectedValue: itemValue });
     }
     toggleModal() {
         this.setState({ modalVisible: !this.state.modalVisible });
@@ -42,15 +47,41 @@ export default class Header extends Component {
               />
             </View>
             <Modal
-              animationType={'slide'}
-              transparent={false}
+              animationType={'fade'}
+              transparent
               visible={this.state.modalVisible}
-              onRequestClose={() => { }}
+              onRequestClose={() => {
+                  this.toggleModal();
+                  this.setState({ selectedValue: this.props.tourListSelectedValue });
+              }}
             >
-              <View style={styles.modal}>
-                {this.props.children}
-                <Button title="OK" onPress={this.toggleModal} />
-              </View>
+              <TouchableOpacity
+                style={styles.modalOuterView}
+                onPress={() => {
+                    this.toggleModal();
+                    this.setState({ selectedValue: this.props.tourListSelectedValue });
+                }}
+                activeOpacity={1}
+              >
+                <TouchableWithoutFeedback>
+                  <View
+                    style={styles.modalInnerView}
+                  >
+                    {this.props.children}
+                    <TourList
+                      tours={this.props.tourListTours}
+                      selectedValue={this.props.tourListSelectedValue}
+                      onValueChange={this.onValueChange}
+                    />
+                    <Button
+                      title="OK" onPress={() => {
+                          this.props.okButtonFunction(this.state.selectedValue);
+                          this.toggleModal();
+                      }}
+                    />
+                  </View>
+                </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </Modal>
           </View>
         );
@@ -59,6 +90,9 @@ export default class Header extends Component {
 Header.propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.element,
+    tourListTours: PropTypes.arrayOf(PropTypes.object).isRequired,
+    tourListSelectedValue: PropTypes.string.isRequired,
+    okButtonFunction: PropTypes.func.isRequired,
 };
 Header.defaultProps = {
     children: null,
