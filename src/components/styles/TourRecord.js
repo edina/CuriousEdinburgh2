@@ -36,6 +36,12 @@ export default StyleSheet.create({
         width: 200,
         height: 200,
         borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    youtubeButton: {
+        width: 70,
+        height: 70,
     },
     details: {
         borderWidth: 10,

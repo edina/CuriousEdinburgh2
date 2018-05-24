@@ -7,7 +7,6 @@ import {
     Text,
     TouchableHighlight,
     TouchableOpacity,
-    TouchableWithoutFeedback,
     View,
     WebView,
 } from 'react-native';
@@ -16,6 +15,9 @@ import RNFetchBlob from 'react-native-fetch-blob';
 import Share from 'react-native-share';
 import ImageViewer from './ImageViewer';
 import styles from './styles/TourRecord';
+import Utils from '../utils';
+
+const playButton = require('assets/youtube_play_button.png');
 
 export default class TourRecord extends Component {
     constructor(props) {
@@ -41,10 +43,14 @@ export default class TourRecord extends Component {
         this.setState({ visible: false });
     }
 
+
     _onImageClick(image) {
-        this.modal.show(image);
+        this.modal.showImage(image);
     }
 
+    _onVideoClick(video) {
+        this.modal.showVideo(video);
+    }
     render() {
         const { record, visible } = this.state;
         const images = record.images.map(image =>
@@ -71,18 +77,38 @@ export default class TourRecord extends Component {
             <Text style={styles.link}>{link.text}</Text>
           </TouchableHighlight>,
         );
-
-        const video = record.video ?
-            (<View style={styles.mediaContainer}>
-              <TouchableWithoutFeedback>
-                <WebView
-                  source={{ uri: record.video }}
-                  style={styles.media}
-                />
-              </TouchableWithoutFeedback>
-            </View>
-            )
-            : undefined;
+        let video;
+        if (record.video) {
+            if (Utils.isIos()) {
+                video = (<View style={styles.mediaContainer}>
+                  <WebView
+                    source={{ uri: record.video }}
+                    style={styles.media}
+                  />
+                </View>);
+            } else if (Utils.isAndroid()) {
+                video = (<TouchableHighlight
+                  key={record.video}
+                  style={styles.mediaContainer}
+                  onPress={
+                        () => this._onVideoClick(record.video)
+                    }
+                ><View>
+                  <Image
+                    style={styles.media}
+                    source={{ uri: `https://img.youtube.com/vi/${record.video.slice(-11)}/0.jpg` }}
+                  >
+                    <View>
+                      <Image
+                        style={styles.youtubeButton}
+                        source={playButton}
+                      />
+                    </View>
+                  </Image>
+                </View>
+                </TouchableHighlight>);
+            }
+        }
 
         const shareOptions = {
             title: record.title,
