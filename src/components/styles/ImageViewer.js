@@ -3,13 +3,13 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     scrollView: {
         position: 'absolute',
-        height: 60,
+        height: 200,
         left: 0,
     },
     image: {
-        backgroundColor: '#098caa',
+        backgroundColor: '#268da8',
         color: '#ffffff',
-        minHeight: 60,
         padding: 5,
+        textAlign: 'center',
     },
 });

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Modal, Dimensions, ScrollView, Text } from 'react-native';
+import Modal from 'react-native-modal';
+import { View, ScrollView, Text } from 'react-native';
 import PhotoView from 'react-native-photo-view';
 import styles from './styles/ImageViewer';
 
@@ -16,7 +17,6 @@ export default class ImageViewer extends Component {
     hide() {
         this.setState({
             visible: false,
-            image: null,
         });
     }
 
@@ -31,34 +31,49 @@ export default class ImageViewer extends Component {
         const { visible, image } = this.state;
         return (
           <Modal
-            visible={visible}
-            onRequestClose={() => {
+            isVisible={visible}
+            animationIn={'bounceIn'}
+            animationInTiming={1000}
+            animationOut={'bounceOut'}
+            animationOutTiming={500}
+            onBackButtonPress={() => {
+                this.hide();
+            }}
+            onBackdropPress={() => {
                 this.hide();
             }}
           >
-            <PhotoView
-              source={{ uri: image ? image.url : null }}
-              minimumZoomScale={1}
-              maximumZoomScale={3}
-              onTap={() => {
-                  this.hide();
-              }}
-              resizeMode="contain"
-              style={{ width: Dimensions.get('window').width, height: Dimensions.get('window').height }}
-            />
-            <ScrollView
-              style={
-              [styles.scrollView,
-                  { top: Dimensions.get('window').height - 60,
-                      width: Dimensions.get('window').width },
-              ]}
+            <View
+              style={{ borderRadius: 10, backgroundColor: '#098caa', flex: 0.7 }}
             >
-              <Text
-                style={styles.image}
+              <PhotoView
+                source={{ uri: image ? image.url : null }}
+                minimumZoomScale={1}
+                maximumZoomScale={3}
+                resizeMode="contain"
+                style={{ flex: 6, marginTop: 20 }}
+              />
+              <View
+                style={{
+                    flex: 1,
+                    minWidth: 100,
+                    marginTop: 5,
+                    marginBottom: 15,
+                }}
               >
-                {image ? image.text : null}
-              </Text>
-            </ScrollView>
+                <ScrollView
+                  style={{
+                      flex: 1,
+                  }}
+                >
+                  <Text
+                    style={styles.image}
+                  >
+                    {image ? image.text : null}
+                  </Text>
+                </ScrollView>
+              </View>
+            </View>
           </Modal>
         );
     }

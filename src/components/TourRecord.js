@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { Image,
-         Linking,
-         Modal,
-         ScrollView,
-         Text,
-         TouchableHighlight,
-         TouchableOpacity,
-         View,
-         WebView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {
+    Image,
+    Linking,
+    Modal,
+    ScrollView,
+    Text,
+    TouchableHighlight,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    View,
+    WebView,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import RNFetchBlob from 'react-native-fetch-blob';
 import Share from 'react-native-share';
 import ImageViewer from './ImageViewer';
@@ -71,12 +74,15 @@ export default class TourRecord extends Component {
 
         const video = record.video ?
             (<View style={styles.mediaContainer}>
-              <WebView
-                source={{ uri: record.video }}
-                style={styles.media}
-              />
-            </View>)
-        : undefined;
+              <TouchableWithoutFeedback>
+                <WebView
+                  source={{ uri: record.video }}
+                  style={styles.media}
+                />
+              </TouchableWithoutFeedback>
+            </View>
+            )
+            : undefined;
 
         const shareOptions = {
             title: record.title,
@@ -92,7 +98,7 @@ export default class TourRecord extends Component {
                     fileCache: true,
                 })
                 .fetch('GET', record.images[0].url)
-                // the image is dowloaded to device's storage
+                // the image is downloaded to device's storage
                 .then((resp) => {
                     // the image path can be used directly with Image component
                     imagePath = resp.path();
@@ -115,37 +121,36 @@ export default class TourRecord extends Component {
             style={styles.page}
             transparent={false}
             visible={visible}
-            onRequestClose={() => { this.close(); }}
+            onRequestClose={() => this.close()}
+            animationType={'slide'}
           >
             <ImageViewer
               ref={(c) => { this.modal = c; }}
             />
             <View>
-              <View
+              <TouchableOpacity
+                onPress={() => {
+                    this.close();
+                }}
                 style={
-                    styles.header
-                }
+                            styles.header
+                        }
+                activeOpacity={0.7}
               >
                 <View style={styles.left}>
-                  <TouchableHighlight
-                    onPress={() => {
-                        this.close();
-                    }}
-                  >
-                    <Icon
-                      style={styles.close}
-                      name="window-close"
-                      size={40}
-                      color="white"
-                    />
-                  </TouchableHighlight>
+                  <Icon
+                    style={styles.close}
+                    name="ios-arrow-down"
+                    size={40}
+                    color="white"
+                  />
                 </View>
                 <Text style={styles.title}>{record.title}</Text>
                 <View style={styles.right} />
-              </View>
+              </TouchableOpacity>
             </View>
             <ScrollView style={styles.body}>
-              <ScrollView style={styles.images} horizontal >
+              <ScrollView style={styles.images} horizontal>
                 {video}
                 {images}
               </ScrollView>
@@ -154,13 +159,14 @@ export default class TourRecord extends Component {
                 <Text style={styles.description}>{record.description}</Text>
 
                 {record.additionalLinks.length > 0 &&
-                  <Text style={styles.linksTitle}>Associated Links</Text>
-                }
+                <Text style={styles.linksTitle}>Associated Links</Text>
+                        }
                 <View>{links}</View>
 
                 <TouchableOpacity
                   onPress={() => {
-                      Share.open(shareOptions).catch(() => {});
+                      Share.open(shareOptions).catch(() => {
+                      });
                   }}
                 >
                   <View style={styles.share}>

@@ -14,8 +14,9 @@ export default StyleSheet.create({
         padding: 5,
     },
     close: {
-        backgroundColor: '#268da8',
+        backgroundColor: 'transparent',
         color: 'white',
+        marginLeft: 10,
     },
     title: {
         fontSize: 20,
@@ -24,10 +25,12 @@ export default StyleSheet.create({
     },
     images: {
         flexDirection: 'row',
-        padding: 20,
+        paddingTop: 20,
+        paddingBottom: 20,
     },
     mediaContainer: {
-        paddingRight: 10,
+        margin: 5,
+        borderRadius: 10,
     },
     media: {
         width: 200,
