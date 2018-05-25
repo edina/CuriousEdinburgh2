@@ -56,7 +56,7 @@ export default class TourPlaceList extends Component {
                               onPress={
                                         () => this._onPressRecord(rowData)
                                     }
-                              activeOpacity={1}
+                              activeOpacity={0.7}
                             >
                               <View style={styles.container}>
                                 <View style={styles.numberContainer}>

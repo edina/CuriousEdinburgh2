@@ -147,13 +147,13 @@ export default class TourMap extends Component {
             </MapView>
             <View style={styles.routing}>
               <TouchableHighlight
-                style={{ width: 36, height: 36 }}
+                style={{ width: 36, height: 36, borderRadius: 50 }}
                 onPress={this.updateLocation} underlayColor={styles.touchable}
               >
                 <Image source={this.state.showLocation ? locationOn : locationOff} />
               </TouchableHighlight>
               <TouchableHighlight
-                style={{ width: 36, height: 36, top: 5 }}
+                style={{ width: 36, height: 36, top: 5, borderRadius: 50 }}
                 onPress={this.toggleRouting} underlayColor={styles.touchable}
               >
                 <Image source={this.state.showRouting ? routingOn : routingOff} />
