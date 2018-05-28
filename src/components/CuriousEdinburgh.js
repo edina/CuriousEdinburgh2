@@ -18,12 +18,17 @@ import About from './About';
 import Utils from '../utils';
 import styles from './styles/CuriousEdinburgh';
 
+/**
+ * The main component for the app.
+ * Contains a Header, as well as TourMap, TourPlaceList, and About sections.
+ */
 export default class CuriousEdinburgh extends Component {
     constructor() {
         super();
         this.state = { tours: [], selectedTour: null };
         this.changeSelectedTour = this.changeSelectedTour.bind(this);
     }
+
     componentDidMount() {
         WordPress.getTours()
             .then((tours) => {
@@ -34,16 +39,24 @@ export default class CuriousEdinburgh extends Component {
                 Alert.alert('WordPress tours', error.toString());
             });
     }
+
     componentWillUpdate(nextProps, nextState) {
         if (this.state.selectedTour !== nextState.selectedTour) {
             Preference.setTourId(nextState.selectedTour.id);
         }
     }
+
     componentDidUpdate() {
         if (this.state.selectedTour === null) {
             Preference.getTourId().then(tourId => this.changeSelectedTour(tourId));
         }
     }
+
+    /**
+     * Change the tour that the app is currently showing.
+     * Called when the user chooses a new tour in the Header section.
+     * @param tourId The ID of the new tour.
+     */
     changeSelectedTour(tourId) {
         const tour = this.state.tours.find(e => e.id === tourId);
         if (tour) {
@@ -83,6 +96,7 @@ export default class CuriousEdinburgh extends Component {
             }
         }
     }
+
     render() {
         const tourPlaces = (this.state.selectedTour !== null ?
             this.state.selectedTour.tourPlaces : []);
@@ -90,6 +104,7 @@ export default class CuriousEdinburgh extends Component {
           <View style={styles.container}>
             <Header
               title={this.state.selectedTour != null ? this.state.selectedTour.name : 'Loading...'}
+              // necessary information for the header is passed down from here as props
               tourListTours={this.state.tours}
               tourListSelectedValue={this.state.selectedTour !== null ? this.state.selectedTour.id : ''}
               okButtonFunction={this.changeSelectedTour}

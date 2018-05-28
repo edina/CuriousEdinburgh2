@@ -4,7 +4,10 @@ import Modal from 'react-native-modal';
 import PhotoView from 'react-native-photo-view';
 import styles from './styles/ImageViewer';
 
-export default class ImageViewer extends Component {
+/**
+ * Component which handles showing images or videos when they are clicked on in the TourRecord.
+ */
+export default class MediaViewer extends Component {
 
     constructor(props) {
         super(props);
@@ -39,6 +42,7 @@ export default class ImageViewer extends Component {
 
     render() {
         const { visible, image, video } = this.state;
+        // Render this if the component is called with an image.
         if (image) {
             return (
               <Modal
@@ -87,6 +91,7 @@ export default class ImageViewer extends Component {
                 </View>
               </Modal>);
         }
+        // Render this if the component is called with a video.
         return (
           <Modal
             isVisible={visible}
