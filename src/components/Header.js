@@ -10,6 +10,10 @@ import TourList from './TourList';
 
 const imageSource = require('assets/logo.jpg');
 
+/**
+ * The component which keeps the Header section located at the top of the screen.
+ * Includes the title of the current tour, as well as an interface for changing tours.
+ */
 export default class Header extends Component {
     constructor(props) {
         super(props);
@@ -17,12 +21,27 @@ export default class Header extends Component {
         this.toggleModal = this.toggleModal.bind(this);
         this.onValueChange = this.onValueChange.bind(this);
     }
+
+    /**
+     * Set the state to have the correct selectedValue.
+     * Called whenever a user chooses a tour in the Picker.
+     * OK button does not have to be clicked for this to be called.
+     *
+     * Necessary for the OK button to see which tour is currently selected.
+     *
+     * @param itemValue The newly selected tour.
+     */
     onValueChange(itemValue) {
         this.setState({ selectedValue: itemValue });
     }
+
+    /**
+     * Opens and closes the interface for picking a new tour.
+     */
     toggleModal() {
         this.setState({ modalVisible: !this.state.modalVisible });
     }
+
     render() {
         return (
           <View style={styles.container}>
@@ -87,6 +106,18 @@ export default class Header extends Component {
         );
     }
 }
+
+/**
+ * For OK button to work as intended (e.g. to actually change the tour if needed),
+ * it must be able to communicate with the TourList, to find the selected Tour to open.
+ * So they must both be in the same location in the app, but the function for changing
+ * the Tour (okButtonFunction), as well as the list of tours to choose from (tourListTours)
+ * and the initially selected value (tourListSelectedValue) are located in CuriousEdinburgh.
+ * Therefore, these props must be passed down from the CuriousEdinburgh component.
+ *
+ * @type {{title: String, children: Element, tourListTours: Array(Tour),
+  * tourListSelectedValue: String, okButtonFunction: Function}}
+ */
 Header.propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.element,
@@ -94,6 +125,7 @@ Header.propTypes = {
     tourListSelectedValue: PropTypes.string.isRequired,
     okButtonFunction: PropTypes.func.isRequired,
 };
+
 Header.defaultProps = {
     children: null,
 };

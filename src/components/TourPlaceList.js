@@ -10,7 +10,12 @@ import {
 import TourRecord from '../components/TourRecord';
 import styles from '../components/styles/TourPlaceList';
 
+/**
+ * Component which shows a list of places on the currently selected tour.
+ * One of the three options in the main screen.
+ */
 export default class TourPlaceList extends Component {
+
     constructor(props) {
         super(props);
         this.state = {

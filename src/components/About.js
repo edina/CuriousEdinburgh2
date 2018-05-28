@@ -11,6 +11,9 @@ import styles from './styles/About';
 
 const banner = require('assets/curious-edinburgh-banner.png');
 
+/**
+ * The component which shows the "about" section of the app. Mostly blocks of text.
+ */
 export default class About extends Component {
 
     constructor(props) {

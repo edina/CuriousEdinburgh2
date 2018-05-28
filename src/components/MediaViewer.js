@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { WebView, View, ScrollView, Text } from 'react-native';
 import Modal from 'react-native-modal';
 import PhotoView from 'react-native-photo-view';
-import styles from './styles/ImageViewer';
+import styles from './styles/MediaViewer';
 
-export default class ImageViewer extends Component {
+/**
+ * Component which handles showing images or videos when they are clicked on in the TourRecord.
+ */
+export default class MediaViewer extends Component {
 
     constructor(props) {
         super(props);
@@ -15,6 +18,10 @@ export default class ImageViewer extends Component {
         };
     }
 
+    /**
+     * When hiding, do not set image or video to null,
+     * because that would cancel the exiting animation.
+     */
     hide() {
         this.setState({
             visible: false,
@@ -39,6 +46,7 @@ export default class ImageViewer extends Component {
 
     render() {
         const { visible, image, video } = this.state;
+        // Render this if the component is called with an image.
         if (image) {
             return (
               <Modal
@@ -87,6 +95,7 @@ export default class ImageViewer extends Component {
                 </View>
               </Modal>);
         }
+        // Render this if the component is called with a video.
         return (
           <Modal
             isVisible={visible}
@@ -109,7 +118,6 @@ export default class ImageViewer extends Component {
                 style={{ flex: 4, margin: 15 }}
               />
             </View>
-          </Modal>
-        );
+          </Modal>);
     }
 }

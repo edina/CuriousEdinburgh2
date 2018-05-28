@@ -13,12 +13,17 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNFetchBlob from 'react-native-fetch-blob';
 import Share from 'react-native-share';
-import ImageViewer from './ImageViewer';
+import MediaViewer from './MediaViewer';
 import styles from './styles/TourRecord';
 import Utils from '../utils';
 
 const playButton = require('assets/youtube_play_button.png');
 
+/**
+ * Component which shows information for a tour place whenever it
+ * is clicked on in the TourPlaceList.
+ * Includes images and videos about the place, a description, and further links.
+ */
 export default class TourRecord extends Component {
     constructor(props) {
         super(props);
@@ -150,7 +155,7 @@ export default class TourRecord extends Component {
             onRequestClose={() => this.close()}
             animationType={'slide'}
           >
-            <ImageViewer
+            <MediaViewer
               ref={(c) => { this.modal = c; }}
             />
             <View>
