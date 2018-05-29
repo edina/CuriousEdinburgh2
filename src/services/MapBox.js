@@ -5,12 +5,13 @@ import Direction from '../models/Direction';
 import PromiseErrorHandler from '../models/PromiseErrorHandler';
 
 export default class MapBox {
-    /*
-      @locationStart represents a Location object
-      @locationEnd represents a Location object
-      returns a Promise object. A fullfilled promise contains a Direction object.
-      A rejected promise returns an object (e.g { status: String, statusText: String}).
-    */
+
+    /**
+     * @param locationStart represents a Location object
+     * @param locationEnd represents a Location object
+     * @returns A Promise object. A fullfilled promise contains a Direction object.
+     * A rejected promise returns an object (e.g { status: String, statusText: String}).
+     */
     static getDirection(locationStart, locationEnd) {
         let URL = null;
         try {
@@ -37,14 +38,16 @@ export default class MapBox {
             });
         });
     }
-    /*
-      This method is intended to obtain an Array of Direction objects given an Array of
-      Location objects. These Direction objects are calculated by passing each position of the
-      Array of Location objects with its nearest greater position to the MapBox.getDirection.
-      @locations is an Array of Location objects
-      returns a Promise object. A fullfilled promise contains An Array of Direction objects.
-      A rejected promise returns an object (e.g { status: String, statusText: String}).
-    */
+
+    /**
+     * This method is intended to obtain an Array of Direction objects given an Array of
+     * Location objects. These Direction objects are calculated by passing each position of the
+     * Array of Location objects with its nearest greater position to the MapBox.getDirection.
+     * @param locations is an Array of Location objects
+     * @returns A Promise object.
+     * A fulfilled promise contains An Array of Direction objects.
+     * A rejected promise returns an object (e.g { status: String, statusText: String}).
+     */
     static getDirections(locations) {
         if (!Array.isArray(locations)) {
             return Promise.reject(new PromiseErrorHandler({ statusText: 'An array of locations is expected' }));
