@@ -3,7 +3,8 @@ import { Platform } from 'react-native';
 /* eslint-disable no-cond-assign */
 
 export default class Utils {
-    /* Gets a list of Objects (e.g. url and text) from any image HTML rendered content
+    /**
+     * Gets a list of Objects (e.g. url and text) from any image HTML rendered content
      * @param {string} html - the html content to look for img tags
      * @return Array of objects containing url and text
      */
@@ -22,10 +23,10 @@ export default class Utils {
         }
         return [];
     }
-    /*
-      Get list of anchors from HTML rendered content
-      @param html HTML text
-      @return Array of objects containing URL and text
+    /**
+     * Get list of anchors from HTML rendered content
+     * @param html HTML text
+     * @return Array of objects containing URL and text
      */
     static getListOfAnchorsFromHTML(html) {
         const links = [];
@@ -40,11 +41,11 @@ export default class Utils {
         return links;
     }
 
-    /*
-        @param tourSlug represents the category slug (e.g. history_of_science) to match
-        @param tourStops represent the custom field containing all the tour stops
-            for a post (e.g. history_of_science:19|history_of_physics:1)
-        @return the stop number for a given category slug or null if does not match
+    /**
+     * @param tourSlug represents the category slug (e.g. history_of_science) to match
+     * @param tourStops represent the custom field containing all the tour stops
+     * for a post (e.g. history_of_science:19|history_of_physics:1)
+     * @return the stop number for a given category slug or null if does not match
     */
     static getTourStopFromSlug(tourSlug, tourStops) {
         if (!(typeof tourStops === 'string')) {
@@ -62,7 +63,7 @@ export default class Utils {
     }
     /**
      * Convert youtube page URL to a playable embedded URL.
-     * @param Youtube page URL.
+     * @param url Youtube page URL.
      * @return Converted youtube embedded URL.
      */
     static getEmbeddedYTURL(url) {

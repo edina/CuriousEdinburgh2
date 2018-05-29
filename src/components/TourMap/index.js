@@ -14,6 +14,9 @@ const locationOn = require('assets/location_on.png');
 const routingOff = require('assets/routing_off.png');
 const routingOn = require('assets/routing_on.png');
 
+/**
+ * A component which acts as the map where markers are shown.
+ */
 export default class TourMap extends Component {
     constructor(props) {
         super(props);
@@ -28,6 +31,7 @@ export default class TourMap extends Component {
         this.updateMarkersRef = this.updateMarkersRef.bind(this);
         this.state = { showLocation: false, showRouting: false };
     }
+
     componentDidMount() {
         this.fitToSuppliedMarkers();
         this.geolocation.watchPosition().then(
@@ -39,20 +43,29 @@ export default class TourMap extends Component {
             () => {},
         );
     }
+
     shouldComponentUpdate(nextProps, nextState) {
         return nextProps.tour.tourPlaces !== this.props.tour.tourPlaces ||
             nextProps.tour.direction !== this.props.tour.direction ||
             nextState.showLocation !== this.state.showLocation ||
             nextState.showRouting !== this.state.showRouting;
     }
+
     componentDidUpdate(prevProps) {
         if (prevProps.tour.tourPlaces !== this.props.tour.tourPlaces) {
             this.fitToSuppliedMarkers();
         }
     }
+
     componentWillUnmount() {
         this.geolocation.clearWatch();
     }
+
+    /**
+     * When a tour place is clicked, make sure it is elevated above all other tour places on iOS.
+     * Do nothing on Android.
+     * @param tourPlace The marker that was clicked.
+     */
     onPress(tourPlace) {
         if (Utils.isIos()) {
             // Resets zIndex for every marker drawn on the device
@@ -63,9 +76,11 @@ export default class TourMap extends Component {
             this.markersRef[tourPlace.randomId].showCallout();
         }
     }
+
     onCalloutPress(tourPlace) {
         this.modal.show(tourPlace);
     }
+
     fitToSuppliedMarkers() {
         if (this.mapRef !== null) {
             const markerIDs = this.props.tour.tourPlaces.map(tourPlace =>
@@ -73,16 +88,21 @@ export default class TourMap extends Component {
             this.mapRef.fitToSuppliedMarkers(markerIDs, false);
         }
     }
+
     fitToCoordinates(coordinates) {
         if (this.mapRef !== null) {
             this.mapRef.fitToCoordinates([coordinates],
                 { edgePadding: { top: 0, right: 0, bottom: 0, left: 0 }, animated: true });
         }
     }
-    /*
-        updateLocation() only sets to true showLocation if and only if
-        the current position has changed. Updating showLocation to false is determined
-        by geolocation.watchPosition (see componentDidMount method).
+
+    /**
+     * Method to update location on the map.
+     * Used when the user clicks on the top right showLocation button.
+     *
+     * updateLocation() only sets to true showLocation if and only if
+     * the current position has changed. Updating showLocation to false is determined
+     * by geolocation.watchPosition (see componentDidMount method).
     */
     updateLocation() {
         if (!this.state.showLocation) {
@@ -95,18 +115,23 @@ export default class TourMap extends Component {
             );
         }
     }
-    /*
-        This method is called anytime a MapView.Marker is mounted (e.g. its object reference) or
-        unmmounted (e.g. null). Note markersRef is re-assigned on any render call
-    */
+
+    /**
+     * This method is called anytime a MapView.Marker is mounted (e.g. its object reference) or
+     * unmounted (e.g. null). Note markersRef is re-assigned on any render call
+     *
+     * @param ref The automated reference given to the specific MapView.Marker this is called on.
+     */
     updateMarkersRef(ref) {
         if (ref) {
             this.markersRef[ref.props.identifier] = ref;
         }
     }
+
     toggleRouting() {
         this.setState({ showRouting: !this.state.showRouting });
     }
+
     render() {
         this.markersRef = {};
         const listMarkers = this.props.tour.tourPlaces.map(tourPlace =>
@@ -166,9 +191,11 @@ export default class TourMap extends Component {
         );
     }
 }
+
 TourMap.defaultProps = {
     tour: new Tour(),
 };
+
 TourMap.propTypes = {
     tour: PropTypes.instanceOf(Tour),
 };
