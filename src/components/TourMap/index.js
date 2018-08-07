@@ -21,14 +21,13 @@ export default class TourMap extends Component {
     constructor(props) {
         super(props);
         this.mapRef = null;
-        this.markersRef = {};
+        this.markers = {}
         this.modal = null;
         this.geolocation = new Geolocation();
-        this.onPress = this.onPress.bind(this);
+        this.onMarkerPressed = this.onMarkerPressed.bind(this);
         this.onCalloutPress = this.onCalloutPress.bind(this);
         this.toggleRouting = this.toggleRouting.bind(this);
         this.updateLocation = this.updateLocation.bind(this);
-        this.updateMarkersRef = this.updateMarkersRef.bind(this);
         this.state = { showLocation: false, showRouting: false };
     }
 
@@ -61,30 +60,50 @@ export default class TourMap extends Component {
         this.geolocation.clearWatch();
     }
 
-    /**
-     * When a tour place is clicked, make sure it is elevated above all other tour places on iOS.
-     * Do nothing on Android.
-     * @param tourPlace The marker that was clicked.
-     */
-    onPress(tourPlace) {
-        if (Utils.isIos()) {
-            // Resets zIndex for every marker drawn on the device
-            Object.keys(this.markersRef).forEach(
-                value => this.markersRef[value].setNativeProps({ zIndex: 0 }));
-            // Sets zIndex to a high value so that callout does not appear behind any marker
-            this.markersRef[tourPlace.randomId].setNativeProps({ zIndex: 9999 });
-            this.markersRef[tourPlace.randomId].showCallout();
-        }
-    }
-
     onCalloutPress(tourPlace) {
         this.modal.show(tourPlace);
+    }
+
+    /**
+     * When a `TourPlace` `MapMarker` is pressed, make sure it is elevated above all other tour
+     * places on iOS.
+     * Do nothing on Android.
+     * @param index The `index` value of the pressed `MapMarker`
+     */
+    onMarkerPressed(index) {
+        const calloutRef = `callout-${index}`;
+        const marker = this.markers[calloutRef];
+        marker.setNativeProps({ zIndex: index });
+        this.setState({ selectedCalloutIndex: index });
+    }
+
+    getMapMarkers() {
+        return this.props.tour.tourPlaces.map((tourPlace, index) =>
+          <MapView.Marker
+            key={tourPlace.randomId}
+            identifier={tourPlace.randomId}
+            // ref={`callout-${index}`}
+            ref={(ref) => { this.markers[`callout-${index}`] = ref; }}
+            coordinate={{ latitude: tourPlace.location.latitude,
+                longitude: tourPlace.location.longitude }}
+            onPress={() => this.onMarkerPressed(index)}
+            onCalloutPress={() => { this.onCalloutPress(tourPlace); }}
+            zIndex={this.state.selectedCalloutIndex === index ? 999 : 0}
+          >
+            <Text style={styles.marker}>{tourPlace.stop}</Text>
+            <MapView.Callout tooltip style={{ width: 200 }}>
+              <TourPlaceCallout
+                title={tourPlace.title}
+                description={tourPlace.getShortDescription(100)}
+              />
+            </MapView.Callout>
+          </MapView.Marker>);
     }
 
     fitToSuppliedMarkers() {
         if (this.mapRef !== null) {
             const markerIDs = this.props.tour.tourPlaces.map(tourPlace =>
-            tourPlace.randomId);
+              tourPlace.randomId);
             this.mapRef.fitToSuppliedMarkers(markerIDs, false);
         }
     }
@@ -116,42 +135,13 @@ export default class TourMap extends Component {
         }
     }
 
-    /**
-     * This method is called anytime a MapView.Marker is mounted (e.g. its object reference) or
-     * unmounted (e.g. null). Note markersRef is re-assigned on any render call
-     *
-     * @param ref The automated reference given to the specific MapView.Marker this is called on.
-     */
-    updateMarkersRef(ref) {
-        if (ref) {
-            this.markersRef[ref.props.identifier] = ref;
-        }
-    }
-
     toggleRouting() {
         this.setState({ showRouting: !this.state.showRouting });
     }
 
     render() {
         this.markersRef = {};
-        const listMarkers = this.props.tour.tourPlaces.map(tourPlace =>
-          <MapView.Marker
-            key={tourPlace.randomId}
-            identifier={tourPlace.randomId}
-            ref={this.updateMarkersRef}
-            coordinate={{ latitude: tourPlace.location.latitude,
-                longitude: tourPlace.location.longitude }}
-            onPress={() => this.onPress(tourPlace)}
-            onCalloutPress={() => { this.onCalloutPress(tourPlace); }}
-          >
-            <Text style={styles.marker}>{tourPlace.stop}</Text>
-            <MapView.Callout tooltip style={{ width: 200 }}>
-              <TourPlaceCallout
-                title={tourPlace.title}
-                description={tourPlace.getShortDescription(100)}
-              />
-            </MapView.Callout>
-          </MapView.Marker>);
+
         const polylines = this.state.showRouting ? this.props.tour.directions.map(direction =>
           <MapView.Polyline
             key={direction.id}
@@ -167,7 +157,7 @@ export default class TourMap extends Component {
               showsUserLocation
               onPanDrag={() => { this.setState({ showLocation: false }); }}
             >
-              {listMarkers}
+              {this.getMapMarkers()}
               {polylines}
             </MapView>
             <View style={styles.routing}>
