@@ -97,8 +97,8 @@ android {
         applicationId "uk.ac.edina.curiousedinburgh"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 6
-        versionName "2.1.2"
+        versionCode 7
+        versionName "2.1.4"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

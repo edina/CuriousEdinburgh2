@@ -631,19 +631,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		9E4231751FE13E70004345A1 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				36145E0A386646828FA2CDDE /* libAirMaps.a */,
-				436407BCD8BE41BABF8190DF /* libRNVectorIcons.a */,
-				66E7366C6FA641BEBF9787CB /* libSplashScreen.a */,
-				62796429954C4CA997FA68C8 /* libRCTVideo.a */,
-				9FA1746E03684A82B83BE90A /* libRNPhotoView.a */,
-				34E756D6B7314B759A70AC26 /* libRNFetchBlob.a */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		9E42319A1FE13F24004345A1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -701,6 +688,7 @@
 				66E7366C6FA641BEBF9787CB /* libSplashScreen.a */,
 				62796429954C4CA997FA68C8 /* libRCTVideo.a */,
 				9FA1746E03684A82B83BE90A /* libRNPhotoView.a */,
+				34E756D6B7314B759A70AC26 /* libRNFetchBlob.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1247,6 +1235,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 8UFDJCMUH2;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
@@ -1274,6 +1263,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8UFDJCMUH2;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
