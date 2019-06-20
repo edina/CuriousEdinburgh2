@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Alert } from 'react-native';
+import { View, Alert, SafeAreaView } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -101,6 +101,7 @@ export default class CuriousEdinburgh extends Component {
         const tourPlaces = (this.state.selectedTour !== null ?
             this.state.selectedTour.tourPlaces : []);
         return (
+        <SafeAreaView style={styles.safeArea}>
           <View style={styles.container}>
             <Header
               title={this.state.selectedTour != null ? this.state.selectedTour.name : 'Loading...'}
@@ -131,6 +132,7 @@ export default class CuriousEdinburgh extends Component {
               />
             </ScrollableTabView>
           </View>
+        </SafeAreaView>
         );
     }
 }

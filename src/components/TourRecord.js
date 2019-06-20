@@ -9,6 +9,7 @@ import {
     TouchableOpacity,
     View,
     WebView,
+    SafeAreaView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -84,68 +85,20 @@ export default class TourRecord extends Component {
         );
         let video;
         if (record.video) {
-            if (Utils.isIos()) {
                 video = (<View style={styles.mediaContainer}>
                   <WebView
                     source={{ uri: record.video }}
                     style={styles.media}
                   />
                 </View>);
-            } else if (Utils.isAndroid()) {
-                video = (<TouchableHighlight
-                  key={record.video}
-                  style={styles.mediaContainer}
-                  onPress={
-                        () => this._onVideoClick(record.video)
-                    }
-                ><View>
-                  <Image
-                    style={styles.media}
-                    source={{ uri: `https://img.youtube.com/vi/${record.video.slice(-11)}/0.jpg` }}
-                  >
-                    <View>
-                      <Image
-                        style={styles.youtubeButton}
-                        source={playButton}
-                      />
-                    </View>
-                  </Image>
-                </View>
-                </TouchableHighlight>);
-            }
         }
 
         const shareOptions = {
             title: record.title,
-            message: `Exploring ${record.title} with @curiousedi. ${record.url}`,
+            message: `Exploring ${record.title} with @curiousedi.`,
             subject: record.title, //  for email
+            url: record.url
         };
-        if (record.images.length > 0) {
-            const fs = RNFetchBlob.fs;
-            let imagePath = null;
-
-            RNFetchBlob
-                .config({
-                    fileCache: true,
-                })
-                .fetch('GET', record.images[0].url)
-                // the image is downloaded to device's storage
-                .then((resp) => {
-                    // the image path can be used directly with Image component
-                    imagePath = resp.path();
-                    return resp.readFile('base64');
-                })
-                .then((base64Data) => {
-                    // here's base64 encoded image
-                    shareOptions.url = `data:image/jpeg;base64,${base64Data}`;
-
-                    // remove the file from storage
-                    return fs.unlink(imagePath);
-                });
-        } else {
-            // default is tour stop url
-            shareOptions.url = record.url;
-        }
 
         return (
           <Modal
@@ -158,6 +111,7 @@ export default class TourRecord extends Component {
             <MediaViewer
               ref={(c) => { this.modal = c; }}
             />
+            <SafeAreaView  style={styles.safeArea}>
             <View>
               <TouchableOpacity
                 onPress={() => {
@@ -207,6 +161,7 @@ export default class TourRecord extends Component {
 
               </View>
             </ScrollView>
+          </SafeAreaView>
           </Modal>
         );
     }

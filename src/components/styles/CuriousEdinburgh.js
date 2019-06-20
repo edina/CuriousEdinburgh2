@@ -7,4 +7,8 @@ export default StyleSheet.create({
     body: {
         flex: 0.91,
     },
+    safeArea: {
+      flex: 1,
+      backgroundColor: '#fff'
+    }
 });
