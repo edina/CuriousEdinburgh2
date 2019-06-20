@@ -105,7 +105,7 @@ android {
     defaultConfig {
         applicationId "uk.ac.edina.curiousedinburgh"
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion 26
         versionCode 8
         versionName "2.2.0"
         ndk {
