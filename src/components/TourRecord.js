@@ -11,7 +11,7 @@ import {
     WebView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import RNFetchBlob from 'react-native-fetch-blob';
+import RNFetchBlob from 'rn-fetch-blob';
 import Share from 'react-native-share';
 import MediaViewer from './MediaViewer';
 import styles from './styles/TourRecord';
