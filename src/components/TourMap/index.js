@@ -161,6 +161,9 @@ export default class TourMap extends Component {
               {polylines}
             </MapView>
             <View style={styles.routing}>
+              {/* FIXME: This location button doesn't work correctly after the work to the 
+                  upgrade to React Native 0.59.9, This will need further investigation to 
+                  fix it. */}
               <TouchableHighlight
                 style={{ width: 36, height: 36, borderRadius: 50 }}
                 onPress={this.updateLocation} underlayColor={styles.touchable}

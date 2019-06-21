@@ -76,4 +76,8 @@ export default StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
     },
+    safeArea: {
+        flex: 1,
+        backgroundColor: '#fff'
+    }
 });
