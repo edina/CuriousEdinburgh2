@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
     Image,
+    ImageBackground,
     Linking,
     Modal,
     ScrollView,
@@ -85,12 +86,26 @@ export default class TourRecord extends Component {
         );
         let video;
         if (record.video) {
-                video = (<View style={styles.mediaContainer}>
-                  <WebView
-                    source={{ uri: record.video }}
-                    style={styles.media}
-                  />
-                </View>);
+          if (Utils.isIos()) {
+            video = (<View style={styles.mediaContainer}>
+                <WebView source={{ uri: record.video }} style={styles.media} />
+            </View>);
+          } else if (Utils.isAndroid()) {
+            video = (
+              <TouchableHighlight key={record.video} style={styles.mediaContainer}
+                onPress={
+                  () => this._onVideoClick(record.video)
+                }>
+                <View>
+                  <ImageBackground style={styles.media} source={{ uri: `https://img.youtube.com/vi/${record.video.slice(-11)}/0.jpg` }}>
+                    <View>
+                      <Image style={styles.youtubeButton} source={playButton} />
+                    </View>
+                  </ImageBackground>
+                </View>
+              </TouchableHighlight>
+            );
+          }
         }
 
         const shareOptions = {
